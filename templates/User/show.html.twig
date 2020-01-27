@@ -1,0 +1,103 @@
+{% extends "BasicLayout.html.twig" %}
+{% block title %} utilisateur : {{ user.id }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <h1 class="display-4">Utilisateur : {{ infoUser.USER_ID }} => {{ infoUser.USER_NOM }} {{ infoUser.USER_PRENOM }} </h1>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Type D'information</th>
+                <th scope="col">Valeur</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td>{{ infoUser.USER_ID }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ infoUser.USER_NOM }}</td>
+                </tr>
+                <tr>
+                    <th>Prenom</th>
+                    <td>{{ infoUser.USER_PRENOM }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ infoUser.USER_DESCRIPTION }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ infoUser.USER_EMAIL }}</td>
+                </tr>
+                <tr>
+                    <th>Date de naissance</th>
+                    <td>{{ infoUser.USER_BIRTHDATE }}</td>
+                </tr>
+                <tr>
+                    <th>Latitude,Longitude</th>
+                    <td>{{ infoUser.USER_POS_X }} , {{ infoUser.USER_POS_Y }}</td>
+                </tr>
+                <tr>
+                    <th>Pays</th>
+                    <td>{{ infoUser.USER_PAYS }}</td>
+                </tr>
+                <tr>
+                    <th>Ville</th>
+                    <td>{{ infoUser.USER_VILLE }}</td>
+                </tr>
+                <tr>
+                    <th>Date d'incription</th>
+                    <td>{{ infoUser.USER_DATE_INSCRIPTION }}</td>
+                </tr>
+                <tr>
+                    <th>Derniere connection</th>
+                    <td>{{ infoUser.USER_LAST_CONNECTION }}</td>
+                </tr>
+                <tr>
+                    <th>Sexe</th>
+                    <td>{{ infoUser.USER_SEXE }}</td>
+                </tr>
+                <tr>
+                    <th>Photo</th>
+                    <td>{{ infoUser.USER_PHOTO }}</td>
+                </tr>
+                <tr>
+                    <th>Rencontre dans sa région activée</th>
+                    <td>{{ infoUser.USER_WANNADATEATHOME }}</td>
+                </tr>
+                <tr>
+                    <th>Administrateur</th>
+                    <td>{{ infoUser.USER_ISADMIN }}</td>
+                </tr>
+                <tr>
+                    <th>Reception d'email active</th>
+                    <td>{{ infoUser.USER_ACCEPT_EMAIL }}</td>
+                </tr>
+                <tr>
+                    <th>Reception de message privés active</th>
+                    <td>{{ infoUser.USER_ACCEPT_MESSAGE }}</td>
+                </tr>
+                <tr>
+                    <th>Notification activées</th>
+                    <td>{{ infoUser.USER_ACTIVE_NOTIF }}</td>
+                </tr>
+                <tr>
+                    <th>Premium</th>
+                    <td>{{ infoUser.USER_ISPREMIUM }}</td>
+                </tr>
+                <tr>
+                    <th>Galerie Publique</th>
+                    <td>{{ infoUser.USER_GALERIEISPUBLIC }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}
