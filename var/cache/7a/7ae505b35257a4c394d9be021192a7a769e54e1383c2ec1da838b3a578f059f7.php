@@ -59,7 +59,7 @@ class __TwigTemplate_bea6803f5552968eee4702c757d0d210d5957023541975287d0d2f97b76
 
 <nav class=\"navbar sticky-top nav-pills navbar-expand-lg navbar-dark bg-dark\">
 
-    <a class=\"navbar-brand\" href=\"/Basic/Index\">Escapade</a>
+    <a class=\"navbar-brand\" href=\"/Database/Index\">Admin</a>
     <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarTogglerDemo02\" aria-controls=\"navbarTogglerDemo02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
         <span class=\"navbar-toggler-icon\"></span>
     </button>
@@ -68,10 +68,10 @@ class __TwigTemplate_bea6803f5552968eee4702c757d0d210d5957023541975287d0d2f97b76
 
         <ul class=\"navbar-nav mr-auto mt-2 mt-lg-0\">
             <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"/Database/Clear\">Connection</a>
+                <a class=\"nav-link\" href=\"/Database/Clear\">Clear Database </a>
             </li>
             <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"/Database/Fixtures\">S'inscrire</a>
+                <a class=\"nav-link\" href=\"/Database/Fixtures\">Generate data </a>
             </li>
         </ul>
     </div>
@@ -128,7 +128,7 @@ class __TwigTemplate_bea6803f5552968eee4702c757d0d210d5957023541975287d0d2f97b76
     public function block_title($context, array $blocks = [])
     {
         $macros = $this->macros;
-        echo "ESCAPADE";
+        echo "Escapade";
     }
 
     // line 10
@@ -165,7 +165,7 @@ class __TwigTemplate_bea6803f5552968eee4702c757d0d210d5957023541975287d0d2f97b76
 <html lang=\"fr\">
 <head>
     <meta charset=\"utf-8\">
-    <title>{% block title %}ESCAPADE{% endblock %}</title>
+    <title>{% block title %}Escapade{% endblock %}</title>
     <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\">
     <link rel=\"stylesheet\" href=\"https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/pepper-grinder/jquery-ui.css\">
     <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.8.1/css/all.css\">
@@ -176,7 +176,7 @@ class __TwigTemplate_bea6803f5552968eee4702c757d0d210d5957023541975287d0d2f97b76
 
 <nav class=\"navbar sticky-top nav-pills navbar-expand-lg navbar-dark bg-dark\">
 
-    <a class=\"navbar-brand\" href=\"/Basic/Index\">Escapade</a>
+    <a class=\"navbar-brand\" href=\"/Database/Index\">Admin</a>
     <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarTogglerDemo02\" aria-controls=\"navbarTogglerDemo02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
         <span class=\"navbar-toggler-icon\"></span>
     </button>
@@ -185,10 +185,10 @@ class __TwigTemplate_bea6803f5552968eee4702c757d0d210d5957023541975287d0d2f97b76
 
         <ul class=\"navbar-nav mr-auto mt-2 mt-lg-0\">
             <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"/Database/Clear\">Connection</a>
+                <a class=\"nav-link\" href=\"/Database/Clear\">Clear Database </a>
             </li>
             <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"/Database/Fixtures\">S'inscrire</a>
+                <a class=\"nav-link\" href=\"/Database/Fixtures\">Generate data </a>
             </li>
         </ul>
     </div>

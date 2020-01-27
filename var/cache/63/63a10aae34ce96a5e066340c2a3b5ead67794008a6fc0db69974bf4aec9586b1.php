@@ -33,13 +33,13 @@ class __TwigTemplate_e8fdf5c620e5bf08a114a8e12a9e4a8998f5ee7486cc570d5ab05b504dd
     protected function doGetParent(array $context)
     {
         // line 1
-        return "BasicLayout.html.twig";
+        return "./Database/DatabaseLayout.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("BasicLayout.html.twig", "Database/dispall.html.twig", 1);
+        $this->parent = $this->loadTemplate("./Database/DatabaseLayout.html.twig", "Database/dispall.html.twig", 1);
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
@@ -47,7 +47,7 @@ class __TwigTemplate_e8fdf5c620e5bf08a114a8e12a9e4a8998f5ee7486cc570d5ab05b504dd
     public function block_title($context, array $blocks = [])
     {
         $macros = $this->macros;
-        echo " Affichage de la base de données - ";
+        echo " Base de données - ";
         $this->displayParentBlock("title", $context, $blocks);
     }
 
@@ -58,38 +58,37 @@ class __TwigTemplate_e8fdf5c620e5bf08a114a8e12a9e4a8998f5ee7486cc570d5ab05b504dd
         // line 5
         echo "
     <div class=\"jumbotron\">
-        <h1 class=\"display-4\">Liste des utilisateurs</h1>
+        <h1 class=\"display-4\">Base de données</h1>
     </div>
     <div class=\"container\">
         <table class=\"table table-striped\">
-            <thead>
-            <tr>
-                <th scope=\"col\">ID</th>
-                <th scope=\"col\">Nom</th>
-                <th scope=\"col\">Prenom</th>
-            </tr>
-            </thead>
             <tbody>
+            <tr>
+                <th scope=\"row\"><a href=\"/User/ListAll\">[";
+        // line 13
+        echo twig_escape_filter($this->env, twig_length_filter($this->env, ($context["userList"] ?? null)), "html", null, true);
+        echo "] Utilisateurs</a></th>
+            </tr>
             ";
-        // line 19
+        // line 15
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["userList"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
-            // line 20
+            // line 16
             echo "                <tr>
                     <th scope=\"row\"><a href=\"/User/Show/";
-            // line 21
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 21), "html", null, true);
+            // line 17
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 17), "html", null, true);
             echo "\">#";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 21), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 17), "html", null, true);
             echo "</a></th>
                     <td>";
-            // line 22
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 22), "html", null, true);
+            // line 18
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 18), "html", null, true);
             echo " </td>
                     <td>";
-            // line 23
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 23), "html", null, true);
+            // line 19
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 19), "html", null, true);
             echo "</td>
 
 
@@ -99,7 +98,7 @@ class __TwigTemplate_e8fdf5c620e5bf08a114a8e12a9e4a8998f5ee7486cc570d5ab05b504dd
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 28
+        // line 24
         echo "
             </tbody>
         </table>
@@ -121,29 +120,25 @@ class __TwigTemplate_e8fdf5c620e5bf08a114a8e12a9e4a8998f5ee7486cc570d5ab05b504dd
 
     public function getDebugInfo()
     {
-        return array (  103 => 28,  92 => 23,  88 => 22,  82 => 21,  79 => 20,  75 => 19,  59 => 5,  55 => 4,  47 => 2,  36 => 1,);
+        return array (  102 => 24,  91 => 19,  87 => 18,  81 => 17,  78 => 16,  74 => 15,  69 => 13,  59 => 5,  55 => 4,  47 => 2,  36 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("{% extends \"BasicLayout.html.twig\" %}
-{% block title %} Affichage de la base de données - {{ parent() }}{% endblock %}
+        return new Source("{% extends \"./Database/DatabaseLayout.html.twig\" %}
+{% block title %} Base de données - {{ parent() }}{% endblock %}
 
 {% block body %}
 
     <div class=\"jumbotron\">
-        <h1 class=\"display-4\">Liste des utilisateurs</h1>
+        <h1 class=\"display-4\">Base de données</h1>
     </div>
     <div class=\"container\">
         <table class=\"table table-striped\">
-            <thead>
-            <tr>
-                <th scope=\"col\">ID</th>
-                <th scope=\"col\">Nom</th>
-                <th scope=\"col\">Prenom</th>
-            </tr>
-            </thead>
             <tbody>
+            <tr>
+                <th scope=\"row\"><a href=\"/User/ListAll\">[{{ userList|length }}] Utilisateurs</a></th>
+            </tr>
             {% for user in userList %}
                 <tr>
                     <th scope=\"row\"><a href=\"/User/Show/{{ user.id }}\">#{{ user.id }}</a></th>

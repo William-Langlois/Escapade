@@ -62,55 +62,164 @@ class __TwigTemplate_902c6205a01329e4c7f10722a497c62a80ae4fb7b57f4639cf29ea0199f
     <div class=\"jumbotron\">
         <h1 class=\"display-4\">Utilisateur : ";
         // line 7
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["user"] ?? null), "id", [], "any", false, false, false, 7), "html", null, true);
-        echo "</h1>
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_ID", [], "any", false, false, false, 7), "html", null, true);
+        echo " => ";
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_NOM", [], "any", false, false, false, 7), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_PRENOM", [], "any", false, false, false, 7), "html", null, true);
+        echo " </h1>
     </div>
     <div class=\"container\">
         <table class=\"table table-striped\">
             <thead>
             <tr>
-                <th scope=\"col\">ID</th>
-                <th scope=\"col\">Nom</th>
-                <th scope=\"col\">Prenom</th>
-                <th scope=\"col\">Email</th>
+                <th scope=\"col\">Type D'information</th>
+                <th scope=\"col\">Valeur</th>
             </tr>
             </thead>
             <tbody>
-            ";
+                <tr>
+                    <th>ID</th>
+                    <td>";
         // line 20
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(($context["userList"] ?? null));
-        foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
-            // line 21
-            echo "                <tr>
-                    <th scope=\"row\"><a href=\"/User/Show/";
-            // line 22
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 22), "html", null, true);
-            echo "\">#";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 22), "html", null, true);
-            echo "</a></th>
-                    <td>";
-            // line 23
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 23), "html", null, true);
-            echo " </td>
-                    <td>";
-            // line 24
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 24), "html", null, true);
-            echo "</td>
-                    <td>";
-            // line 25
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "email", [], "any", false, false, false, 25), "html", null, true);
-            echo "</td>
-
-
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_ID", [], "any", false, false, false, 20), "html", null, true);
+        echo "</td>
                 </tr>
-            ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 30
-        echo "
+                <tr>
+                    <th>Nom</th>
+                    <td>";
+        // line 24
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_NOM", [], "any", false, false, false, 24), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Prenom</th>
+                    <td>";
+        // line 28
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_PRENOM", [], "any", false, false, false, 28), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>";
+        // line 32
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_DESCRIPTION", [], "any", false, false, false, 32), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>";
+        // line 36
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_EMAIL", [], "any", false, false, false, 36), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Date de naissance</th>
+                    <td>";
+        // line 40
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_BIRTHDATE", [], "any", false, false, false, 40), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Latitude,Longitude</th>
+                    <td>";
+        // line 44
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_POS_X", [], "any", false, false, false, 44), "html", null, true);
+        echo " , ";
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_POS_Y", [], "any", false, false, false, 44), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Pays</th>
+                    <td>";
+        // line 48
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_PAYS", [], "any", false, false, false, 48), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Ville</th>
+                    <td>";
+        // line 52
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_VILLE", [], "any", false, false, false, 52), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Date d'incription</th>
+                    <td>";
+        // line 56
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_DATE_INSCRIPTION", [], "any", false, false, false, 56), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Derniere connection</th>
+                    <td>";
+        // line 60
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_LAST_CONNECTION", [], "any", false, false, false, 60), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Sexe</th>
+                    <td>";
+        // line 64
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_SEXE", [], "any", false, false, false, 64), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Photo</th>
+                    <td>";
+        // line 68
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_PHOTO", [], "any", false, false, false, 68), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Rencontre dans sa région activée</th>
+                    <td>";
+        // line 72
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_WANNADATEATHOME", [], "any", false, false, false, 72), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Administrateur</th>
+                    <td>";
+        // line 76
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_ISADMIN", [], "any", false, false, false, 76), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Reception d'email active</th>
+                    <td>";
+        // line 80
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_ACCEPT_EMAIL", [], "any", false, false, false, 80), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Reception de message privés active</th>
+                    <td>";
+        // line 84
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_ACCEPT_MESSAGE", [], "any", false, false, false, 84), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Notification activées</th>
+                    <td>";
+        // line 88
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_ACTIVE_NOTIF", [], "any", false, false, false, 88), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Premium</th>
+                    <td>";
+        // line 92
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_ISPREMIUM", [], "any", false, false, false, 92), "html", null, true);
+        echo "</td>
+                </tr>
+                <tr>
+                    <th>Galerie Publique</th>
+                    <td>";
+        // line 96
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["infoUser"] ?? null), "USER_GALERIEISPUBLIC", [], "any", false, false, false, 96), "html", null, true);
+        echo "</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -131,7 +240,7 @@ class __TwigTemplate_902c6205a01329e4c7f10722a497c62a80ae4fb7b57f4639cf29ea0199f
 
     public function getDebugInfo()
     {
-        return array (  113 => 30,  102 => 25,  98 => 24,  94 => 23,  88 => 22,  85 => 21,  81 => 20,  65 => 7,  61 => 5,  57 => 4,  47 => 2,  36 => 1,);
+        return array (  220 => 96,  213 => 92,  206 => 88,  199 => 84,  192 => 80,  185 => 76,  178 => 72,  171 => 68,  164 => 64,  157 => 60,  150 => 56,  143 => 52,  136 => 48,  127 => 44,  120 => 40,  113 => 36,  106 => 32,  99 => 28,  92 => 24,  85 => 20,  65 => 7,  61 => 5,  57 => 4,  47 => 2,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -142,30 +251,97 @@ class __TwigTemplate_902c6205a01329e4c7f10722a497c62a80ae4fb7b57f4639cf29ea0199f
 {% block body %}
 
     <div class=\"jumbotron\">
-        <h1 class=\"display-4\">Utilisateur : {{ user.id }}</h1>
+        <h1 class=\"display-4\">Utilisateur : {{ infoUser.USER_ID }} => {{ infoUser.USER_NOM }} {{ infoUser.USER_PRENOM }} </h1>
     </div>
     <div class=\"container\">
         <table class=\"table table-striped\">
             <thead>
             <tr>
-                <th scope=\"col\">ID</th>
-                <th scope=\"col\">Nom</th>
-                <th scope=\"col\">Prenom</th>
-                <th scope=\"col\">Email</th>
+                <th scope=\"col\">Type D'information</th>
+                <th scope=\"col\">Valeur</th>
             </tr>
             </thead>
             <tbody>
-            {% for user in userList %}
                 <tr>
-                    <th scope=\"row\"><a href=\"/User/Show/{{ user.id }}\">#{{ user.id }}</a></th>
-                    <td>{{ user.nom }} </td>
-                    <td>{{ user.prenom }}</td>
-                    <td>{{ user.email }}</td>
-
-
+                    <th>ID</th>
+                    <td>{{ infoUser.USER_ID }}</td>
                 </tr>
-            {% endfor %}
-
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ infoUser.USER_NOM }}</td>
+                </tr>
+                <tr>
+                    <th>Prenom</th>
+                    <td>{{ infoUser.USER_PRENOM }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ infoUser.USER_DESCRIPTION }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ infoUser.USER_EMAIL }}</td>
+                </tr>
+                <tr>
+                    <th>Date de naissance</th>
+                    <td>{{ infoUser.USER_BIRTHDATE }}</td>
+                </tr>
+                <tr>
+                    <th>Latitude,Longitude</th>
+                    <td>{{ infoUser.USER_POS_X }} , {{ infoUser.USER_POS_Y }}</td>
+                </tr>
+                <tr>
+                    <th>Pays</th>
+                    <td>{{ infoUser.USER_PAYS }}</td>
+                </tr>
+                <tr>
+                    <th>Ville</th>
+                    <td>{{ infoUser.USER_VILLE }}</td>
+                </tr>
+                <tr>
+                    <th>Date d'incription</th>
+                    <td>{{ infoUser.USER_DATE_INSCRIPTION }}</td>
+                </tr>
+                <tr>
+                    <th>Derniere connection</th>
+                    <td>{{ infoUser.USER_LAST_CONNECTION }}</td>
+                </tr>
+                <tr>
+                    <th>Sexe</th>
+                    <td>{{ infoUser.USER_SEXE }}</td>
+                </tr>
+                <tr>
+                    <th>Photo</th>
+                    <td>{{ infoUser.USER_PHOTO }}</td>
+                </tr>
+                <tr>
+                    <th>Rencontre dans sa région activée</th>
+                    <td>{{ infoUser.USER_WANNADATEATHOME }}</td>
+                </tr>
+                <tr>
+                    <th>Administrateur</th>
+                    <td>{{ infoUser.USER_ISADMIN }}</td>
+                </tr>
+                <tr>
+                    <th>Reception d'email active</th>
+                    <td>{{ infoUser.USER_ACCEPT_EMAIL }}</td>
+                </tr>
+                <tr>
+                    <th>Reception de message privés active</th>
+                    <td>{{ infoUser.USER_ACCEPT_MESSAGE }}</td>
+                </tr>
+                <tr>
+                    <th>Notification activées</th>
+                    <td>{{ infoUser.USER_ACTIVE_NOTIF }}</td>
+                </tr>
+                <tr>
+                    <th>Premium</th>
+                    <td>{{ infoUser.USER_ISPREMIUM }}</td>
+                </tr>
+                <tr>
+                    <th>Galerie Publique</th>
+                    <td>{{ infoUser.USER_GALERIEISPUBLIC }}</td>
+                </tr>
             </tbody>
         </table>
     </div>

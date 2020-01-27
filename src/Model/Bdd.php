@@ -8,7 +8,7 @@ class Bdd {
         $hostname="localhost";
         $username="root";
         $password="";
-        $dbname="cesiblog";
+        $dbname="escapade";
 
         try
         {
@@ -29,5 +29,4 @@ class Bdd {
 
         return self::$_instance;
     }
-
 }

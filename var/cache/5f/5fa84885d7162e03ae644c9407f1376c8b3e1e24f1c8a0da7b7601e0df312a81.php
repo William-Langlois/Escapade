@@ -12,7 +12,7 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* index.html.twig */
+/* BasicLayout.html.twig */
 class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32672e0 extends Template
 {
     private $source;
@@ -59,7 +59,7 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
 
 <nav class=\"navbar sticky-top nav-pills navbar-expand-lg navbar-dark bg-dark\">
 
-    <a class=\"navbar-brand\" href=\"/User/ListAll\">Escapade</a>
+    <a class=\"navbar-brand\" href=\"/Basic/Index\">Escapade</a>
     <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarTogglerDemo02\" aria-controls=\"navbarTogglerDemo02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
         <span class=\"navbar-toggler-icon\"></span>
     </button>
@@ -68,8 +68,12 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
 
         <ul class=\"navbar-nav mr-auto mt-2 mt-lg-0\">
             <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"/User/ListAll\">Liste des utilisateurs</a>
+                <a class=\"nav-link\" href=\"/User/Connection\">Connection</a>
             </li>
+            <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"/User/Inscription\">S'inscrire</a>
+            </li>
+        </ul>
     </div>
 
 </nav>
@@ -99,9 +103,9 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
 
 
     ";
-        // line 55
+        // line 59
         $this->displayBlock('body', $context, $blocks);
-        // line 56
+        // line 60
         echo "
 
 
@@ -112,9 +116,9 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
 <script src=\"https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/jquery-ui-i18n.min.js\"></script>
 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js\"></script>
 ";
-        // line 65
+        // line 69
         $this->displayBlock('javascript', $context, $blocks);
-        // line 66
+        // line 70
         echo "</body>
 </html>
 ";
@@ -133,13 +137,13 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
         $macros = $this->macros;
     }
 
-    // line 55
+    // line 59
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
     }
 
-    // line 65
+    // line 69
     public function block_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -147,12 +151,12 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
 
     public function getTemplateName()
     {
-        return "index.html.twig";
+        return "BasicLayout.html.twig";
     }
 
     public function getDebugInfo()
     {
-        return array (  143 => 65,  137 => 55,  131 => 10,  124 => 5,  118 => 66,  116 => 65,  105 => 56,  103 => 55,  57 => 11,  55 => 10,  47 => 5,  41 => 1,);
+        return array (  147 => 69,  141 => 59,  135 => 10,  128 => 5,  122 => 70,  120 => 69,  109 => 60,  107 => 59,  57 => 11,  55 => 10,  47 => 5,  41 => 1,);
     }
 
     public function getSourceContext()
@@ -172,7 +176,7 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
 
 <nav class=\"navbar sticky-top nav-pills navbar-expand-lg navbar-dark bg-dark\">
 
-    <a class=\"navbar-brand\" href=\"/User/ListAll\">Escapade</a>
+    <a class=\"navbar-brand\" href=\"/Basic/Index\">Escapade</a>
     <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarTogglerDemo02\" aria-controls=\"navbarTogglerDemo02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
         <span class=\"navbar-toggler-icon\"></span>
     </button>
@@ -181,8 +185,12 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
 
         <ul class=\"navbar-nav mr-auto mt-2 mt-lg-0\">
             <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"/User/ListAll\">Liste des utilisateurs</a>
+                <a class=\"nav-link\" href=\"/User/Connection\">Connection</a>
             </li>
+            <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"/User/Inscription\">S'inscrire</a>
+            </li>
+        </ul>
     </div>
 
 </nav>
@@ -224,6 +232,6 @@ class __TwigTemplate_772e9c0b0f12e12b79be51a70c15f71ff15755889a0408960b4933d6e32
 {% block javascript %}{% endblock %}
 </body>
 </html>
-", "index.html.twig", "C:\\Users\\langl\\Desktop\\Cours\\Projets\\eDating\\Code\\Site\\templates\\index.html.twig");
+", "BasicLayout.html.twig", "C:\\Users\\langl\\Desktop\\Cours\\Projets\\eDating\\Code\\Site\\templates\\BasicLayout.html.twig");
     }
 }

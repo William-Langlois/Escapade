@@ -33,13 +33,13 @@ class __TwigTemplate_c3103617187f52e8a5b7c0910e43ad06daa8edfbf0fe8ca1d0a796a1fc0
     protected function doGetParent(array $context)
     {
         // line 1
-        return "../index.html.twig";
+        return "BasicLayout.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("../index.html.twig", "User/list.html.twig", 1);
+        $this->parent = $this->loadTemplate("BasicLayout.html.twig", "User/list.html.twig", 1);
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
@@ -47,7 +47,7 @@ class __TwigTemplate_c3103617187f52e8a5b7c0910e43ad06daa8edfbf0fe8ca1d0a796a1fc0
     public function block_title($context, array $blocks = [])
     {
         $macros = $this->macros;
-        echo " Liste des articles - ";
+        echo " Liste des utilisateurs - ";
         $this->displayParentBlock("title", $context, $blocks);
     }
 
@@ -58,73 +58,48 @@ class __TwigTemplate_c3103617187f52e8a5b7c0910e43ad06daa8edfbf0fe8ca1d0a796a1fc0
         // line 5
         echo "
     <div class=\"jumbotron\">
-        <h1 class=\"display-4\">Liste des articles</h1>
+        <h1 class=\"display-4\">Liste des utilisateurs</h1>
     </div>
     <div class=\"container\">
     <table class=\"table table-striped\">
         <thead>
         <tr>
-            <th scope=\"col\">#</th>
-            <th scope=\"col\">Titre</th>
-            <th scope=\"col\">Auteur</th>
-            <th scope=\"col\">Date</th>
-            <th scope=\"col\">Actions</th>
+            <th scope=\"col\">ID</th>
+            <th scope=\"col\">Nom</th>
+            <th scope=\"col\">Prenom</th>
         </tr>
         </thead>
         <tbody>
         ";
-        // line 21
+        // line 19
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(($context["articleList"] ?? null));
-        foreach ($context['_seq'] as $context["_key"] => $context["article"]) {
-            // line 22
+        $context['_seq'] = twig_ensure_traversable(($context["userList"] ?? null));
+        foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
+            // line 20
             echo "            <tr>
-                <th scope=\"row\"><a href=\"/Article/Show/";
-            // line 23
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "id", [], "any", false, false, false, 23), "html", null, true);
+                <th scope=\"row\"><a href=\"/User/Show/";
+            // line 21
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 21), "html", null, true);
             echo "\">#";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "id", [], "any", false, false, false, 23), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 21), "html", null, true);
             echo "</a></th>
                 <td>";
-            // line 24
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "Titre", [], "any", false, false, false, 24), "html", null, true);
-            echo "</td>
+            // line 22
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 22), "html", null, true);
+            echo " </td>
                 <td>";
-            // line 25
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "Auteur", [], "any", false, false, false, 25), "html", null, true);
+            // line 23
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 23), "html", null, true);
             echo "</td>
-                <td>";
-            // line 26
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "DateAjout", [], "any", false, false, false, 26), "d/m/Y"), "html", null, true);
-            echo "</td>
-                <td>
-                    <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">
-                        <a class=\"btn btn-success\" href=\"/Article/Show/";
-            // line 29
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "id", [], "any", false, false, false, 29), "html", null, true);
-            echo "\"><i class=\"far fa-eye\"></i></a>
-                        <a class=\"btn btn-warning\" href=\"/Article/Update/";
-            // line 30
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "id", [], "any", false, false, false, 30), "html", null, true);
-            echo "\"><i class=\"fas fa-edit\"></i></a>
-                        <a class=\"btn btn-danger\" href=\"/Article/Delete/";
-            // line 31
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "id", [], "any", false, false, false, 31), "html", null, true);
-            echo "\"><i class=\"far fa-trash-alt\"></i></a>
-                    </div>
-                    <a class=\"btn btn-secondary\" href=\"/Article/WriteOne/";
-            // line 33
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "id", [], "any", false, false, false, 33), "html", null, true);
-            echo "\"><i class=\"fas fa-file-download\"></i></a>
 
-                </td>
+
             </tr>
         ";
         }
         $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['article'], $context['_parent'], $context['loop']);
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 38
+        // line 28
         echo "
         </tbody>
     </table>
@@ -146,46 +121,36 @@ class __TwigTemplate_c3103617187f52e8a5b7c0910e43ad06daa8edfbf0fe8ca1d0a796a1fc0
 
     public function getDebugInfo()
     {
-        return array (  128 => 38,  117 => 33,  112 => 31,  108 => 30,  104 => 29,  98 => 26,  94 => 25,  90 => 24,  84 => 23,  81 => 22,  77 => 21,  59 => 5,  55 => 4,  47 => 2,  36 => 1,);
+        return array (  103 => 28,  92 => 23,  88 => 22,  82 => 21,  79 => 20,  75 => 19,  59 => 5,  55 => 4,  47 => 2,  36 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("{% extends \"../index.html.twig\" %}
-{% block title %} Liste des articles - {{ parent() }}{% endblock %}
+        return new Source("{% extends \"BasicLayout.html.twig\" %}
+{% block title %} Liste des utilisateurs - {{ parent() }}{% endblock %}
 
 {% block body %}
 
     <div class=\"jumbotron\">
-        <h1 class=\"display-4\">Liste des articles</h1>
+        <h1 class=\"display-4\">Liste des utilisateurs</h1>
     </div>
     <div class=\"container\">
     <table class=\"table table-striped\">
         <thead>
         <tr>
-            <th scope=\"col\">#</th>
-            <th scope=\"col\">Titre</th>
-            <th scope=\"col\">Auteur</th>
-            <th scope=\"col\">Date</th>
-            <th scope=\"col\">Actions</th>
+            <th scope=\"col\">ID</th>
+            <th scope=\"col\">Nom</th>
+            <th scope=\"col\">Prenom</th>
         </tr>
         </thead>
         <tbody>
-        {% for article in articleList %}
+        {% for user in userList %}
             <tr>
-                <th scope=\"row\"><a href=\"/Article/Show/{{ article.id }}\">#{{ article.id }}</a></th>
-                <td>{{ article.Titre }}</td>
-                <td>{{ article.Auteur }}</td>
-                <td>{{ article.DateAjout | date(\"d/m/Y\") }}</td>
-                <td>
-                    <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">
-                        <a class=\"btn btn-success\" href=\"/Article/Show/{{ article.id }}\"><i class=\"far fa-eye\"></i></a>
-                        <a class=\"btn btn-warning\" href=\"/Article/Update/{{ article.id }}\"><i class=\"fas fa-edit\"></i></a>
-                        <a class=\"btn btn-danger\" href=\"/Article/Delete/{{ article.id }}\"><i class=\"far fa-trash-alt\"></i></a>
-                    </div>
-                    <a class=\"btn btn-secondary\" href=\"/Article/WriteOne/{{ article.id }}\"><i class=\"fas fa-file-download\"></i></a>
+                <th scope=\"row\"><a href=\"/User/Show/{{ user.id }}\">#{{ user.id }}</a></th>
+                <td>{{ user.nom }} </td>
+                <td>{{ user.prenom }}</td>
 
-                </td>
+
             </tr>
         {% endfor %}
 

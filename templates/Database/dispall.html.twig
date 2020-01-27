@@ -4,18 +4,14 @@
 {% block body %}
 
     <div class="jumbotron">
-        <h1 class="display-4">Liste des utilisateurs</h1>
+        <h1 class="display-4">Base de données</h1>
     </div>
     <div class="container">
         <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prenom</th>
-            </tr>
-            </thead>
             <tbody>
+            <tr>
+                <th scope="row"><a href="/User/ListAll">[{{ userList|length }}] Utilisateurs</a></th>
+            </tr>
             {% for user in userList %}
                 <tr>
                     <th scope="row"><a href="/User/Show/{{ user.id }}">#{{ user.id }}</a></th>
