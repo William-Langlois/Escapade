@@ -1,0 +1,51 @@
+/*Page Welcome*/ 
+#welcome{
+    background: url(../uploads/images/couple.jpg)no-repeat center center fixed;
+    background-size: cover ;
+    background-position: bottom;
+    padding:0;
+   width: 100%;
+  position: flex;
+   font-size: 16px;
+}
+
+.inscrire{
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    height: 1.5em;
+    background: #202020;
+    border-radius: 20px;
+    color: #FFF;
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: 200;
+    text-decoration: none;   
+    font-family: 'Montserrat', sans-serif;
+}
+
+#header{
+display:flex;
+justify-content: space-between;
+margin: 2em;
+}
+
+.presentation{
+font-family: 'Montserrat', sans-serif;
+
+font-size: 3.8em ;
+text-align: center;
+color: white;
+}
+
+.bouton{
+    display: flex;
+  justify-content: center;
+}
+
+
+
+ 
+  

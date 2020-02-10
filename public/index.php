@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../vendor/autoload.php';
 
 function chargerClasse($classe){
@@ -13,21 +14,19 @@ function chargerClasse($classe){
 }
 spl_autoload_register('chargerClasse');
 
-$controller = (!empty($_GET['controller']) ? $_GET['controller'] : 'Basic');
-$action = (!empty($_GET['action']) ? $_GET['action'] : 'Index');
-$param = (!empty($_GET['param']) ? $_GET['param'] : '');
 
-$className = 'src\Controller\\' . $controller . 'Controller';
-if (class_exists($className)) {
-    $classController = new $className;
-    if (method_exists($className, $action)) {
-        echo $classController->$action($param);
-    } else {
-        var_dump($_POST);
-        echo 'L\'action ' . $action . ' n\'existe pas';
-    }
-} else {
-    echo 'Pas de controller pour cette page';
-    var_dump($className);
-}
+$router = new \src\Router\Router($_GET['url']);
+// Index
+$router->get('/', "Basic#Index");
+// connexion
+$router->get('/Login', 'User#loginForm');
+$router->post('/Login', 'User#loginCheck');
+$router->get('/Logout', 'User#logout');
+// Inscription
+$router->get('/Inscription', 'User#inscriptionForm');
+$router->post('/Inscription', 'User#inscriptionCheck');
+
+
+
+echo $router->run();
 

@@ -1,8 +1,7 @@
 <?php
 
-
 namespace src\Model;
-
+use mysql_xdevapi\Exception;
 
 class User implements \JsonSerializable
 {
@@ -477,19 +476,40 @@ class User implements \JsonSerializable
         }
     }
 
-    public function SqlGet(\PDO $bdd , $emailuser){
-        $query = $bdd->prepare('SELECT USER_PASSWORD FROM user WHERE USER_EMAIL = :useremail');
-        $query->execute([
-            'useremail' => $emailuser
-        ]);
+    public function SqlGetAllEmail(\PDO $bdd){
 
-        $UserPass = $query->fetch();
-        $user = new User();
-        $user->setPassword($UserInfo['USER_PASSWORD']);
+        $query = $bdd->prepare("SELECT USER_EMAIL FROM user ");
+        $query->execute();
+        $arrayUser = $query->fetchAll();
 
-        $UserInfo[] = $user;
+        $emailUsers = [];
+        foreach ($arrayUser as $userSQL){
+            $user = new User();
+            $user->setEmail(strtolower($userSQL['USER_EMAIL']));
 
-        return $UserInfo;
+            $emailUsers[] = $user->getEmail();
+        }
+        return $emailUsers;
+    }
+
+
+    public function SqlGetLogin(\PDO $bdd , $emailuser){
+            $query = $bdd->prepare('SELECT USER_PASSWORD,USER_ID,USER_EMAIL,USER_NOM,USER_PRENOM FROM user WHERE USER_EMAIL = :useremail');
+            $query->execute([
+                'useremail' => $emailuser
+            ]);
+
+            $UserInfoLog = $query->fetch();
+            $user = new User();
+            $user->setPassword($UserInfoLog['USER_PASSWORD']);
+            $user->setId($UserInfoLog['USER_ID']);
+            $user->setNom($UserInfoLog['USER_NOM']);
+            $user->setPrenom($UserInfoLog['USER_PRENOM']);
+            $user->setEmail($UserInfoLog['USER_EMAIL']);
+
+            $UserInfoLog[] = $user;
+
+            return $UserInfoLog;
     }
 
 
@@ -529,19 +549,99 @@ class User implements \JsonSerializable
     }
 
     public function SqlAdd(\PDO $bdd) {
-        try{
-            $query = $bdd->prepare('INSERT INTO user (USER_PRENOM, USER_NOM, USER_PASSWORD, USER_VILLE, USER_EMAIL) VALUES (:prenom, :nom, :password, :ville, :email)');
+        //try{
+            $query = $bdd->prepare('INSERT INTO user (USER_PRENOM, USER_NOM, USER_PASSWORD, USER_EMAIL) VALUES (:prenom, :nom, :password, :email)');
             $query->execute([
                 "prenom" => $this->getPrenom(),
                 "nom" => $this->getNom(),
                 "password" => $this->getPassword(),
-                "ville" => $this->getVille(),
                 "email" => $this->getEmail()
             ]);
+
+            $email2 = $_POST['Email'];
+            $login = $_POST['Email'];
+
+// Génération aléatoire d'une clé
+            $cle = md5(microtime(TRUE)*100000);
+
+
+// Insertion de la clé dans la base de données (à adapter en INSERT si besoin)
+            $stmt = $bdd->prepare("UPDATE user SET USER_CLE=:cle WHERE USER_EMAIL like :login");
+            $stmt->bindParam(':cle', $cle);
+            $stmt->bindParam(':login', $login);
+            $stmt->execute();
+
+
+// Préparation du mail contenant le lien d'activation
+            $destinataire = $email2;
+            $sujet = "Activer votre compte" ;
+            $entete = "From: inscription@votresite ,.com" ;
+
+// Le lien d'activation est composé du login(log) et de la clé(cle)
+            $message = "Bienvenue sur VotreSite,
+ 
+Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
+ou copier/coller dans votre navigateur Internet.
+ 
+www.heartplane.local/User/ValidationEmail?log=$login&cle=$cle
+
+
+            ---------------
+Ceci est un mail automatique, Merci de ne pas y répondre.";
+
+echo($message);
+mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
             return array("result"=>true,"message"=>$bdd->lastInsertId());
-        }catch (\Exception $e){
+        /*}catch (\Exception $e){
+            header("location:/");
             return array("result"=>false,"message"=>$e->getMessage());
-        }
+        }*/
 
     }
-}
+    public function SqlVerifEmail(\PDO $bdd,$logget,$cleget)
+    {
+
+        $login = $logget;
+        $cle = $cleget;
+
+// Récupération de la clé correspondant au $login dans la base de données
+        $stmt = $bdd->prepare("SELECT USER_CLE,USER_VALIDEMAIL FROM user WHERE USER_EMAIL like :login ");
+        if($stmt->execute(array(':login' => $login)) && $row = $stmt->fetch())
+        {
+            $clebdd = $row['USER_CLE'];    // Récupération de la clé
+            $actif = $row['USER_VALIDEMAIL']; // $actif contiendra alors 0 ou 1
+        }
+
+
+// On teste la valeur de la variable $actif récupérée dans la BDD
+        if($actif == '1') // Si le compte est déjà actif on prévient
+        {
+            echo "Votre compte est déjà actif !";
+        }
+        else // Si ce n'est pas le cas on passe aux comparaisons
+        {
+            if($cle == $clebdd) // On compare nos deux clés
+            {
+                // Si elles correspondent on active le compte !
+                echo "Votre compte a bien été activé !";
+
+                // La requête qui va passer notre champ actif de 0 à 1
+                $stmt = $bdd->prepare("UPDATE user SET USER_VALIDEMAIL = 1 WHERE USER_EMAIL like :login ");
+                $stmt->bindParam(':login', $login);
+                $stmt->execute();
+            }
+            else // Si les deux clés sont différentes on provoque une erreur...
+            {
+                echo "Erreur ! Votre compte ne peut être activé...";
+            }
+        }
+
+
+//...
+// Fermeture de la connexion
+//...
+// Votre code
+//...
+    }
+
+    }

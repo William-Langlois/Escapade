@@ -1,9 +1,33 @@
-{% extends "BasicLayout.html.twig" %}
-{% block title %} WelcomePage - {{ parent() }}{% endblock %}
-
 {% block body %}
 
-    <div class="jumbotron">
-        <h1 class="display-4">Welcome Page</h1>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Heart Plane </title>
+        <link rel="stylesheet" href="/css/style.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+    </head>
+    <body id="welcome">
+
+    <div id=header>
+        <div>
+            <img src="uploads/images/logo.png" alt="logo de heart plane">
+        </div>
+        <div>
+            <a class="inscrire" href="/Login">Connexion</a>
+        </div>
     </div>
+
+    <div>
+        <p class="presentation">Chaque voyage, chaque aventure permet des rencontres extraordinaires. Ne laissez rien au hasard, avec heart plane partagez vos plus beaux moments.  </p>
+    </div>
+    <div class="bouton">
+        <a class="inscrire" href="/Inscription">S'inscrire</a>
+    </div>
+
+    </body>
+    </html>
 {% endblock %}

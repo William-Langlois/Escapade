@@ -13,6 +13,7 @@
             <th scope="col">ID</th>
             <th scope="col">Nom</th>
             <th scope="col">Prenom</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                 <th scope="row"><a href="/User/Show/{{ user.id }}">#{{ user.id }}</a></th>
                 <td>{{ user.nom }} </td>
                 <td>{{ user.prenom }}</td>
+                <td><a href="/User/Delete/{{ user.id }}">Supprimer</a></td>
 
 
             </tr>
