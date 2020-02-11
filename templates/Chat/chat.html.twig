@@ -1,0 +1,29 @@
+{% extends "Chat/ChatIndex.html.twig" %}
+{% block title %}<title> Chat - {{ parent() }}</title>{% endblock %}
+
+{% block body %}
+    {% for convdisp in conversations %}
+        {% if session.login.id != convdisp %}
+            <a href="/Chat/{{ session.login.id}}/{{ convdisp }}">{{ convdisp }}</a>
+        {% endif %}
+    {% endfor %}
+    {% for conv in activeConvMessage %}
+        {% if conv.envoyeur == session.login.id %}
+            <h3>Un message que vous avez envoyez</h3>
+            {{ conv.contenu }}
+
+        {% endif %}
+        {% if conv.envoyeur == iddest %}
+            <div id="messageRecu" style="left: 75%">
+            <h3 >Un message que vous avez reçu</h3>
+            {{ conv.contenu }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <form name="sendMessage" action="/Chat/{{ session.login.id}}/{{ iddest }}" method="post">
+        <label>
+            <textarea required name="contenu"> </textarea>
+        </label>
+        <input type="submit">
+    </form>
+{% endblock %}

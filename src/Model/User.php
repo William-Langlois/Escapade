@@ -506,6 +506,7 @@ class User implements \JsonSerializable
             $user->setNom($UserInfoLog['USER_NOM']);
             $user->setPrenom($UserInfoLog['USER_PRENOM']);
             $user->setEmail($UserInfoLog['USER_EMAIL']);
+            $user->setLastconnection(date("d-m-Y G:i"));
 
             $UserInfoLog[] = $user;
 

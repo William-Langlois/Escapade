@@ -237,18 +237,6 @@ class UserController extends  AbstractController {
         }
     }
 
-    //Fonction qui permet de verifier que l'utilisateur à le bon role
-    public static function roleNeed($roleATester){
-        if(isset($_SESSION['login'])){
-            if(!in_array($roleATester,$_SESSION['login']['roles'])){
-                $_SESSION['errorlogin'] = "Vous n'êtes pas ".$roleATester;
-                header('Location:/Login');
-            }
-        }else{
-            $_SESSION['errorlogin'] = "Veuillez-vous identifier";
-            header('Location:/Login');
-        }
-    }
 
     //Fonction qui permet de verifier que l'utilisateur à le bon id
     public static function idNeed($idATester){
@@ -263,37 +251,6 @@ class UserController extends  AbstractController {
         }
     }
 
-    //fonction qui passer le status d'un user à 1 (appel de la fonction dans le model)
-    public function accept($idUser){
-        UserController::roleNeed('administrateur');
-        $UserSQL = new User();
-        $UserSQL->SqlUpdateStatus(BDD::GetInstance(),$idUser,1);
-        header('Location:/Admin');
-    }
-
-    //fonction qui permet de passer le status d'un user à 2 (appel de la fonction dans le model)
-    public function refused($idUser){
-        UserController::roleNeed('administrateur');
-        $UserSQL = new User();
-        $UserSQL->SqlUpdateStatus(BDD::GetInstance(),$idUser,2);
-        header('Location:/Admin');
-    }
-
-    //fonction qui permet de passer le status d'un user à 3 (appel de la fonction dans le model)
-    public function banned($idUser){
-        UserController::roleNeed('administrateur');
-        $UserSQL = new User();
-        $UserSQL->SqlUpdateStatus(BDD::GetInstance(),$idUser,3);
-        header('Location:/Admin');
-    }
-
-    //fonction qui permet de modifier les roles d'un user (appel de la fonction dans le model)
-    public function update($idUser){
-        UserController::roleNeed('administrateur');
-        $UserSQL = new User();
-        $UserSQL->SqlUpdateRole(BDD::GetInstance(),$idUser);
-        header('Location:/Admin');
-    }
 
 
     //fonction qui permet d'afficher le profil

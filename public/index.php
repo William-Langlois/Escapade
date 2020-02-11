@@ -26,6 +26,10 @@ $router->get('/Logout', 'User#logout');
 $router->get('/Inscription', 'User#inscriptionForm');
 $router->post('/Inscription', 'User#inscriptionCheck');
 
+$router->get('/Chat/:id','Message#ShowChats#id');
+$router->get('/Chat/:iduser/:iddest','Message#ShowOneChat#iduser#iddest');
+$router->post('/Chat/:iduser/:iddest','Message#SendMessage#iduser#iddest');
+
 
 
 echo $router->run();
