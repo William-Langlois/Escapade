@@ -470,7 +470,7 @@ class User implements \JsonSerializable
             $query->execute([
                 'userid' => $iduser
             ]);
-            return array("result"=>true,"message"=>"Suppression réussi");
+            return array("result"=>true,"message"=>"Suppression réussie");
         }catch (\Exception $e){
             return array("result"=>false,"message"=>$e->getMessage());
         }

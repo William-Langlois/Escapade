@@ -30,7 +30,7 @@ $router->get('/Chat/:id','Message#ShowChats#id');
 $router->get('/Chat/:iduser/:iddest','Message#ShowOneChat#iduser#iddest');
 $router->post('/Chat/:iduser/:iddest','Message#SendMessage#iduser#iddest');
 
-
+$router->get('/liked/:iduser','Like#ShowLiked#iduser');
 
 echo $router->run();
 
