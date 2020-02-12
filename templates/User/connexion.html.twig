@@ -99,9 +99,21 @@ active">
 
                     <h3>Restez connecté</h3>
 
-                </div>
+                    <head>
+                        <title>reCAPTCHA demo: Simple page</title>
+                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    </head>
+                    <body>
+                    <form action="?" method="POST">
+                        <div class="g-recaptcha" data-sitekey="6LeAL9gUAAAAAB8eEmuRRmtb8_GvoleWY50dRsTR"></div>
+                        <br/>
+                        <input class="submit" value="Connexion" type="submit">
+                        <input type="hidden" name="crsf" value="{{ token }}">
+                    </form>
+                    </body>
 
-                <input class="submit" value="Connexion" type="submit">
+
+                </div>
 
             </form>
 
