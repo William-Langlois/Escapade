@@ -37,5 +37,8 @@ $router->get('/liked/:iduser','Like#ShowLiked#iduser');
 //notif
 $router->get('/Notification/:iduser','Notifications#ShowNotification#iduser');
 
+//Signalement
+$router->get('/','');
+
 echo $router->run();
 
