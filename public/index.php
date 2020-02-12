@@ -33,6 +33,8 @@ $router->post('/Chat/:iduser/:iddest','Message#SendMessage#iduser#iddest');
 
 //follow
 $router->get('/liked/:iduser','Like#ShowLiked#iduser');
+$router->get('/like/:iduser','Like#ShowLike#iduser');
+$router->get('/newlike/:iduser/:iduserliked','Like#likeSomebody#iduser#iduserliked');
 
 //notif
 $router->get('/Notification/:iduser','Notifications#ShowNotification#iduser');

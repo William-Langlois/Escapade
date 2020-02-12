@@ -8,6 +8,7 @@ class BasicController extends AbstractController {
     }
 
     public function WelcomePage(){
+        unset($_SESSION['errorlike']);
         return $this->twig->render(
             'welcomepage.html.twig'
         );

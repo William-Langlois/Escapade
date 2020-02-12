@@ -90,7 +90,7 @@ class Like implements \JsonSerializable
         $query->execute([
             "userlike" => $this->getUserlike(),
             "userliked" => $this->getUserliked(),
-            "datelike" => date("d-m-Y G:i")
+            "datelike" => $this->getDate()
         ]);
     }
 
@@ -99,12 +99,13 @@ class Like implements \JsonSerializable
         $query->execute([
             'userid'=>$iduser
         ]);
-        $ArrayLike=$query->fetchAll();
+        $ArrayLike=$query->fetchall();
 
         $listLike=[];
         foreach ($ArrayLike as $likeSQL){
             $like = new Like();
             $like->setId($likeSQL['id_like']);
+            $like->setUserlike($likeSQL['id_userlike']);
             $like->setUserliked($likeSQL['id_userliked']);
             $like->setDate($likeSQL['like_date']);
 
@@ -124,6 +125,7 @@ class Like implements \JsonSerializable
         foreach ($ArrayLike as $likeSQL){
             $like = new Like();
             $like->setId($likeSQL['id_like']);
+            $like->setUserliked($likeSQL['id_userliked']);
             $like->setUserlike($likeSQL['id_userlike']);
             $like->setDate($likeSQL['like_date']);
 

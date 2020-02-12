@@ -1,13 +1,14 @@
-{% extends "Like/LikeIndex.html.twig" %}
-{% block title %}<title> Liked - {{ parent() }}</title>{% endblock %}
+{% block title %}<title> Liked - {{ session.login.prenom }}</title>{% endblock %}
 
 {% block body %}
-    {{ dump() }}
-{% if likes !='' %}
-    {% for like in likes %}
-        <h1>Un Like</h1>
-    {% endfor %}
-    {% else %}
-    <h1>Vous n'aimez personne</h1>
-{% endif %}
+    <a href="/liked/{{ session.login.id }}">You like</a>
+    <a href="/like/{{ session.login.id }}">You'r liked by</a>
+
+    {% if likes['0'] is defined  %}
+            {% for like in likes %}
+                <h1>{{ like.userliked }}</h1>
+            {% endfor %}
+        {% else %}
+        <h1>Vous n'aimez personne</h1>
+    {% endif %}
 {% endblock %}

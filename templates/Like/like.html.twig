@@ -1,0 +1,14 @@
+{% block title %}<title> Like - {{ session.login.prenom }}</title>{% endblock %}
+
+{% block body %}
+    <a href="/liked/{{ session.login.id }}">You like</a>
+    <a href="/like/{{ session.login.id }}">You'r liked by</a>
+
+    {% if likes['0'] is defined %}
+        {% for like in likes %}
+            <h1>{{ like.userlike }}</h1>
+        {% endfor %}
+    {% else %}
+        <h1>Personne ne vous aime</h1>
+    {% endif %}
+{% endblock %}
