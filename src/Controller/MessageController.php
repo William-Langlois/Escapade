@@ -43,6 +43,17 @@ public function SendMessage($idUser,$iddest){
     $message->setContenu($_POST['contenu']);
 
     $message->SqlAddMessage(Bdd::GetInstance());
+    $typeNotif="Message";
+    $MessageArray=explode(" ",$_POST['contenu']);
+    $messageFirstWord = '';
+    for($i=0; $i<5; $i++)
+        {
+            $messageFirstWord = $messageFirstWord.' '.$MessageArray[$i];
+        }
+
+    $titreNotif = "New Message from ".$idUser;
+
+    NotificationsController::SendNotifications($iddest,$typeNotif,$messageFirstWord,$titreNotif);
 
     header('location:/chat/'.$idUser.'/'.$iddest);
 

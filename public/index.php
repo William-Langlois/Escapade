@@ -26,11 +26,16 @@ $router->get('/Logout', 'User#logout');
 $router->get('/Inscription', 'User#inscriptionForm');
 $router->post('/Inscription', 'User#inscriptionCheck');
 
+//chat
 $router->get('/Chat/:id','Message#ShowChats#id');
 $router->get('/Chat/:iduser/:iddest','Message#ShowOneChat#iduser#iddest');
 $router->post('/Chat/:iduser/:iddest','Message#SendMessage#iduser#iddest');
 
+//follow
 $router->get('/liked/:iduser','Like#ShowLiked#iduser');
+
+//notif
+$router->get('/Notification/:iduser','Notifications#ShowNotification#iduser');
 
 echo $router->run();
 

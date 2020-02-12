@@ -1,6 +1,7 @@
 {
     "require": {
         "twig/twig": "^3.0",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-mysql": "*"
     }
 }

@@ -8,7 +8,7 @@ class Bdd {
         $hostname="localhost";
         $username="root";
         $password="";
-        $dbname="heartplane";
+        $dbname="escapadesproject";
 
         try
         {
