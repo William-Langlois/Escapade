@@ -34,12 +34,23 @@ class LikeController extends  AbstractController {
             header("location:/");
             return;
         }
+        $likes=new Like();
+        $listlikes = $likes->SqlGetUserLiked(Bdd::GetInstance(),$iduser);
+        foreach ($listlikes as $like){
+
+        }
 
         $like=new Like();
         $like->setUserlike($iduser);
         $like->setUserliked($iduserliked);
         $like->setDate(date("Y-m-d H:i:00"));
         $like->SqlAddLike(Bdd::GetInstance());
+
+        $typeNotif="Like";
+        $contenuNotif=$iduser." à aimer votre profil";
+        $titreNotif = "Votre profil à été liké";
+
+        NotificationsController::SendNotifications($iduserliked,$typeNotif,$contenuNotif,$titreNotif);
 
         header('location:/Liked/'.$iduser);
         return;

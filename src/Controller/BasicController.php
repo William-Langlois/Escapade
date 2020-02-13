@@ -14,4 +14,16 @@ class BasicController extends AbstractController {
         );
     }
 
+    public function Accueil(){
+        if(!isset ($_SESSION['login'])){
+            $_SESSION['errorlogin'] = "Veuillez-vous identifier";
+            header('Location:/Login');
+            return;
+        }
+        unset($_SESSION['errorlike']);
+        return $this->twig->render(
+            'accueil.html.twig'
+        );
+    }
+
 }

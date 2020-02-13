@@ -128,6 +128,7 @@ class Message implements \JsonSerializable
             "contenu" => $this->getContenu(),
             "date" => date("d-m-Y G:i")
         ]);
+        return;
 
     }
 
@@ -155,21 +156,27 @@ class Message implements \JsonSerializable
     }
 
     public function SqlGetConv(\PDO $bdd,$iduser){
-        $query = $bdd->prepare("SELECT DISTINCT MESSAGE_DESTINATAIRE FROM message WHERE MESSAGE_ENVOYEUR=:userid OR MESSAGE_DESTINATAIRE=:userid");
+        $query = $bdd->prepare("SELECT DISTINCT MESSAGE_DESTINATAIRE,MESSAGE_ENVOYEUR FROM message WHERE MESSAGE_ENVOYEUR=:userid OR MESSAGE_DESTINATAIRE=:userid");
         $query->execute([
             "userid"=>$iduser
         ]);
         $ArrayConv=$query->fetchAll();
         $ListConv=[];
+        $ListConv2=[];
         $conv = new Message();
         foreach ($ArrayConv as $messageSQL){
-            $conv->setDestinataire($messageSQL['MESSAGE_DESTINATAIRE']);
+                if ($messageSQL['MESSAGE_DESTINATAIRE'] == $iduser ) {
+                    $conv->setEnvoyeur($messageSQL['MESSAGE_ENVOYEUR']);
+                    $ListConv[] = $conv->getEnvoyeur();
 
-            $ListConv[] =$conv->getDestinataire();
+                }
+                if ($messageSQL['MESSAGE_ENVOYEUR'] == $iduser) {
+                    $conv->setDestinataire($messageSQL['MESSAGE_DESTINATAIRE']);
+                    $ListConv[] = $conv->getDestinataire();
+                }
         }
-        return $ListConv;
+        $ListConv2= array_unique($ListConv);
+        return $ListConv2;
     }
-
-
 
 }

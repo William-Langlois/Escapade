@@ -12,10 +12,10 @@ class SignalementController extends AbstractController
     {
         UserController::idNeed($idUser);
         $Sign = new Signalement();
-        $Signalement = $Sign->SqlGetNotif(Bdd::GetInstance(), $idUser);
+        $Signalements = $Sign->SqlGetSignalementforUser(Bdd::GetInstance(), $idUser);
 
         return $this->twig->render('Signalement/Signalement.html.twig', [
-            "Signalement" => $Signalement
+            "Signalements" => $Signalements
         ]);
 
     }

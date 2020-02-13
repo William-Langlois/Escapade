@@ -1,8 +1,0 @@
-
-{% block title %}HeartPlane{% endblock %}
-
-{% block body %}
-{% for conv in conversations %}
-<a href="/Chat/{{ session.login.id}}/{{ conv }}">{{ conv }}</a>
-{% endfor %}
-{% endblock %}

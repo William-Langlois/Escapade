@@ -133,6 +133,26 @@ class Signalement implements \JsonSerializable
 
     }
 
+    public function SqlGetSignalementforUser(\PDO $bdd,$iduser){
+        $query = $bdd->prepare('SELECT * FROM signalement WHERE SIGNALEMENT_CONCERNE=:userid');
+        $query->execute([
+            "userid"=>$iduser
+        ]);
+        $ArraySignalement=$query->fetchAll();
+        $listSignalement=[];
+        foreach($ArraySignalement as $signalementSql){
+            $signalement=new Signalement();
+            $signalement->setConcerne($signalementSql['SIGNALEMENT_CONCERNE']);
+            $signalement->setSoumetteur($signalementSql['SIGNALEMENT_SOUMETTEUR']);
+            $signalement->setContext($signalementSql['SIGNALEMENT_CONTEXT']);
+            $signalement->setManaged($signalementSql['SIGNALEMENT_MANAGED']);
+            $signalement->setIdcs($signalementSql['CS_ID']);
+
+            $listSignalement[]=$signalement;
+        }
+        return $listSignalement;
+    }
+
 
 
 }

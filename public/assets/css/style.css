@@ -1,6 +1,6 @@
 /*Page Welcome*/ 
 #welcome{
-    background: url(../uploads/images/couple.jpg)no-repeat center center fixed;
+    background: url(../../uploads/images/couple.jpg)no-repeat center center fixed;
     background-size: cover ;
     background-position: bottom;
     padding:0;

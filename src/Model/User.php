@@ -25,6 +25,268 @@ class User implements \JsonSerializable
     private $acceptmessage;
     private $activenotif;
     private $birthdate;
+    private $needsexe;
+    private $needville;
+    private $km;
+
+    private $idci;
+    private $iduserci;
+    private $nomci;
+    private $categorieci;
+
+    private $idvoy;
+    private $iduservoy;
+    private $frompaysvoy;
+    private $fromvillevoy;
+    private $topaysvoy;
+    private $tovillevoy;
+    private $fromdatevoy;
+    private $todatevoy;
+
+    /**
+     * @return mixed
+     */
+    public function getIdvoy()
+    {
+        return $this->idvoy;
+    }
+
+    /**
+     * @param mixed $idvoy
+     */
+    public function setIdvoy($idvoy)
+    {
+        $this->idvoy = $idvoy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIduservoy()
+    {
+        return $this->iduservoy;
+    }
+
+    /**
+     * @param mixed $iduservoy
+     */
+    public function setIduservoy($iduservoy)
+    {
+        $this->iduservoy = $iduservoy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFrompaysvoy()
+    {
+        return $this->frompaysvoy;
+    }
+
+    /**
+     * @param mixed $frompaysvoy
+     */
+    public function setFrompaysvoy($frompaysvoy)
+    {
+        $this->frompaysvoy = $frompaysvoy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFromvillevoy()
+    {
+        return $this->fromvillevoy;
+    }
+
+    /**
+     * @param mixed $fromvillevoy
+     */
+    public function setFromvillevoy($fromvillevoy)
+    {
+        $this->fromvillevoy = $fromvillevoy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTopaysvoy()
+    {
+        return $this->topaysvoy;
+    }
+
+    /**
+     * @param mixed $topaysvoy
+     */
+    public function setTopaysvoy($topaysvoy)
+    {
+        $this->topaysvoy = $topaysvoy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTovillevoy()
+    {
+        return $this->tovillevoy;
+    }
+
+    /**
+     * @param mixed $tovillevoy
+     */
+    public function setTovillevoy($tovillevoy)
+    {
+        $this->tovillevoy = $tovillevoy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFromdatevoy()
+    {
+        return $this->fromdatevoy;
+    }
+
+    /**
+     * @param mixed $fromdatevoy
+     */
+    public function setFromdatevoy($fromdatevoy)
+    {
+        $this->fromdatevoy = $fromdatevoy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTodatevoy()
+    {
+        return $this->todatevoy;
+    }
+
+    /**
+     * @param mixed $todatevoy
+     */
+    public function setTodatevoy($todatevoy)
+    {
+        $this->todatevoy = $todatevoy;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getIdci()
+    {
+        return $this->idci;
+    }
+
+    /**
+     * @param mixed $idci
+     */
+    public function setIdci($idci)
+    {
+        $this->idci = $idci;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIduserci()
+    {
+        return $this->iduserci;
+    }
+
+    /**
+     * @param mixed $iduserci
+     */
+    public function setIduserci($iduserci)
+    {
+        $this->iduserci = $iduserci;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomci()
+    {
+        return $this->nomci;
+    }
+
+    /**
+     * @param mixed $nomci
+     */
+    public function setNomci($nomci)
+    {
+        $this->nomci = $nomci;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategorieci()
+    {
+        return $this->categorieci;
+    }
+
+    /**
+     * @param mixed $categorieci
+     */
+    public function setCategorieci($categorieci)
+    {
+        $this->categorieci = $categorieci;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getNeedville()
+    {
+        return $this->needville;
+    }
+
+    /**
+     * @param mixed $needville
+     */
+    public function setNeedville($needville)
+    {
+        $this->needville = $needville;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKm()
+    {
+        return $this->km;
+    }
+
+    /**
+     * @param mixed $km
+     */
+    public function setKm($km)
+    {
+        $this->km = $km;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getNeedsexe()
+    {
+        return $this->needsexe;
+    }
+
+    /**
+     * @param mixed $needsexe
+     */
+    public function setNeedsexe($needsexe)
+    {
+        $this->needsexe = $needsexe;
+    }
 
 
 
@@ -397,6 +659,38 @@ class User implements \JsonSerializable
     }
 
 
+    public function SqlUpdate(\PDO $bdd,$iduser){
+        $query = $bdd->prepare('UPDATE user SET USER_PHOTO=:photo,USER_SEXE=:sexe,USER_BIRTHDATE=:birthdate,USER_PAYS=:pays,USER_VILLE=:ville,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDSEXE=:needsexe,USER_NEEDVILLE=:needville,USER_NEEDKM=:km');
+        $query->execute([
+            "photo"=>$this->getPhoto(),
+            "sexe"=>$this->getSexe(),
+            "birthdate"=>$this->getBirthdate(),
+            "pays"=>$this->getPays(),
+            "ville"=>$this->getVille(),
+            "wannadateathome"=>$this->getWannadateathome(),
+            "needsexe"=>$this->getNeedsexe(),
+            "needville"=>$this->getNeedville(),
+            "km"=>$this->getKm()
+        ]);
+
+        $queryci = $bdd->prepare('INSERT INTO centre_interet (USER_ID, CI_NOM, CI_CATEGORIE) VALUES (:userid,:cinom,:cicategorie)');
+        $queryci->execute([
+            "userid"=>$iduser,
+            "cinom"=>$this->getNomci(),
+            "cicategorie"=>$this->getCategorieci()
+        ]);
+
+        $queryvoy = $bdd->prepare('INSERT INTO voyage (USER_ID, VOYAGE_FROM_PAYS, VOYAGE_FROM_VILLE, VOYAGE_DESTINATION_PAYS, VOYAGE_DESTINATION_VILLE, VOYAGE_DATEDEBUT, VOYAGE_DATEFIN) VALUES (:userid,:frompaysvoy,:fromvillevoy,:topaysvoy,:tovillevoy,:fromdatevoy,:todatevoy)');
+        $queryvoy->execute([
+           "userid"=>$iduser,
+           "frompaysvoy"=>$this->getFrompaysvoy(),
+           "fromvillevoy"=>$this->getFromvillevoy(),
+           "topaysvoy"=>$this->getTopaysvoy(),
+           "tovillevoy"=>$this->getTovillevoy(),
+           "fromdatevoy"=>$this->getFromdatevoy(),
+           "todatevoy"=>$this->getTodatevoy()
+        ]);
+    }
 
 
 
@@ -457,9 +751,9 @@ class User implements \JsonSerializable
     $user->setActiveNotif($UserInfo['USER_ACTIVE_NOTIF']);
     $user->setBirthdate($UserInfo['USER_BIRTHDATE']);
 
-    $UserInfo[] = $user;
+    $UserInfoReturn = $user;
 
-    return $UserInfo;
+    return $UserInfoReturn;
 }
 
 

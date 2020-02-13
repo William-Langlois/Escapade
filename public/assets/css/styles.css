@@ -1,0 +1,27 @@
+body {
+  background-image: url("none");
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+  height: 100hv;
+  color: rgb(0,64,128);
+  margin: 0px;
+  width: 100%;
+  background-color: rgba(255,255,255,0);
+}
+
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+  display: flex;
+  border-radius: 20px;
+  justify-content: space-around;
+  padding: 6px;
+}
+
+.navbar.navbar-light.navbar-expand-md {
+  border-radius: 0px;
+}
+
+img {
+}
+
+

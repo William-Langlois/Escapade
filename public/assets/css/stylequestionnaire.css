@@ -38,17 +38,17 @@
     
   }
   
-  #section01 { background: url(fondquestion.jpg) center center /cover no-repeat;}
-  #section02 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section03 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section04 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section05 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section06 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section07 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section08 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section09 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section10 { background: url(fondquestion.jpg) center center / cover no-repeat;}
-  #section11 { background: url(fondquestion.jpg) center center / cover no-repeat;}
+  #section01 { background: url(../../uploads/images/fondquestion.jpg) center center /cover no-repeat;}
+  #section02 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section03 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section04 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section05 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section06 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section07 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section08 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section09 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section10 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
+  #section11 { background: url(../../uploads/images/fondquestion.jpg) center center / cover no-repeat;}
   
   #thanks {
     background-color: #fff;

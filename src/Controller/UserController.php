@@ -172,11 +172,7 @@ class UserController extends AbstractController
             }
 
             //Si on clique sur "mot de passe oublié" => On affiche l'erreur Oh mince.. C'est dommage ça !
-            if ($_POST['passforget']) {
-                $_SESSION['errorlogin'] = "Oh mince.. C'est dommage ça !";
-                header('Location:/Login');
-                return;
-            }
+
 
             //Verifie que l'email ne contient pas uniquement des espaces
             if (trim($_POST['email']) == '') {
@@ -208,7 +204,7 @@ class UserController extends AbstractController
 
             // Test du Captcha
             // Ma clé privée
-            $secret = "6LeAL9gUAAAAAL5yA5-CWO_WAxIKmxC2pKVNCwnn";
+            $secret = "6LcoR9gUAAAAAI7mP24GMRf0qbxy4O7G6Ttv2AVJ";
             // Paramètre renvoyé par le recaptcha
             $response = $_POST['g-recaptcha-response'];
             // On récupère l'adresse IP de l'utilisateur
@@ -238,6 +234,8 @@ class UserController extends AbstractController
             //==================================Recupération des info utilisateur en fonction de l'email entré==============
             $user = new User();
             $userInfoLog = $user->SqlGetLogin(Bdd::GetInstance(), ($_POST['email']));
+            $userid=$userInfoLog['USER_ID'];
+            BanController::CheckBan($userid);
             $pwd_hashed_bdd = $userInfoLog['USER_PASSWORD'];
             //================================================================
 
@@ -249,10 +247,11 @@ class UserController extends AbstractController
                 //(les roles sont enregistrés sous la forme d'une chaine de caractère , séparé par un espace)
                 //On enregistre dans la session 'login' : l'id , les roles , le prenom , le nom , le status , l'email
                 $_SESSION['login'] = array("id" => $userInfoLog['USER_ID'],
-                    "Prenom" => $userInfoLog['USER_PRENOM'],
-                    "Nom" => $userInfoLog['USER_NOM'],
-                    "Email" => $userInfoLog['USER_EMAIL']);
-                header('Location:/');
+                    "prenom" => $userInfoLog['USER_PRENOM'],
+                    "nom" => $userInfoLog['USER_NOM'],
+                    "email" => $userInfoLog['USER_EMAIL'],
+                    "photo"=>$userInfoLog['USER_PHOTO']);
+                header('Location:/Accueil');
                 //Si les mots de passes en correspondent pas on renvoi une erreur d'authentification
             } else {
                 $_SESSION['errorlogin'] = "Email, Mot de passe ou CAPTCHA incorrect";
@@ -279,14 +278,25 @@ class UserController extends AbstractController
 
 
     //fonction qui permet d'afficher le profil
-    public function ShowProfil($idUser)
+    public function ShowProfile($idUser)
     {
+        if(!isset ($_SESSION['login'])){
+            $_SESSION['errorlogin'] = "Veuillez-vous identifier";
+            header('Location:/Login');
+            return;
+        }
         //verification que le profil concerné appartient bien à l'utilisateur concerné
-        UserController::idNeed($idUser);
+        $user=new User();
+        $userInfo=$user->SqlGet(Bdd::GetInstance(),$idUser);
+
+        $age=0;
 
         //permet de retirer les messages d'infos après un refresh
         unset($_SESSION['infoprofil']);
         return $this->twig->render('User/profil.html.twig', [
+            "userid"=>$idUser,
+            "infoUser"=>$userInfo,
+            "age"=>$age
         ]);
     }
 

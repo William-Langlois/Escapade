@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/stylequestionnaire.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <!--  jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="assets/js/jquery.knob.js"></script>
+
+    <!-- jQuery File Upload Dependencies -->
+    <script src="assets/js/jquery.ui.widget.js"></script>
+    <script src="assets/js/jquery.iframe-transport.js"></script>
+    <script src="assets/js/jquery.fileupload.js"></script>
+    <script src="scriptquestionnaire.js"></script>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js">
+
+
+
+
+
+</head>
+
+<body>
+<form name="ProfileSetup" method="post" action="/ProfileSetup/{{ session.login.id }}">
+<section id="section01" class="demo">
+    <img class="logo" src="../uploads/images/logo.png" alt="logo">
+    <div class="main">
+        <h1>Montrez nous vos plus jolis profils</h1>
+        <div class="contenue">
+            <div class="file-upload">
+                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )"> Ajouter une image</button>
+
+                <div class="image-upload-wrap">
+                    <input name="photo" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                    <div class="drag-text">
+                        <h3>Déplace le fichier ici</h3>
+                    </div>
+                </div>
+                <div class="file-upload-content">
+                    <img class="file-upload-image" src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image"> <span class="image-title"> Ajouter une image </span></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <a class="bouton" href="#section02"><span></span></a>
+</section>
+
+
+
+
+<section id="section02" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section01"> ↑ </a></div>
+
+    </div>
+    <div class="contain">
+
+        <div class="main">
+            <h1>Êtes-vous? </h1>
+            <div class="contenue">
+                <div class="icon">
+                    <div>
+                        <div class="icone">
+                            <a class="picto" href=""> <img class="iconegenre" src="../uploads/images/woman.png" alt=""></a>
+                            <p>Une femme</p>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="icone">
+                            <a class="picto" href=""><img class="iconegenre" src="../uploads/images/men.png" alt=""></a>
+                            <p>Un homme
+                            </p>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="icone">
+                            <a class="picto" href=""> <img class="iconegenre" src="../uploads/images/nogender.png" alt=""></a>
+                            <p>Je ne veux pas me définir</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="bouton" href="#section03"><span></span></a>
+    </div>
+</section>
+
+
+<section id="section03" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section02"> ↑ </a></div>
+
+    </div>
+    <div class="main">
+        <h1>Quel âge avez vous? </h1>
+        <div class="contenue">
+            <div class="bootstrap-iso">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                            <!-- Form code begins -->
+                                <div class="form-group">
+                                    <!-- Date input -->
+                                    <label class="control-label" for="date">Date de naissance</label>
+                                    <input class="form-control" id="date" name="birthdate" placeholder="MM/DD/YYY" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <!-- Submit button -->
+                                    <button class="btn btn-primary " name="submit" type="submit">Submit</button>
+                                </div>
+                            <!-- Form code ends -->
+                            <script>
+                                $(document).ready(function () {
+                                    var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                    var container = date_input.parentElement;
+                                    var options = {
+                                        format: 'mm/dd/yyyy',
+                                        container: container,
+                                        todayHighlight: true,
+                                        autoclose: true,
+                                    };
+                                    date_input.datepicker(options);
+                                })
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="bouton" href="#section04"><span></span></a>
+</section>
+
+<section id="section04" class="demo">
+
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section03"> ↑ </a></div>
+
+    </div>
+    <div class="main">
+        <div>
+            <h1>De quel nationnalité êtes-vous? </h1>
+        </div>
+        <div class="contenue">
+            <select class="mdb-select md-form" searchable="Search here..">
+                <option value="" disabled selected>Choisis ton pays</option>
+                <option value="Afghanistan">Afghanistan </option>
+                <option value="Afrique_Centrale">Afrique_Centrale </option>
+                <option value="Afrique_du_sud">Afrique_du_Sud </option>
+                <option value="Albanie">Albanie </option>
+                <option value="Algerie">Algerie </option>
+                <option value="Allemagne">Allemagne </option>
+                <option value="Andorre">Andorre </option>
+                <option value="Angola">Angola </option>
+                <option value="Anguilla">Anguilla </option>
+                <option value="Arabie_Saoudite">Arabie_Saoudite </option>
+                <option value="Argentine">Argentine </option>
+                <option value="Armenie">Armenie </option>
+                <option value="Australie">Australie </option>
+                <option value="Autriche">Autriche </option>
+                <option value="Azerbaidjan">Azerbaidjan </option>
+
+                <option value="Bahamas">Bahamas </option>
+                <option value="Bangladesh">Bangladesh </option>
+                <option value="Barbade">Barbade </option>
+                <option value="Bahrein">Bahrein </option>
+                <option value="Belgique">Belgique </option>
+                <option value="Belize">Belize </option>
+                <option value="Benin">Benin </option>
+                <option value="Bermudes">Bermudes </option>
+                <option value="Bielorussie">Bielorussie </option>
+                <option value="Bolivie">Bolivie </option>
+                <option value="Botswana">Botswana </option>
+                <option value="Bhoutan">Bhoutan </option>
+                <option value="Boznie_Herzegovine">Boznie_Herzegovine </option>
+                <option value="Bresil">Bresil </option>
+                <option value="Brunei">Brunei </option>
+                <option value="Bulgarie">Bulgarie </option>
+                <option value="Burkina_Faso">Burkina_Faso </option>
+                <option value="Burundi">Burundi </option>
+
+                <option value="Caiman">Caiman </option>
+                <option value="Cambodge">Cambodge </option>
+                <option value="Cameroun">Cameroun </option>
+                <option value="Canada">Canada </option>
+                <option value="Canaries">Canaries </option>
+                <option value="Cap_vert">Cap_Vert </option>
+                <option value="Chili">Chili </option>
+                <option value="Chine">Chine </option>
+                <option value="Chypre">Chypre </option>
+                <option value="Colombie">Colombie </option>
+                <option value="Comores">Colombie </option>
+                <option value="Congo">Congo </option>
+                <option value="Congo_democratique">Congo_democratique </option>
+                <option value="Cook">Cook </option>
+                <option value="Coree_du_Nord">Coree_du_Nord </option>
+                <option value="Coree_du_Sud">Coree_du_Sud </option>
+                <option value="Costa_Rica">Costa_Rica </option>
+                <option value="Cote_d_Ivoire">Côte_d_Ivoire </option>
+                <option value="Croatie">Croatie </option>
+                <option value="Cuba">Cuba </option>
+
+                <option value="Danemark">Danemark </option>
+                <option value="Djibouti">Djibouti </option>
+                <option value="Dominique">Dominique </option>
+
+                <option value="Egypte">Egypte </option>
+                <option value="Emirats_Arabes_Unis">Emirats_Arabes_Unis </option>
+                <option value="Equateur">Equateur </option>
+                <option value="Erythree">Erythree </option>
+                <option value="Espagne">Espagne </option>
+                <option value="Estonie">Estonie </option>
+                <option value="Etats_Unis">Etats_Unis </option>
+                <option value="Ethiopie">Ethiopie </option>
+
+                <option value="Falkland">Falkland </option>
+                <option value="Feroe">Feroe </option>
+                <option value="Fidji">Fidji </option>
+                <option value="Finlande">Finlande </option>
+                <option value="France">France </option>
+
+                <option value="Gabon">Gabon </option>
+                <option value="Gambie">Gambie </option>
+                <option value="Georgie">Georgie </option>
+                <option value="Ghana">Ghana </option>
+                <option value="Gibraltar">Gibraltar </option>
+                <option value="Grece">Grece </option>
+                <option value="Grenade">Grenade </option>
+                <option value="Groenland">Groenland </option>
+                <option value="Guadeloupe">Guadeloupe </option>
+                <option value="Guam">Guam </option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Guernesey">Guernesey </option>
+                <option value="Guinee">Guinee </option>
+                <option value="Guinee_Bissau">Guinee_Bissau </option>
+                <option value="Guinee equatoriale">Guinee_Equatoriale </option>
+                <option value="Guyana">Guyana </option>
+                <option value="Guyane_Francaise ">Guyane_Francaise </option>
+
+                <option value="Haiti">Haiti </option>
+                <option value="Hawaii">Hawaii </option>
+                <option value="Honduras">Honduras </option>
+                <option value="Hong_Kong">Hong_Kong </option>
+                <option value="Hongrie">Hongrie </option>
+
+                <option value="Inde">Inde </option>
+                <option value="Indonesie">Indonesie </option>
+                <option value="Iran">Iran </option>
+                <option value="Iraq">Iraq </option>
+                <option value="Irlande">Irlande </option>
+                <option value="Islande">Islande </option>
+                <option value="Israel">Israel </option>
+                <option value="Italie">italie </option>
+
+                <option value="Jamaique">Jamaique </option>
+                <option value="Jan Mayen">Jan Mayen </option>
+                <option value="Japon">Japon </option>
+                <option value="Jersey">Jersey </option>
+                <option value="Jordanie">Jordanie </option>
+
+                <option value="Kazakhstan">Kazakhstan </option>
+                <option value="Kenya">Kenya </option>
+                <option value="Kirghizstan">Kirghizistan </option>
+                <option value="Kiribati">Kiribati </option>
+                <option value="Koweit">Koweit </option>
+
+                <option value="Laos">Laos </option>
+                <option value="Lesotho">Lesotho </option>
+                <option value="Lettonie">Lettonie </option>
+                <option value="Liban">Liban </option>
+                <option value="Liberia">Liberia </option>
+                <option value="Liechtenstein">Liechtenstein </option>
+                <option value="Lituanie">Lituanie </option>
+                <option value="Luxembourg">Luxembourg </option>
+                <option value="Lybie">Lybie </option>
+
+                <option value="Macao">Macao </option>
+                <option value="Macedoine">Macedoine </option>
+                <option value="Madagascar">Madagascar </option>
+                <option value="Madère">Madère </option>
+                <option value="Malaisie">Malaisie </option>
+                <option value="Malawi">Malawi </option>
+                <option value="Maldives">Maldives </option>
+                <option value="Mali">Mali </option>
+                <option value="Malte">Malte </option>
+                <option value="Man">Man </option>
+                <option value="Mariannes du Nord">Mariannes du Nord </option>
+                <option value="Maroc">Maroc </option>
+                <option value="Marshall">Marshall </option>
+                <option value="Martinique">Martinique </option>
+                <option value="Maurice">Maurice </option>
+                <option value="Mauritanie">Mauritanie </option>
+                <option value="Mayotte">Mayotte </option>
+                <option value="Mexique">Mexique </option>
+                <option value="Micronesie">Micronesie </option>
+                <option value="Midway">Midway </option>
+                <option value="Moldavie">Moldavie </option>
+                <option value="Monaco">Monaco </option>
+                <option value="Mongolie">Mongolie </option>
+                <option value="Montserrat">Montserrat </option>
+                <option value="Mozambique">Mozambique </option>
+
+                <option value="Namibie">Namibie </option>
+                <option value="Nauru">Nauru </option>
+                <option value="Nepal">Nepal </option>
+                <option value="Nicaragua">Nicaragua </option>
+                <option value="Niger">Niger </option>
+                <option value="Nigeria">Nigeria </option>
+                <option value="Niue">Niue </option>
+                <option value="Norfolk">Norfolk </option>
+                <option value="Norvege">Norvege </option>
+                <option value="Nouvelle_Caledonie">Nouvelle_Caledonie </option>
+                <option value="Nouvelle_Zelande">Nouvelle_Zelande </option>
+
+                <option value="Oman">Oman </option>
+                <option value="Ouganda">Ouganda </option>
+                <option value="Ouzbekistan">Ouzbekistan </option>
+
+                <option value="Pakistan">Pakistan </option>
+                <option value="Palau">Palau </option>
+                <option value="Palestine">Palestine </option>
+                <option value="Panama">Panama </option>
+                <option value="Papouasie_Nouvelle_Guinee">Papouasie_Nouvelle_Guinee </option>
+                <option value="Paraguay">Paraguay </option>
+                <option value="Pays_Bas">Pays_Bas </option>
+                <option value="Perou">Perou </option>
+                <option value="Philippines">Philippines </option>
+                <option value="Pologne">Pologne </option>
+                <option value="Polynesie">Polynesie </option>
+                <option value="Porto_Rico">Porto_Rico </option>
+                <option value="Portugal">Portugal </option>
+
+                <option value="Qatar">Qatar </option>
+
+                <option value="Republique_Dominicaine">Republique_Dominicaine </option>
+                <option value="Republique_Tcheque">Republique_Tcheque </option>
+                <option value="Reunion">Reunion </option>
+                <option value="Roumanie">Roumanie </option>
+                <option value="Royaume_Uni">Royaume_Uni </option>
+                <option value="Russie">Russie </option>
+                <option value="Rwanda">Rwanda </option>
+
+                <option value="Sahara Occidental">Sahara Occidental </option>
+                <option value="Sainte_Lucie">Sainte_Lucie </option>
+                <option value="Saint_Marin">Saint_Marin </option>
+                <option value="Salomon">Salomon </option>
+                <option value="Salvador">Salvador </option>
+                <option value="Samoa_Occidentales">Samoa_Occidentales</option>
+                <option value="Samoa_Americaine">Samoa_Americaine </option>
+                <option value="Sao_Tome_et_Principe">Sao_Tome_et_Principe </option>
+                <option value="Senegal">Senegal </option>
+                <option value="Seychelles">Seychelles </option>
+                <option value="Sierra Leone">Sierra Leone </option>
+                <option value="Singapour">Singapour </option>
+                <option value="Slovaquie">Slovaquie </option>
+                <option value="Slovenie">Slovenie</option>
+                <option value="Somalie">Somalie </option>
+                <option value="Soudan">Soudan </option>
+                <option value="Sri_Lanka">Sri_Lanka </option>
+                <option value="Suede">Suede </option>
+                <option value="Suisse">Suisse </option>
+                <option value="Surinam">Surinam </option>
+                <option value="Swaziland">Swaziland </option>
+                <option value="Syrie">Syrie </option>
+
+                <option value="Tadjikistan">Tadjikistan </option>
+                <option value="Taiwan">Taiwan </option>
+                <option value="Tonga">Tonga </option>
+                <option value="Tanzanie">Tanzanie </option>
+                <option value="Tchad">Tchad </option>
+                <option value="Thailande">Thailande </option>
+                <option value="Tibet">Tibet </option>
+                <option value="Timor_Oriental">Timor_Oriental </option>
+                <option value="Togo">Togo </option>
+                <option value="Trinite_et_Tobago">Trinite_et_Tobago </option>
+                <option value="Tristan da cunha">Tristan de cuncha </option>
+                <option value="Tunisie">Tunisie </option>
+                <option value="Turkmenistan">Turmenistan </option>
+                <option value="Turquie">Turquie </option>
+
+                <option value="Ukraine">Ukraine </option>
+                <option value="Uruguay">Uruguay </option>
+
+                <option value="Vanuatu">Vanuatu </option>
+                <option value="Vatican">Vatican </option>
+                <option value="Venezuela">Venezuela </option>
+                <option value="Vierges_Americaines">Vierges_Americaines </option>
+                <option value="Vierges_Britanniques">Vierges_Britanniques </option>
+                <option value="Vietnam">Vietnam </option>
+
+                <option value="Wake">Wake </option>
+                <option value="Wallis et Futuma">Wallis et Futuma </option>
+
+                <option value="Yemen">Yemen </option>
+                <option value="Yougoslavie">Yougoslavie </option>
+
+                <option value="Zambie">Zambie </option>
+                <option value="Zimbabwe">Zimbabwe </option>
+
+            </select>
+            <script>// Material Select Initialization
+                $(document).ready(function () {
+                    $('.mdb-select').materialSelect();
+                });</script>
+        </div>
+    </div>
+
+    <a class="bouton" href="#section05"><span></span></a>
+</section>
+
+<section id="section05" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section04"> ↑ </a></div>
+
+    </div>
+    <div class="main">
+        <h1>Vous pouvez planifier un voyage</h1>
+        <div class="contenue">
+
+
+            <div class="input-daterange input-group" id="flight-datepicker">
+                <div class="form-item">
+                    <label>Depart le</label><span class="fontawesome-calendar"></span>
+                    <input
+                            class="input-sm form-control" type="text" id="start-date" name="start" placeholder="date de départ"
+                            data-date-format="DD, MM d" /><span class="date-text date-depart"></span>
+                </div>
+                <div class="form-item">
+                    <label>Retour le </label><span class="fontawesome-calendar"></span>
+                    <input
+                            class="input-sm form-control" type="text" id="end-date" name="end" placeholder="date de retour"
+                            data-date-format="DD, MM d" /><span class="date-text date-return"></span>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    let date_input = $('#start-date'); //our date input has the name "date"
+                    let container = date_input.parentElement;
+                    let options = {
+                        format: 'mm/dd/yyyy',
+                        container: container,
+                        todayHighlight: true,
+                        autoclose: true,
+                    };
+                    date_input.datepicker(options);
+
+
+                    let date_input2 = $('#end-date'); //our date input has the name "date"
+                    let container2 = date_input.parentElement;
+                    let options2 = {
+                        format: 'mm/dd/yyyy',
+                        container: container,
+                        todayHighlight: true,
+                        autoclose: true,
+                    };
+                    date_input2.datepicker(options2);
+                })
+            </script>
+            <div>
+                <!-- ICI AUSSI FAUT METTRE LE TRUC WILLIAM-->
+            </div>
+            <div>
+                <a class="plustard" href="">Ne pas planifier de voyage</a>
+            </div>
+
+        </div>
+    </div>
+
+    <a class="bouton" href="#section06"><span></span></a>
+</section>
+
+<section id="section06" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section05"> ↑ </a></div>
+
+    </div>
+    <div class="main">
+        <h1>Vous souhaitez entrer en contact avec des personnes en voyages dans votre région?</h1>
+        <div class="contenue">
+            <div class="reponse">
+                <a class="ouinon">Oui</a>
+                <a class="ouinon">non</a>
+            </div>
+        </div>
+    </div>
+    <a class="bouton" href="#section07"><span></span></a>
+</section>
+
+<section id="section07" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section06"> ↑ </a></div>
+
+    </div>
+    <div class="main">
+        <h1>Choisissez ceux que vous aimez le plus (10 choix à cocher maximum) : </h1>
+        <div class="continue">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary">Série</button>
+                <button type="button" class="btn btn-secondary">Cinéma</button>
+                <button type="button" class="btn btn-secondary">Livre</button>
+                <button type="button" class="btn btn-secondary">Sport</button>
+                <button type="button" class="btn btn-secondary">Voyage</button>
+                <button type="button" class="btn btn-secondary">Art</button>
+                <button type="button" class="btn btn-secondary">Manga</button>
+                <button type="button" class="btn btn-secondary">Cuisine</button>
+                <button type="button" class="btn btn-secondary">Décoration</button>
+                <button type="button" class="btn btn-secondary">Nature</button>
+                <button type="button" class="btn btn-secondary">Animaux</button>
+                <button type="button" class="btn btn-secondary">Bricolage</button>
+                <button type="button" class="btn btn-secondary">Théâtre</button>
+                <button type="button" class="btn btn-secondary">Camping</button>
+                <button type="button" class="btn btn-secondary">Pêche</button>
+                <button type="button" class="btn btn-secondary">Jeux vidéo</button>
+                <button type="button" class="btn btn-secondary">Photographie</button>
+                <button type="button" class="btn btn-secondary">Ecriture</button>
+                <button type="button" class="btn btn-secondary">Bénévolat</button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <a class="bouton" href="#section08"><span></span><span></span><span></span></a>
+</section>
+
+<section id="section08" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section07"> ↑ </a></div>
+
+    </div>
+    <div class="contain">
+
+        <div class="main">
+            <h1> Vous cherchez ?</h1>
+            <div class="contenue">
+                <div class="icon">
+                    <div>
+                        <div class="icone">
+                            <a class="picto" href=""><img class="iconegenre" src="../uploads/images/woman.png" alt=""></a>
+                            <p>Une femme</p>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="icone">
+                            <a class="picto" href=""><img class="iconegenre" src="../uploads/images/men.png" alt=""></a>
+                            <p>Un homme
+                            </p>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="icone">
+                            <a class="picto" href=""> <img class="iconegenre" src="../uploads/images/nogender.png" alt=""></a>
+                            <p>Les deux </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="bouton" href="#section09"><span></span></a>
+    </div>
+</section>
+
+<section id="section09" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section08"> ↑ </a></div>
+
+    </div>
+    <div class="main">
+        <h1>Dans quel ville voulez vous chercher ? :</h1>
+        <div class="contenue">
+            <select name="" id="">
+                <!-- WILIAM REMPLIS LE GENTIL GARCON QUE J'APPRECIE-->
+
+            </select>
+        </div>
+    </div>
+    <a class="bouton" href="#section10"><span></span></a>
+</section>
+
+<section id="section10" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section09"> ↑ </a></div>
+
+    </div>
+    <div class="main">
+        <h1>N'hésitez pas à parler de vous :</h1>
+        <div class="contenue">
+            <div class="form-group purple-border">
+                <label for="exampleFormControlTextarea4">Ecrivez votre description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+            </div>
+            <div>
+                <a class="plustard">Se décrire plus tard</a>
+
+            </div>
+        </div>
+    </div>../
+
+    <a class="bouton" href="#section11"><span></span></a>
+</section>
+
+
+<section id="section11" class="demo">
+    <div class="header" >
+        <div><img class="logo" src="../uploads/images/logo.png" alt="logo"></div>
+        <div class="fleche"><a class="retour" href="#section10"> ↑ </a></div>
+
+    </div>
+    <div class="main">
+        <h1>Que signifie les pictogrammes ? </h1>
+        <div class="contenue">
+            <div>
+                <div class="pictogram"><img class="pictogramme" src="../uploads/images/plane.png" alt="avion"><p>Cette personne fait / a  prévu un court voyage (moins d'1 mois) dans cette ville </p></div>
+            </div>
+            <div>
+                <div class="pictogram"><img class="pictogramme" src="../uploads/images/world.png" alt="terre"><p>Cette personne fait / a  prévu un court voyage (moins d'1 mois) dans cette ville </p></div>
+            </div>
+            <div>
+                <div class="pictogram"><img class="pictogramme" src="../uploads/images/streetview.png" alt="streetview"><p>Cette personne réside dans cette ville  </p></div>
+            </div>
+
+        </div>
+    </div>
+
+    <a class="bouton" href="/"><span></span></a>
+</section>
+</form>
+
+
+
+
+
+</body>
+
+</html>

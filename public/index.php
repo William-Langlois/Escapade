@@ -18,6 +18,8 @@ spl_autoload_register('chargerClasse');
 $router = new \src\Router\Router($_GET['url']);
 // Index
 $router->get('/', "Basic#Index");
+//Accueil
+$router->get('/Accueil','Basic#Accueil');
 // connexion
 $router->get('/Login', 'User#loginForm');
 $router->post('/Login', 'User#loginCheck');
@@ -38,6 +40,19 @@ $router->get('/newlike/:iduser/:iduserliked','Like#likeSomebody#iduser#iduserlik
 
 //notif
 $router->get('/Notification/:iduser','Notifications#ShowNotification#iduser');
+
+//setup du profil
+$router->get('/ProfileSetup/:iduser','User#ShowSetupProfil#iduser');
+$router->post('/ProfileSetup/:iduser','User#ShowSetupProfil#iduser');
+//profile
+$router->get('/Profile/:iduser',"User#ShowProfile#iduser");
+
+//map
+$router->get('/map','User#ShowMap');
+
+//ban
+$router->get('/ban/:concerneid','Ban#ShowBanForm#concerneid');
+$router->post('/ban/:concerneid','Ban#Ban#concerneid');
 
 //Signalement
 $router->get('/','');

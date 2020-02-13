@@ -1,69 +1,57 @@
-{% extends "index.html.twig" %}
-{% block title %}{{ parent() }} - Votre profil {% endblock %}
+<!DOCTYPE html>
+<html class="text-monospace text-nowrap text-truncate text-break">
 
-{% block body %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>profile</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="/assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="/assets/css/styleprofile.css">
+</head>
 
-    <div class="jumbotron">
-        <h1 class="display-4">Bonjour {{ session.login.Prenom }}</h1>
+<body class="d-flex flex-column justify-content-start">
+<nav class="navbar navbar-light navbar-expand-md" style="background-color: #046336;">
+    <div class="container-fluid"><a class="navbar-brand" href="/Accueil"><img src="../uploads/images/logo%20seul.png" style="margin: -5px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div
+                class="collapse navbar-collapse" id="navcol-1" style="margin: 0 70px -25px 70px;">
+            <ul class="nav navbar-nav">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><img src="../uploads/images/glasses.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/Chat/{{ session.login.id }}"><img src="../uploads/images/message.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/notification/{{ session.login.id }}"><img src="../uploads/images/bell.png" style="width: 28px;"></a></li>
+            </ul>
+        </div><a href="#"><img></a></div>
+</nav>
+<div>
+    <div class="media d-flex" style="margin-right: 500px;"><img class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
+        <div class="media-body" style="margin-top: 10px;margin-right: 0px;">
+            <h5 style="font-family: Montserrat, sans-serif;">{{ infoUser.USER_NOM }} {{infoUser.USER_PRENOM }}&nbsp;</h5>
+            <p style="width: 70px;font-family: Montserrat, sans-serif;">{{ age }}</p>
+            <p style="margin-left: 381px;margin-bottom: 0;margin-right: 0px;margin-top: -62px;font-family: Montserrat, sans-serif;">Ville, Pays</p>
+            {% if session.login.id != userid %}
+            <button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">S'abonner</button><a href="/newlike/{{ session.login.id }}/{{ userid }}"><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></a></div>
+            {% endif %}
     </div>
-    {% if session.infoprofil is defined %}
-        <div class="alert alert-danger"
-             style="position: absolute;
-            width:40%;
-            top:130px;
-            left:25%;
-            height:50px;
-            border-radius: 10px;
-            border-width: 1px;
-            border-style: solid">
-            <p style="text-align: center">{{ session.infoprofil }}</p>
-        </div>
-    {% endif %}
+</div>
+<div style="margin-left: 269px;">
+    <section style="background-color: rgba(58,189,128,0.41);height: 177px;width: 487px;margin-left: 673px;margin-top: -94px;">
+        <p class="d-flex" style="font-family: Montserrat, sans-serif;margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">Mes Voyages de prévu :&nbsp;</p>
+        <p style="margin: 26px;font-family: Montserrat, sans-serif;">Paragraph</p>
+    </section>
+</div>
+<div class="d-flex" style="background-color: rgba(242,242,242,0);height: 100%;width: 665px;margin-right: 0px;margin-bottom: 0px;">
+    <p class="text-left d-flex" style="margin: 18px;margin-bottom: 0px;">Paragraphe</p>
+</div>
+<div style="margin-left: 349px;margin-top: 93px;">
+    <section class="d-block" style="height: 73px;width: 475px;margin-left: 690px;margin-bottom: 0px;margin-top: -24px;">
+        <p style="font-family: Montserrat, sans-serif;">Ce que j'aime :&nbsp;</p>
+        <div>
+            <p style="font-family: Montserrat, sans-serif;">Ici ce que les gens aimes</p>
+        </div><button class="btn btn-primary" type="button" style="background-color: rgb(58,189,128);margin-left: 164px;margin-top: 16px;">Galerie Photo</button></section>
+</div>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
 
-    <form style="border-style: solid;border-width: 1px;position: absolute;left: 150px;width: 800px;vertical-align: center;height: 210px;" name="changerNom" method="post" enctype="multipart/form-data">
-        <div class="form-group row">
-            <label style="top: 22px;left: 25px;font-size: x-large;" for="Nom" class="col-sm-2 col-form-label">Nom      </label>
-            <div class="col-sm-10">
-                <input style="position: absolute;top: 22px;width: 25%;" required value="{{ session.login.Nom }}" type="text" name="Nom" class="form-control form-control-lg">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label style="top: 22px;left: 25px;font-size: x-large;" for="Prenom" class="col-sm-2 col-form-label">Prenom     </label>
-            <div class="col-sm-10">
-                <input style="position: absolute;top: 22px;width: 25%;" required value="{{ session.login.Prenom }}" type="text" name="Prenom" class="form-control form-control-lg">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label style="top: 22px;left: 25px;font-size: x-large;" for="Email" class="col-sm-2 col-form-label">Email    </label>
-            <div class="col-sm-10">
-                <input style="position: absolute;top: 22px;width: 73%;" required value="{{ session.login.Email }}" type="text" name="Email" class="form-control form-control-lg">
-            </div>
-        </div>
-        <input style="position: absolute;left: 83%;top:150px;" value="Mettre à jour" type="submit" class="btn btn-primary my-1">
-    </form>
-    {% if userToken =='' %}
-
-
-        <div id="generateToken" class="alert alert-danger"
-             style="position: absolute;
-            width:50%;
-            top:80%;
-            left:5%;
-            height: 120px;
-            border-radius: 10px;
-            border-width: 1px;
-            border-style: solid">
-            <p style="text-decoration: underline;font-size: x-large;text-align: center">Vous n'avez pas de Token-API</p>
-            <a href="/" >
-                <input type="submit" style="position: absolute;left: 40%;text-align: center; color: white;" class="btn btn-primary my-1" value="Générer le Token-API">
-            </a>
-        </div>
-
-
-
-
-    {% endif %}
-
-
-
-{% endblock %}
+</html>

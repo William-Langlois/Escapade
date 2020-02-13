@@ -1,0 +1,7 @@
+{% block body %}
+    <form name="banform" method="post" action="/Ban/{{ concerne }}">
+        <input type="text" name="raison">
+        <input type="date" name="datefin">
+            <input type="submit">
+    </form>
+{% endblock %}
