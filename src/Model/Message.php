@@ -126,13 +126,12 @@ class Message implements \JsonSerializable
             "envoyeur" => $this->getEnvoyeur(),
             "destinataire" => $this->getDestinataire(),
             "contenu" => $this->getContenu(),
-            "date" => date("d-m-Y G:i")
+            "date" => $this->getDateenvoi()
         ]);
-        return;
-
+        return false;
     }
 
-    public function SqlGetChat(\PDO $bdd,$user1,$user2){
+    public function SqlGetMessages(\PDO $bdd,$user1,$user2){
         $query = $bdd->prepare("SELECT * FROM message WHERE (MESSAGE_ENVOYEUR=:uti1 AND MESSAGE_DESTINATAIRE=:uti2)OR(MESSAGE_ENVOYEUR=:uti2 AND MESSAGE_DESTINATAIRE=:uti1) ORDER BY MESSAGE_DATE_ENVOI ASC");
         $query->execute([
             "uti1"=>$user1,

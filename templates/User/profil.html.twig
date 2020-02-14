@@ -21,23 +21,26 @@
                 <li class="nav-item" role="presentation"><a class="nav-link" href="/Chat/{{ session.login.id }}"><img src="../uploads/images/message.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="/notification/{{ session.login.id }}"><img src="../uploads/images/bell.png" style="width: 28px;"></a></li>
             </ul>
-        </div><a href="#"><img></a></div>
+        </div><a href="/UpdateProfile/{{ session.login.id }}">Mettez à jour votre profil<img></a></div>
 </nav>
 <div>
     <div class="media d-flex" style="margin-right: 500px;"><img class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
         <div class="media-body" style="margin-top: 10px;margin-right: 0px;">
-            <h5 style="font-family: Montserrat, sans-serif;">{{ infoUser.USER_NOM }} {{infoUser.USER_PRENOM }}&nbsp;</h5>
+            <h5 style="font-family: Montserrat, sans-serif;">{{ infoUser.nom }} {{infoUser.prenom }}&nbsp;</h5>
             <p style="width: 70px;font-family: Montserrat, sans-serif;">{{ age }}</p>
-            <p style="margin-left: 381px;margin-bottom: 0;margin-right: 0px;margin-top: -62px;font-family: Montserrat, sans-serif;">Ville, Pays</p>
+            <p style="margin-left: 381px;margin-bottom: 0;margin-right: 0px;margin-top: -62px;font-family: Montserrat, sans-serif;">{{ infoUser.ville }}, {{ infoUser.pays }}</p>
             {% if session.login.id != userid %}
             <button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">S'abonner</button><a href="/newlike/{{ session.login.id }}/{{ userid }}"><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></a></div>
-            {% endif %}
+            <button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">Signaler</button><a href="/signaler/{{ session.login.id }}/{{ userid }}/0/signalement"><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i>Signaler</a></div>
+        {% endif %}
     </div>
+
 </div>
+
 <div style="margin-left: 269px;">
     <section style="background-color: rgba(58,189,128,0.41);height: 177px;width: 487px;margin-left: 673px;margin-top: -94px;">
         <p class="d-flex" style="font-family: Montserrat, sans-serif;margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">Mes Voyages de prévu :&nbsp;</p>
-        <p style="margin: 26px;font-family: Montserrat, sans-serif;">Paragraph</p>
+        <p style="margin: 26px;font-family: Montserrat, sans-serif;">Paragraphe</p>
     </section>
 </div>
 <div class="d-flex" style="background-color: rgba(242,242,242,0);height: 100%;width: 665px;margin-right: 0px;margin-bottom: 0px;">
@@ -48,7 +51,7 @@
         <p style="font-family: Montserrat, sans-serif;">Ce que j'aime :&nbsp;</p>
         <div>
             <p style="font-family: Montserrat, sans-serif;">Ici ce que les gens aimes</p>
-        </div><button class="btn btn-primary" type="button" style="background-color: rgb(58,189,128);margin-left: 164px;margin-top: 16px;">Galerie Photo</button></section>
+        </div><a href="/Galerie/{{ session.login.id }}"><button class="btn btn-primary" type="button" style="background-color: rgb(58,189,128);margin-left: 164px;margin-top: 16px;">Galerie Photo</button></a></section>
 </div>
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/bootstrap/js/bootstrap.min.js"></script>

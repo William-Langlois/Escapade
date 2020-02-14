@@ -14,7 +14,7 @@ class NotificationsController extends AbstractController
         $Notifications = $Notif->SqlGetNotif(Bdd::GetInstance(), $idUser);
 
         return $this->twig->render('Notifications/Notifications.html.twig', [
-            "Notification" => $Notifications
+            "Notifications" => $Notifications
         ]);
 
     }
@@ -22,7 +22,6 @@ class NotificationsController extends AbstractController
 
     public static function SendNotifications($idUser, $type, $contenu, $titre)
     {
-
         $Notif = new Notifications();
         $Notif->setIduser($idUser);
         $Notif->setTitre($titre);

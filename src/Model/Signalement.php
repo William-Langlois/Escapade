@@ -63,9 +63,9 @@ class Signalement implements \JsonSerializable
     /**
      * @return mixed
      */
-    public function getManages()
+    public function getManaged()
     {
-        return $this->manages;
+        return $this->managed;
     }
 
     /**
@@ -120,18 +120,15 @@ class Signalement implements \JsonSerializable
         ];
     }
 
-    public function SqlAddSignalement(\PDO $bdd){
-        $query = $bdd->prepare('INSERT INTO signalement (CS_ID, SIGNALEMENT_SOUMETTEUR, SIGNALEMENT_CONCERNE, SIGNALEMENT_CONTEXT) VALUES (:csid, :soumetteur, :concerne, :context)');
+     /* public function SqlAddSignalement(\PDO $bdd){
+        $query = $bdd->prepare('INSERT INTO signalement (SIGNALEMENT_SOUMETTEUR, SIGNALEMENT_CONCERNE, SIGNALEMENT_CONTEXT) VALUES (:soumetteur, :concerne, :context)');
         $query->execute([
             "soumetteur" => $this->getSoumetteur(),
             "concerne" => $this->getConcerne(),
             "context" => $this->getContext(),
-            "idcs" => $this->getIdcs(),
-
-
         ]);
 
-    }
+    } */
 
     public function SqlGetSignalementforUser(\PDO $bdd,$iduser){
         $query = $bdd->prepare('SELECT * FROM signalement WHERE SIGNALEMENT_CONCERNE=:userid');

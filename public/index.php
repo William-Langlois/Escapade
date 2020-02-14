@@ -18,7 +18,7 @@ spl_autoload_register('chargerClasse');
 $router = new \src\Router\Router($_GET['url']);
 // Index
 $router->get('/', "Basic#Index");
-//Accueil
+//Accueilheartplane
 $router->get('/Accueil','Basic#Accueil');
 // connexion
 $router->get('/Login', 'User#loginForm');
@@ -31,7 +31,7 @@ $router->post('/Inscription', 'User#inscriptionCheck');
 //chat
 $router->get('/Chat/:id','Message#ShowChats#id');
 $router->get('/Chat/:iduser/:iddest','Message#ShowOneChat#iduser#iddest');
-$router->post('/Chat/:iduser/:iddest','Message#SendMessage#iduser#iddest');
+$router->post('/sendChat/:iduser/:iddest','Message#SendMessage#iduser#iddest');
 
 //follow
 $router->get('/liked/:iduser','Like#ShowLiked#iduser');
@@ -46,6 +46,12 @@ $router->get('/ProfileSetup/:iduser','User#ShowSetupProfil#iduser');
 $router->post('/ProfileSetup/:iduser','User#ShowSetupProfil#iduser');
 //profile
 $router->get('/Profile/:iduser',"User#ShowProfile#iduser");
+$router->get('/Galerie/:iduser',"User#ShowGalerie#iduser");
+//profile update
+$router->get('/UpdateProfile/:iduser','User#ShowUpdateProfile#iduser');
+$router->post('/UpdateProfile/:iduser','User#UpdateProfile#iduser');
+
+
 
 //map
 $router->get('/map','User#ShowMap');
@@ -55,7 +61,8 @@ $router->get('/ban/:concerneid','Ban#ShowBanForm#concerneid');
 $router->post('/ban/:concerneid','Ban#Ban#concerneid');
 
 //Signalement
-$router->get('/','');
+$router->get('/signalement/:iduser','Signalement#ShowSignalement#iduser');
+$router->get('/signaler/:iduser/:idconcerne/:managed/:context','Signalement#SendSignalement#iduser#idconcerne#managed#context');
 
 echo $router->run();
 

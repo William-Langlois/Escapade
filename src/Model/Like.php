@@ -84,6 +84,7 @@ class Like implements \JsonSerializable
         ];
     }
 
+    //Ajouter un like
     public function SqlAddLike(\PDO $bdd)
     {
         $query = $bdd->prepare('INSERT INTO likes (id_userlike, id_userliked, like_date) VALUES (:userlike, :userliked,:datelike)');
@@ -94,6 +95,7 @@ class Like implements \JsonSerializable
         ]);
     }
 
+    //récupère les utilisateurs likés par un utilisateur
     public function SqlGetUserLiked(\PDO $bdd , $iduser){
         $query = $bdd->prepare('SELECT * FROM likes WHERE id_userlike=:userid');
         $query->execute([
@@ -114,6 +116,7 @@ class Like implements \JsonSerializable
         return $listLike;
     }
 
+    //recupère les utilisateurs qui like un utilisateur
     public function SqlGetUserLike(\PDO $bdd , $iduser){
         $query = $bdd->prepare('SELECT * FROM likes WHERE id_userliked=:userid');
         $query->execute([
@@ -134,11 +137,12 @@ class Like implements \JsonSerializable
         return $listLike;
     }
 
+    /* à mettre en fonction de deux users
     public function SqlDeleteLike(\PDO $bdd , $idlike){
         $query = $bdd->prepare('DELETE FROM likes WHERE id_like=:likeid');
         $query->execute([
             'likeid'=>$idlike
         ]);
 
-    }
+    }*/
 }

@@ -18,8 +18,16 @@
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 
     <link rel="stylesheet" href="/assets/css/stylechat.css">
+
+
 </head>
 <body>
+<a href="/accueil" style="z-index: 100;position: absolute;width: 9%;left: -5%;top: -0%">
+    <div id="ToHomepage">
+        <input style="text-align: center;" class="submit" value="Accueil">
+    </div>
+</a>
+
 <div id="frame">
     <div id="sidepanel">
         <div id="profile">
@@ -55,7 +63,7 @@
                         <img src="{{conv.photo}}" alt="" />
                         <div class="meta">
                             <p class="name">{{ conv.nom }} {{ conv.prenom }}</p>
-                            <p class="preview">Un extrait du dernier message</p>
+                            <p class="preview">{{ extraitMessage }}</p>
                         </div>
                     </div>
                 </li>
@@ -71,7 +79,7 @@
                                             <img src="{{conv.photo}}" alt="" />
                                             <div class="meta">
                                                 <p class="name">{{ conv.nom }} {{ conv.prenom }}</p>
-                                                <p class="preview">Un extrait du dernier message</p>
+                                                <p class="preview">{{ extraitMessage }}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -107,20 +115,21 @@
                 {% endfor %}
             </ul>
         </div>
-        <form name="sendmessage" action="/Chat/{{ session.login.id }}/{{ iddest }}" method="post">
+        <form action="/sendChat/{{ session.login.id }}/{{ iddest }}" method="post">
         <div class="message-input">
             <div class="wrap">
                 <label>
                     <input name="contenu" required type="text" placeholder="Ecrivez votre message ..." />
                 </label>
                 <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                <button  type="submit" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                <button type="submit" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
             </div>
         </div>
         </form>
-    </div>
     {% endif %}
 </div>
+</div>
+
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script >$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 
@@ -151,11 +160,10 @@
             $("#profile-img").addClass("offline");
         } else {
             $("#profile-img").removeClass();
-        };
+        }
 
         $("#status-options").removeClass("active");
     });
-
     //# sourceURL=pen.js
 </script>
 </body></html>

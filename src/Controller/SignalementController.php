@@ -10,10 +10,8 @@ class SignalementController extends AbstractController
 
     public function ShowSignalement($idUser)
     {
-        UserController::idNeed($idUser);
         $Sign = new Signalement();
         $Signalements = $Sign->SqlGetSignalementforUser(Bdd::GetInstance(), $idUser);
-
         return $this->twig->render('Signalement/Signalement.html.twig', [
             "Signalements" => $Signalements
         ]);
@@ -21,11 +19,10 @@ class SignalementController extends AbstractController
     }
 
 
-    public static function SendSignalement($signid, $soumetteur, $concerne, $managed, $context)
+    public static function SendSignalement($soumetteur, $concerne, $managed, $context)
     {
 
         $Sign = new Signalement();
-        $Sign->setSignId($signid);
         $Sign->setSoumetteur($soumetteur);
         $Sign->setConcerne($concerne);
         $Sign->setManaged($managed);

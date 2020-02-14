@@ -185,6 +185,7 @@ class Notifications implements \JsonSerializable
             $Notif->setId($NotifSql['NOTIFICATION_ID']);
             $Notif->setIduser($NotifSql['USER_ID']);
             $Notif->setTitre($NotifSql['NOTIFICATION_TITRE']);
+            $Notif->setType($NotifSql['NOTIFICATION_TYPE']);
             $Notif->setContenu($NotifSql['NOTIFICATION_CONTENU']);
             $Notif->setCreatime($NotifSql['NOTIFICATION_CREATIME']);
             $Notif->setViewtime($NotifSql['NOTIFICATION_VIEWTIME']);

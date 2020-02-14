@@ -36,9 +36,6 @@ class LikeController extends  AbstractController {
         }
         $likes=new Like();
         $listlikes = $likes->SqlGetUserLiked(Bdd::GetInstance(),$iduser);
-        foreach ($listlikes as $like){
-
-        }
 
         $like=new Like();
         $like->setUserlike($iduser);
@@ -46,8 +43,13 @@ class LikeController extends  AbstractController {
         $like->setDate(date("Y-m-d H:i:00"));
         $like->SqlAddLike(Bdd::GetInstance());
 
+        $user=new User();
+        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+        $nom=$userInfo->getNom();
+        $prenom=$userInfo->getPrenom();
+
         $typeNotif="Like";
-        $contenuNotif=$iduser." à aimer votre profil";
+        $contenuNotif=$prenom.' '.$nom." à aimer votre profil";
         $titreNotif = "Votre profil à été liké";
 
         NotificationsController::SendNotifications($iduserliked,$typeNotif,$contenuNotif,$titreNotif);

@@ -250,8 +250,15 @@ class UserController extends AbstractController
                     "prenom" => $userInfoLog['USER_PRENOM'],
                     "nom" => $userInfoLog['USER_NOM'],
                     "email" => $userInfoLog['USER_EMAIL'],
-                    "photo"=>$userInfoLog['USER_PHOTO']);
-                header('Location:/Accueil');
+                    "photo"=>$userInfoLog['USER_PHOTO'],
+                    "ville"=>$userInfoLog['USER_VILLE'],
+                    "birthdate"=>$userInfoLog['USER_BIRTHDATE']);
+                if($_SESSION['login']['ville'] != '') {
+                    header('Location:/Accueil');
+                }
+                else{
+                    header('Location:/ProfileSetup/'.$_SESSION['login']['id']);
+                }
                 //Si les mots de passes en correspondent pas on renvoi une erreur d'authentification
             } else {
                 $_SESSION['errorlogin'] = "Email, Mot de passe ou CAPTCHA incorrect";
@@ -288,8 +295,10 @@ class UserController extends AbstractController
         //verification que le profil concerné appartient bien à l'utilisateur concerné
         $user=new User();
         $userInfo=$user->SqlGet(Bdd::GetInstance(),$idUser);
-
-        $age=0;
+        $age = date('Y') - date('Y', strtotime($userInfo->getBirthdate()));
+        if (date('m-d') < date('m-d' ,strtotime($userInfo->getBirthdate()))) {
+                $age=$age - 1;
+            }
 
         //permet de retirer les messages d'infos après un refresh
         unset($_SESSION['infoprofil']);
@@ -300,13 +309,51 @@ class UserController extends AbstractController
         ]);
     }
 
-    //fonction qui permetTRA (amélioration continue m'voyez) de modifier son email , nom , prenom directement depuis le profil
-    public function UpdateProfil($idUser)
-    {
-        UserController::idNeed($idUser);
-        $_SESSION['infoprofil'] = "Cette fonctionnalité n'est pas encore disponible";
-        header('Location:/Profile/' . $idUser);
+    public function ShowSetupProfil($iduser){
+        UserController::idNeed($iduser);
+        return $this->twig->render('User/setupProfil.html.twig');
     }
+
+    public function ShowUpdateProfile($iduser){
+        UserController::idNeed($iduser);
+        return $this->twig->render('User/paramProfil.html.twig');
+    }
+
+    public function UpdateProfile($iduser){
+        UserController::idNeed($iduser);
+        $user=new User();
+        $user->setPhoto($_POST['avatarfile']);
+        $user->setPrenom($_POST['First_Name']);
+        $user->setNom($_POST['Last_Name']);
+        $user->setBirthdate($_POST['Birthday']);
+        $user->setSexe($_POST['Gender']);
+        $user->setVille($_POST['City']);
+        $user->setPays($_POST['Country']);
+        $user->setNeedsexe($_POST['Genderneed']);
+        $user->setWannadateathome($_POST['athome']);
+        $user->setNeedville($_POST['Cityneed']);
+        $user->setGalerieispublic($_POST['galerieispublic']);
+
+        $user->setIduserci($iduser);
+        $user->setNomci($_POST['Hobby']);
+
+        $user->SqlUpdate(Bdd::GetInstance(),$iduser);
+
+        header('location:/Profile/'.$iduser);
+
+    }
+
+
+    public function ShowGalerie($iduser){
+        UserController::idNeed($iduser);
+        return $this->twig->render('User/galerie.html.twig');
+    }
+
+    public function ShowMap(){
+        return $this->twig->render('Map/map.html.twig');
+    }
+
+    //fonction qui permetTRA (amélioration continue m'voyez) de modifier son email , nom , prenom directement depuis le profil
 
 
 //Fonction qui permet de se déconnecter (vide et supprime les session utilisateurs

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/stylequestionnaire.css">
+    <link rel="stylesheet" href="/assets/css/stylequestionnaire.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <!--  jQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -27,7 +27,7 @@
     <script src="assets/js/jquery.ui.widget.js"></script>
     <script src="assets/js/jquery.iframe-transport.js"></script>
     <script src="assets/js/jquery.fileupload.js"></script>
-    <script src="scriptquestionnaire.js"></script>
+    <script src="assets/js/scriptquestionnaire.js"></script>
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css">
@@ -42,7 +42,6 @@
 </head>
 
 <body>
-<form name="ProfileSetup" method="post" action="/ProfileSetup/{{ session.login.id }}">
 <section id="section01" class="demo">
     <img class="logo" src="../uploads/images/logo.png" alt="logo">
     <div class="main">
@@ -52,7 +51,7 @@
                 <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )"> Ajouter une image</button>
 
                 <div class="image-upload-wrap">
-                    <input name="photo" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
                     <div class="drag-text">
                         <h3>Déplace le fichier ici</h3>
                     </div>
@@ -130,15 +129,17 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
 
                             <!-- Form code begins -->
+                            <form method="post">
                                 <div class="form-group">
                                     <!-- Date input -->
                                     <label class="control-label" for="date">Date de naissance</label>
-                                    <input class="form-control" id="date" name="birthdate" placeholder="MM/DD/YYY" type="text" />
+                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
                                 </div>
                                 <div class="form-group">
                                     <!-- Submit button -->
                                     <button class="btn btn-primary " name="submit" type="submit">Submit</button>
                                 </div>
+                            </form>
                             <!-- Form code ends -->
                             <script>
                                 $(document).ready(function () {
@@ -635,7 +636,7 @@
 
             </div>
         </div>
-    </div>../
+    </div>
 
     <a class="bouton" href="#section11"><span></span></a>
 </section>
@@ -663,9 +664,9 @@
         </div>
     </div>
 
-    <a class="bouton" href="/"><span></span></a>
+    <a class="bouton" href="/accueil"><span></span></a>
 </section>
-</form>
+
 
 
 

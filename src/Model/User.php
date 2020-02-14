@@ -28,11 +28,11 @@ class User implements \JsonSerializable
     private $needsexe;
     private $needville;
     private $km;
+    private $galerieispublic;
 
     private $idci;
     private $iduserci;
     private $nomci;
-    private $categorieci;
 
     private $idvoy;
     private $iduservoy;
@@ -42,6 +42,23 @@ class User implements \JsonSerializable
     private $tovillevoy;
     private $fromdatevoy;
     private $todatevoy;
+
+    /**
+     * @return mixed
+     */
+    public function getGalerieispublic()
+    {
+        return $this->galerieispublic;
+    }
+
+    /**
+     * @param mixed $galerieispublic
+     */
+    public function setGalerieispublic($galerieispublic)
+    {
+        $this->galerieispublic = $galerieispublic;
+    }
+
 
     /**
      * @return mixed
@@ -221,21 +238,6 @@ class User implements \JsonSerializable
         $this->nomci = $nomci;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCategorieci()
-    {
-        return $this->categorieci;
-    }
-
-    /**
-     * @param mixed $categorieci
-     */
-    public function setCategorieci($categorieci)
-    {
-        $this->categorieci = $categorieci;
-    }
 
 
     /**
@@ -659,26 +661,9 @@ class User implements \JsonSerializable
     }
 
 
-    public function SqlUpdate(\PDO $bdd,$iduser){
-        $query = $bdd->prepare('UPDATE user SET USER_PHOTO=:photo,USER_SEXE=:sexe,USER_BIRTHDATE=:birthdate,USER_PAYS=:pays,USER_VILLE=:ville,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDSEXE=:needsexe,USER_NEEDVILLE=:needville,USER_NEEDKM=:km');
-        $query->execute([
-            "photo"=>$this->getPhoto(),
-            "sexe"=>$this->getSexe(),
-            "birthdate"=>$this->getBirthdate(),
-            "pays"=>$this->getPays(),
-            "ville"=>$this->getVille(),
-            "wannadateathome"=>$this->getWannadateathome(),
-            "needsexe"=>$this->getNeedsexe(),
-            "needville"=>$this->getNeedville(),
-            "km"=>$this->getKm()
-        ]);
+   public function SqlAddVoyage(\PDO $bdd,$iduser){
 
-        $queryci = $bdd->prepare('INSERT INTO centre_interet (USER_ID, CI_NOM, CI_CATEGORIE) VALUES (:userid,:cinom,:cicategorie)');
-        $queryci->execute([
-            "userid"=>$iduser,
-            "cinom"=>$this->getNomci(),
-            "cicategorie"=>$this->getCategorieci()
-        ]);
+
 
         $queryvoy = $bdd->prepare('INSERT INTO voyage (USER_ID, VOYAGE_FROM_PAYS, VOYAGE_FROM_VILLE, VOYAGE_DESTINATION_PAYS, VOYAGE_DESTINATION_VILLE, VOYAGE_DATEDEBUT, VOYAGE_DATEFIN) VALUES (:userid,:frompaysvoy,:fromvillevoy,:topaysvoy,:tovillevoy,:fromdatevoy,:todatevoy)');
         $queryvoy->execute([
@@ -719,6 +704,31 @@ class User implements \JsonSerializable
             'user_active_notif' => $this->getActiveNotif(),
             'user_birthdate' => $this->getBirthdate()
         ];
+    }
+
+    public function SqlUpdate(\PDO $bdd,$iduser){
+        $query = $bdd->prepare('UPDATE user SET USER_PHOTO=:photo,USER_PRENOM=:prenom,USER_NOM=:nom,USER_BIRTHDATE=:birthdate,USER_SEXE=:sexe,USER_VILLE=:ville,USER_PAYS=:pays,USER_NEEDSEXE=:needsexe,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDVILLE=:needville,USER_GALERIEISPUBLIC=:galerieispublic WHERE USER_ID=:id');
+        $query->execute([
+            "id"=>$iduser,
+            "photo"=>$this->getPhoto(),
+            "prenom"=>$this->getPrenom(),
+            "nom"=>$this->getNom(),
+            "birthdate"=>$this->getBirthdate(),
+            "sexe"=>$this->getSexe(),
+            "ville"=>$this->getVille(),
+            "pays"=>$this->getPays(),
+            "needsexe"=>$this->getNeedsexe(),
+            "wannadateathome"=>$this->getWannadateathome(),
+            "needville"=>$this->getNeedville(),
+            "galerieispublic"=>$this->getGalerieispublic(),
+
+        ]);
+
+        $queryci = $bdd->prepare('INSERT INTO centre_interet (USER_ID, CI_NOM) VALUES (:userid,:cinom)');
+        $queryci->execute([
+            "userid"=>$iduser,
+            "cinom"=>$this->getNomci(),
+        ]);
     }
 
 
@@ -788,7 +798,7 @@ class User implements \JsonSerializable
 
 
     public function SqlGetLogin(\PDO $bdd , $emailuser){
-            $query = $bdd->prepare('SELECT USER_PASSWORD,USER_ID,USER_EMAIL,USER_NOM,USER_PRENOM FROM user WHERE USER_EMAIL = :useremail');
+            $query = $bdd->prepare('SELECT USER_PASSWORD,USER_ID,USER_EMAIL,USER_NOM,USER_PRENOM,USER_VILLE,USER_PHOTO,USER_BIRTHDATE FROM user WHERE USER_EMAIL = :useremail');
             $query->execute([
                 'useremail' => $emailuser
             ]);
@@ -800,6 +810,9 @@ class User implements \JsonSerializable
             $user->setNom($UserInfoLog['USER_NOM']);
             $user->setPrenom($UserInfoLog['USER_PRENOM']);
             $user->setEmail($UserInfoLog['USER_EMAIL']);
+            $user->setPhoto($UserInfoLog['USER_VILLE']);
+            $user->setVille($UserInfoLog['USER_PHOTO']);
+            $user->setBirthdate($UserInfoLog['USER_BIRTHDATE']);
             $user->setLastconnection(date("d-m-Y G:i"));
 
             $UserInfoLog[] = $user;
@@ -852,91 +865,6 @@ class User implements \JsonSerializable
                 "password" => $this->getPassword(),
                 "email" => $this->getEmail()
             ]);
-
-            $email2 = $_POST['Email'];
-            $login = $_POST['Email'];
-
-// Génération aléatoire d'une clé
-            $cle = md5(microtime(TRUE)*100000);
-
-
-// Insertion de la clé dans la base de données (à adapter en INSERT si besoin)
-            $stmt = $bdd->prepare("UPDATE user SET USER_CLE=:cle WHERE USER_EMAIL like :login");
-            $stmt->bindParam(':cle', $cle);
-            $stmt->bindParam(':login', $login);
-            $stmt->execute();
-
-
-// Préparation du mail contenant le lien d'activation
-            $destinataire = $email2;
-            $sujet = "Activer votre compte" ;
-            $entete = "From: inscription@votresite ,.com" ;
-
-// Le lien d'activation est composé du login(log) et de la clé(cle)
-            $message = "Bienvenue sur VotreSite,
- 
-Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
-ou copier/coller dans votre navigateur Internet.
- 
-www.heartplane.local/User/ValidationEmail?log=$login&cle=$cle
-
-
-            ---------------
-Ceci est un mail automatique, Merci de ne pas y répondre.";
-
-echo($message);
-mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
-            return array("result"=>true,"message"=>$bdd->lastInsertId());
-        /*}catch (\Exception $e){
-            header("location:/");
-            return array("result"=>false,"message"=>$e->getMessage());
-        }*/
-
-    }
-    public function SqlVerifEmail(\PDO $bdd,$logget,$cleget)
-    {
-
-        $login = $logget;
-        $cle = $cleget;
-
-// Récupération de la clé correspondant au $login dans la base de données
-        $stmt = $bdd->prepare("SELECT USER_CLE,USER_VALIDEMAIL FROM user WHERE USER_EMAIL like :login ");
-        if($stmt->execute(array(':login' => $login)) && $row = $stmt->fetch())
-        {
-            $clebdd = $row['USER_CLE'];    // Récupération de la clé
-            $actif = $row['USER_VALIDEMAIL']; // $actif contiendra alors 0 ou 1
-        }
-
-
-// On teste la valeur de la variable $actif récupérée dans la BDD
-        if($actif == '1') // Si le compte est déjà actif on prévient
-        {
-            echo "Votre compte est déjà actif !";
-        }
-        else // Si ce n'est pas le cas on passe aux comparaisons
-        {
-            if($cle == $clebdd) // On compare nos deux clés
-            {
-                // Si elles correspondent on active le compte !
-                echo "Votre compte a bien été activé !";
-
-                // La requête qui va passer notre champ actif de 0 à 1
-                $stmt = $bdd->prepare("UPDATE user SET USER_VALIDEMAIL = 1 WHERE USER_EMAIL like :login ");
-                $stmt->bindParam(':login', $login);
-                $stmt->execute();
-            }
-            else // Si les deux clés sont différentes on provoque une erreur...
-            {
-                echo "Erreur ! Votre compte ne peut être activé...";
-            }
-        }
-
-
-//...
-// Fermeture de la connexion
-//...
-// Votre code
-//...
     }
 
     }

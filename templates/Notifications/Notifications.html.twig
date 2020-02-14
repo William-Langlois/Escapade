@@ -1,1 +1,59 @@
-{{ dump(Notification) }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>notification</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="/assets/css/NavBar-Notifications-Panel-1.css">
+    <link rel="stylesheet" href="/assets/css/NavBar-Notifications-Panel.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-md" style="background-color: #046336;">
+    <div class="container-fluid"><a class="navbar-brand" href="/accueil"><img src="../uploads/images/logo%20seul.png" style="margin: -5px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div
+                class="collapse navbar-collapse" id="navcol-1" style="margin: 0 70px -25px 70px;">
+            <ul class="nav navbar-nav">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><img src="../uploads/images/glasses.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/chat/{{ session.login.id }}"><img src="../uploads/images/message.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/notification/{{ session.login.id }}"><img src="../uploads/images/bell.png" style="width: 28px;"></a></li>
+            </ul>
+        </div><a href="/Profile/{{ session.login.id }}">Profil<img></a></div>
+</nav>
+<nav class="navbar navbar-light navbar-expand-md">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav">
+                <li>
+                <div class="dropdown-menu show notification-menu" role="menu">
+                    {% for Notif in Notifications %}
+                        {% if Notif.type == "Message" %}
+                            <a class="dropdown-item notification-item" role="presentation" href="/chat/{{ session.login.id }}"><img src="../uploads/images/avatar.jpg">
+                                <div>
+                                    <p>{{ Notif.titre }}</p><span>Le {{ Notif.creatime }} </span><span>{{ Notif.contenu }}... </span>
+                                </div>
+                            </a>
+                        {% endif %}
+                        {% if Notif.type =="Like" %}
+                        <a class="dropdown-item notification-item" role="presentation" href="/Like/{{ session.login.id }}"><img src="../uploads/images/avatar.jpg">
+                            <div>
+                                <p>{{ Notif.titre }}</p><span>Le {{ Notif.creatime }} </span>
+                            </div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

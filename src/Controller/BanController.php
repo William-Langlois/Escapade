@@ -11,7 +11,7 @@ class BanController extends  AbstractController
     public static function CheckBan($iduser){
         $ban=new Ban();
         $lastban=$ban->SqlGetBan(Bdd::GetInstance(),$iduser);
-        if($lastban[0] != ''){
+        if(isset($lastban[0])){
             $_SESSION['errorlogin']="Vous avez été banni ";
             header("location:/login");
             die;

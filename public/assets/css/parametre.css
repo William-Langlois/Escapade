@@ -21,8 +21,7 @@ h3{
     font-size: 11pt; 
     font-style: normal;
     font-weight: bold;
-    text-align:; 
-    background-color: rgba(105, 90, 205, 0); 
+    background-color: rgba(105, 90, 205, 0);
     border-collapse: collapse; 
   
   }
@@ -51,7 +50,8 @@ button, input {
 }
 
 input[type=checkbox], input[type=radio] {
-  box-sizing: border-box;
-  padding: 0;
-  margin-right: 10px;
-  margin-left: 1px;
+    box-sizing: border-box;
+    padding: 0;
+    margin-right: 10px;
+    margin-left: 1px;
+}

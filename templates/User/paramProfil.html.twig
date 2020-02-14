@@ -1,0 +1,285 @@
+<html>
+
+<head>
+    <title>formulaire d'édition du profil</title>
+    <link rel="stylesheet" href="/assets/cssparametre.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="/assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-1.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="assets/js/jquery.knob.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-md" style="background-color: #046336;">
+    <div class="container-fluid"><a class="navbar-brand" href="/Accueil"><img src="../uploads/images/logo%20seul.png"
+                                                                       style="margin: -5px;"></a><button data-toggle="collapse" class="navbar-toggler"
+                                                                                                         data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1" style="margin: 0 70px -25px 70px;">
+            <ul class="nav navbar-nav">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><img
+                                src="img/glasses.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/chat/{{ session.login.id }}"><img src="../uploads/images/message.png"
+                                                                                           style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/notification/{{ session.login.id }}"><img src="../uploads/images/bell.png"
+                                                                                           style="width: 28px;"></a></li>
+            </ul>
+        </div><a href="/Profile/{{ session.login.id }}">Retour au profil<img></a>
+    </div>
+</nav>
+
+<div id="fond">
+    <h3>Editez votre profil</h3>
+
+<form name="updateProfile" method="post" action="/UpdateProfile/{{ session.login.id }}">
+    <table align="center" cellpadding="10">
+
+        <div class="container profile profile-view" id="profile">
+            <div class="row">
+                <div class="col-md-12 alert-col relative">
+                    <div class="alert alert-info absolue center" role="alert"><button type="button" class="close"
+                                                                                      data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span></button><span>Profile save with success</span></div>
+                </div>
+            </div>
+            <form>
+                <div class="form-row profile-row">
+                    <div class="col-md-4 relative">
+                        <div class="avatar">
+                            <div class="avatar-bg center"></div>
+                        </div><input type="file" class="form-control" name="avatarfile">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/Profile-Edit-Form.js"></script>
+
+        <!----- First Name ---------------------------------------------------------->
+        <tr>
+            <td>Prénom</td>
+            <td><input required type="text" name="First_Name" maxlength="30" />
+
+            </td>
+        </tr>
+
+        <!----- Last Name ---------------------------------------------------------->
+        <tr>
+            <td>Nom</td>
+            <td><input required type="text" name="Last_Name" maxlength="100" /></td>
+        </tr>
+
+        <!----- Date Of Birth -------------------------------------------------------->
+        <tr>
+            <td>Date de naissance</td>
+
+            <td>
+                <input required type="date" name="Birthday">
+            </td>
+        </tr>
+
+        <!----- Gender ----------------------------------------------------------->
+        <tr>
+            <td>Genre</td>
+            <td>
+                Homme <input type="radio" name="Gender" value="1" />
+                Femme <input type="radio" name="Gender" value="0" />
+                Pas de genre <input type="radio" name="Gender" value="2" />
+            </td>
+        </tr>
+
+
+        <!----- City ---------------------------------------------------------->
+        <tr>
+            <td>Ville</td>
+            <td><input required type="text" name="City" maxlength="30" />
+
+            </td>
+        </tr>
+
+        <!----- Pin Code ---------------------------------------------------------->
+
+        <!----- State ---------------------------------------------------------->
+
+
+        <!----- Country ---------------------------------------------------------->
+        <tr>
+            <td>Pays</td>
+            <td><input required type="text" name="Country" value="France" readonly="readonly" /></td>
+        </tr>
+
+        <!----- Hobbies ---------------------------------------------------------->
+
+        <tr>
+            <td>Loisir <br /><br /><br /></td>
+
+            <td>
+                Série
+                <label>
+                    <input type="checkbox" name="Hobby" value="série" />
+                </label>
+                Cinéma
+                <label>
+                    <input type="checkbox" name="Hobby" value="Cinéma" />
+                </label>
+                Livre
+                <label>
+                    <input type="checkbox" name="Hobby" value="Livre" />
+                </label>
+                Sport
+                <label>
+                    <input type="checkbox" name="Hobby" value="Sport" />
+                </label>
+                Voyage
+                <label>
+                    <input type="checkbox" name="Hobby" value="voyage" />
+                </label>
+                Art
+                <label>
+                    <input type="checkbox" name="Hobby" value="art" />
+                </label>
+                Manga
+                <label>
+                    <input type="checkbox" name="Hobby" value="manga" />
+                </label>
+                Cuisine
+                <label>
+                    <input type="checkbox" name="Hobby" value="cuisine" />
+                </label>
+                Décoration
+                <label>
+                    <input type="checkbox" name="Hobby" value="décoration" />
+                </label>
+                Nature
+                <label>
+                    <input type="checkbox" name="Hobby" value="nature" />
+                </label>
+                Bricolage
+                <label>
+                    <input type="checkbox" name="Hobby" value="Bricolage" />
+                </label>
+                Théâtre
+                <label>
+                    <input type="checkbox" name="Hobby" value="théâtre" />
+                </label>
+                Camping
+                <label>
+                    <input type="checkbox" name="Hobby" value="camping" />
+                </label>
+                Pêche
+                <label>
+                    <input type="checkbox" name="Hobby" value="pêche" />
+                </label>
+                Photographie
+                <label>
+                    <input type="checkbox" name="Hobby" value="photographie" />
+                </label>
+                Jeux vidéos
+                <label>
+                    <input type="checkbox" name="Hobby" value="jeux vidéo" />
+                </label>
+                Ecriture
+                <label>
+                    <input type="checkbox" name="Hobby" value="Ecriture" />
+                </label>
+                Bénévolat
+                <label>
+                    <input type="checkbox" name="Hobby" value="Bénévolat" />
+                </label>
+                <br />
+                Others
+                <label>
+                    <input type="checkbox" name="Hobby_Other" value="Other">
+                </label>
+                <label>
+                    <input type="text" name="Other_Hobby" maxlength="30" />
+                </label>
+            </td>
+        </tr>
+
+
+        <!----- je cherche ---------------------------------------------------------->
+
+        <tr>
+            <td>Je cherche</td>
+            <td>
+                Homme <input type="radio" name="Genderneed" value="1" />
+                Femme <input type="radio" name="Genderneed" value="0" />
+                Les deux <input type="radio" name="Genderneed" value="2" />
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td>Souhaitez vous rencontrer des gens dans votre région ? </td>
+            <td>
+                Oui <input type="radio" name="athome" value="1" />
+                Non <input type="radio" name="athome" value="0" />
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>Dans quel ville souhaitez vous chercher ? </td>
+            <td><input type="text" name="Cityneed" maxlength="30" />
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>Qui peut voir mon profil </td>
+            <td>
+                Tout le monde <input type="radio" name="galerieispublic" value="1" />
+                Uniquement les profils auquels je suis abonnés <input type="radio" name="galerieispublic"
+                                                                      value="0" />
+            </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!----- Submit and Reset ------------------------------------------------->
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </td>
+        </tr>
+    </table>
+
+    </form>
+</div>
+</body>
+
+</html>
