@@ -1,0 +1,57 @@
+
+Body{
+  margin:0;
+  padding: 0;
+  font-family: "montserrat", sans-serif;
+}
+
+h3{
+    font-family: Calibri; 
+    font-size: 25pt;         
+    font-style: normal; 
+    font-weight: bold; 
+    color:white;
+    text-align: center; 
+ margin: 1.5em;
+  }
+  
+  table{
+    font-family: Calibri; 
+    color:white; 
+    font-size: 11pt; 
+    font-style: normal;
+    font-weight: bold;
+    text-align:; 
+    background-color: rgba(105, 90, 205, 0); 
+    border-collapse: collapse; 
+  
+  }
+  table.inner{
+    border: 0px
+  }
+
+  #fond
+{
+  background-color: #202020;
+}
+
+button, input {
+  overflow: visible;
+  border-radius: 25px;
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+  font-size: 1.2em;
+  cursor: pointer;
+  background-color: #48A37A;
+  border: 0px #48A37A;
+  margin: 1em;
+  color: white;
+  padding: 4px 22px;
+}
+
+input[type=checkbox], input[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+  margin-right: 10px;
+  margin-left: 1px;
