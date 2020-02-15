@@ -18,7 +18,8 @@ class User implements \JsonSerializable
     private $dateinscription;
     private $lastconnection;
     private $sexe;
-    private $photo;
+    private $photoNom;
+    private $photoRepo;
     private $wannadateathome;
     private $isadmin;
     private $acceptemail;
@@ -30,18 +31,39 @@ class User implements \JsonSerializable
     private $km;
     private $galerieispublic;
 
-    private $idci;
-    private $iduserci;
-    private $nomci;
+    /**
+     * @return mixed
+     */
+    public function getPhotoNom()
+    {
+        return $this->photoNom;
+    }
 
-    private $idvoy;
-    private $iduservoy;
-    private $frompaysvoy;
-    private $fromvillevoy;
-    private $topaysvoy;
-    private $tovillevoy;
-    private $fromdatevoy;
-    private $todatevoy;
+    /**
+     * @param mixed $photoNom
+     */
+    public function setPhotoNom($photoNom)
+    {
+        $this->photoNom = $photoNom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoRepo()
+    {
+        return $this->photoRepo;
+    }
+
+    /**
+     * @param mixed $photoRepo
+     */
+    public function setPhotoRepo($photoRepo)
+    {
+        $this->photoRepo = $photoRepo;
+    }
+
+
 
     /**
      * @return mixed
@@ -58,187 +80,6 @@ class User implements \JsonSerializable
     {
         $this->galerieispublic = $galerieispublic;
     }
-
-
-    /**
-     * @return mixed
-     */
-    public function getIdvoy()
-    {
-        return $this->idvoy;
-    }
-
-    /**
-     * @param mixed $idvoy
-     */
-    public function setIdvoy($idvoy)
-    {
-        $this->idvoy = $idvoy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIduservoy()
-    {
-        return $this->iduservoy;
-    }
-
-    /**
-     * @param mixed $iduservoy
-     */
-    public function setIduservoy($iduservoy)
-    {
-        $this->iduservoy = $iduservoy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFrompaysvoy()
-    {
-        return $this->frompaysvoy;
-    }
-
-    /**
-     * @param mixed $frompaysvoy
-     */
-    public function setFrompaysvoy($frompaysvoy)
-    {
-        $this->frompaysvoy = $frompaysvoy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFromvillevoy()
-    {
-        return $this->fromvillevoy;
-    }
-
-    /**
-     * @param mixed $fromvillevoy
-     */
-    public function setFromvillevoy($fromvillevoy)
-    {
-        $this->fromvillevoy = $fromvillevoy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTopaysvoy()
-    {
-        return $this->topaysvoy;
-    }
-
-    /**
-     * @param mixed $topaysvoy
-     */
-    public function setTopaysvoy($topaysvoy)
-    {
-        $this->topaysvoy = $topaysvoy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTovillevoy()
-    {
-        return $this->tovillevoy;
-    }
-
-    /**
-     * @param mixed $tovillevoy
-     */
-    public function setTovillevoy($tovillevoy)
-    {
-        $this->tovillevoy = $tovillevoy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFromdatevoy()
-    {
-        return $this->fromdatevoy;
-    }
-
-    /**
-     * @param mixed $fromdatevoy
-     */
-    public function setFromdatevoy($fromdatevoy)
-    {
-        $this->fromdatevoy = $fromdatevoy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTodatevoy()
-    {
-        return $this->todatevoy;
-    }
-
-    /**
-     * @param mixed $todatevoy
-     */
-    public function setTodatevoy($todatevoy)
-    {
-        $this->todatevoy = $todatevoy;
-    }
-
-
-
-    /**
-     * @return mixed
-     */
-    public function getIdci()
-    {
-        return $this->idci;
-    }
-
-    /**
-     * @param mixed $idci
-     */
-    public function setIdci($idci)
-    {
-        $this->idci = $idci;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIduserci()
-    {
-        return $this->iduserci;
-    }
-
-    /**
-     * @param mixed $iduserci
-     */
-    public function setIduserci($iduserci)
-    {
-        $this->iduserci = $iduserci;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNomci()
-    {
-        return $this->nomci;
-    }
-
-    /**
-     * @param mixed $nomci
-     */
-    public function setNomci($nomci)
-    {
-        $this->nomci = $nomci;
-    }
-
-
 
     /**
      * @return mixed
@@ -468,53 +309,6 @@ class User implements \JsonSerializable
         $this->ville = $ville;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRue()
-    {
-        return $this->rue;
-    }
-
-    /**
-     * @param mixed $rue
-     */
-    public function setRue($rue)
-    {
-        $this->rue = $rue;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNumRue()
-    {
-        return $this->num_rue;
-    }
-
-    /**
-     * @param mixed $num_rue
-     */
-    public function setNumRue($num_rue)
-    {
-        $this->num_rue = $num_rue;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTelnum()
-    {
-        return $this->telnum;
-    }
-
-    /**
-     * @param mixed $telnum
-     */
-    public function setTelnum($telnum)
-    {
-        $this->telnum = $telnum;
-    }
 
     /**
      * @return mixed
@@ -563,23 +357,6 @@ class User implements \JsonSerializable
     {
         $this->sexe = $sexe;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param mixed $photo
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-    }
-
     /**
      * @return mixed
      */
@@ -707,10 +484,11 @@ class User implements \JsonSerializable
     }
 
     public function SqlUpdate(\PDO $bdd,$iduser){
-        $query = $bdd->prepare('UPDATE user SET USER_PHOTO=:photo,USER_PRENOM=:prenom,USER_NOM=:nom,USER_BIRTHDATE=:birthdate,USER_SEXE=:sexe,USER_VILLE=:ville,USER_PAYS=:pays,USER_NEEDSEXE=:needsexe,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDVILLE=:needville,USER_GALERIEISPUBLIC=:galerieispublic WHERE USER_ID=:id');
+        $query = $bdd->prepare('UPDATE user SET USER_PHOTOREPO=:photorepo,USER_PHOTONOM=:photonom,USER_PRENOM=:prenom,USER_NOM=:nom,USER_BIRTHDATE=:birthdate,USER_SEXE=:sexe,USER_VILLE=:ville,USER_PAYS=:pays,USER_NEEDSEXE=:needsexe,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDVILLE=:needville,USER_GALERIEISPUBLIC=:galerieispublic WHERE USER_ID=:id');
         $query->execute([
             "id"=>$iduser,
-            "photo"=>$this->getPhoto(),
+            "photonom"=>$this->getPhotoNom(),
+            "photorepo"=>$this->getPhotoRepo(),
             "prenom"=>$this->getPrenom(),
             "nom"=>$this->getNom(),
             "birthdate"=>$this->getBirthdate(),
@@ -722,12 +500,6 @@ class User implements \JsonSerializable
             "needville"=>$this->getNeedville(),
             "galerieispublic"=>$this->getGalerieispublic(),
 
-        ]);
-
-        $queryci = $bdd->prepare('INSERT INTO centre_interet (USER_ID, CI_NOM) VALUES (:userid,:cinom)');
-        $queryci->execute([
-            "userid"=>$iduser,
-            "cinom"=>$this->getNomci(),
         ]);
     }
 
@@ -753,13 +525,17 @@ class User implements \JsonSerializable
     $user->setDateInscription($UserInfo['USER_DATE_INSCRIPTION']);
     $user->setLastConnection($UserInfo['USER_LAST_CONNECTION']);
     $user->setSexe($UserInfo['USER_SEXE']);
-    $user->setPhoto($UserInfo['USER_PHOTO']);
+    $user->setPhotoNom($UserInfo['USER_PHOTONOM']);
+    $user->setPhotoRepo($UserInfo['USER_PHOTOREPO']);
     $user->setWannadateathome($UserInfo['USER_WANNADATEATHOME']);
     $user->setIsadmin($UserInfo['USER_ISADMIN']);
     $user->setAcceptEmail($UserInfo['USER_ACCEPT_EMAIL']);
     $user->setAcceptMessage($UserInfo['USER_ACCEPT_MESSAGE']);
     $user->setActiveNotif($UserInfo['USER_ACTIVE_NOTIF']);
     $user->setBirthdate($UserInfo['USER_BIRTHDATE']);
+    $user->setNeedsexe($UserInfo['USER_NEEDSEXE']);
+    $user->setNeedville($UserInfo['USER_NEEDVILLE']);
+    $user->setGalerieispublic($UserInfo['USER_GALERIEISPUBLIC']);
 
     $UserInfoReturn = $user;
 

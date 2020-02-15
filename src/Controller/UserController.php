@@ -2,7 +2,9 @@
 
 namespace src\Controller;
 
+use DateTime;
 use src\Model\Bdd;
+use src\Model\Photo;
 use src\Model\User;
 
 class UserController extends AbstractController
@@ -261,7 +263,7 @@ class UserController extends AbstractController
                 }
                 //Si les mots de passes en correspondent pas on renvoi une erreur d'authentification
             } else {
-                $_SESSION['errorlogin'] = "Email, Mot de passe ou CAPTCHA incorrect";
+                $_SESSION['errorlogin'] = "Email , Mot de passe ou CAPTCHA incorrect";
                 header('Location:/Login');
                 return;
             }
@@ -311,18 +313,49 @@ class UserController extends AbstractController
 
     public function ShowSetupProfil($iduser){
         UserController::idNeed($iduser);
+        $user=new User();
+        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
         return $this->twig->render('User/setupProfil.html.twig');
     }
 
     public function ShowUpdateProfile($iduser){
         UserController::idNeed($iduser);
-        return $this->twig->render('User/paramProfil.html.twig');
+        $user=new User();
+        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+        return $this->twig->render('User/paramProfil.html.twig',[
+            "user"=>$userInfo
+        ]);
     }
 
     public function UpdateProfile($iduser){
         UserController::idNeed($iduser);
+        $sqlRepository = null;
+        $nomImage = null;
+        if(!empty($_FILES['image']['name']) )
+        {
+            $tabExt = array('jpg','gif','png','jpeg');    // Extensions autorisees
+            $extension  = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            if(in_array(strtolower($extension),$tabExt))
+            {
+                $nomImage = md5(uniqid()) .'.'. $extension;
+                $sqlRepository = date('Y/m');
+                $repository = './uploads/images/avatars/'.date('Y/m');
+                if(!is_dir($repository)){
+                    mkdir($repository,0777,true);
+                }
+                move_uploaded_file($_FILES['image']['tmp_name'], $repository.'/'.$nomImage);
+            }
+        }
+        $photo = new Photo();
+        $photo->setUserid($iduser);
+        $photo->setNom($nomImage);
+        $photo->setRepository($sqlRepository);
+        $photo->setCategorie("Profil");
+        $photo->SqlAddPhoto(Bdd::GetInstance());
+
         $user=new User();
-        $user->setPhoto($_POST['avatarfile']);
+        $user->setPhotoNom($nomImage);
+        $user->setPhotoRepo($sqlRepository);
         $user->setPrenom($_POST['First_Name']);
         $user->setNom($_POST['Last_Name']);
         $user->setBirthdate($_POST['Birthday']);
@@ -334,13 +367,10 @@ class UserController extends AbstractController
         $user->setNeedville($_POST['Cityneed']);
         $user->setGalerieispublic($_POST['galerieispublic']);
 
-        $user->setIduserci($iduser);
-        $user->setNomci($_POST['Hobby']);
-
         $user->SqlUpdate(Bdd::GetInstance(),$iduser);
 
-        header('location:/Profile/'.$iduser);
 
+        header('location:/Profile/'.$iduser);
     }
 
 
