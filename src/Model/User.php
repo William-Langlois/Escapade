@@ -574,7 +574,7 @@ class User implements \JsonSerializable
 
 
     public function SqlGetLogin(\PDO $bdd , $emailuser){
-            $query = $bdd->prepare('SELECT USER_PASSWORD,USER_ID,USER_EMAIL,USER_NOM,USER_PRENOM,USER_VILLE,USER_PHOTO,USER_BIRTHDATE FROM user WHERE USER_EMAIL = :useremail');
+            $query = $bdd->prepare('SELECT USER_PASSWORD,USER_ID,USER_EMAIL,USER_NOM,USER_PRENOM,USER_VILLE,USER_PHOTONOM,USER_PHOTOREPO,USER_BIRTHDATE FROM user WHERE USER_EMAIL = :useremail');
             $query->execute([
                 'useremail' => $emailuser
             ]);
@@ -586,8 +586,9 @@ class User implements \JsonSerializable
             $user->setNom($UserInfoLog['USER_NOM']);
             $user->setPrenom($UserInfoLog['USER_PRENOM']);
             $user->setEmail($UserInfoLog['USER_EMAIL']);
-            $user->setPhoto($UserInfoLog['USER_VILLE']);
-            $user->setVille($UserInfoLog['USER_PHOTO']);
+            $user->setPhotoNom($UserInfoLog['USER_PHOTONOM']);
+            $user->setPhotoRepo($UserInfoLog['USER_PHOTOREPO']);
+            $user->setVille($UserInfoLog['USER_VILLE']);
             $user->setBirthdate($UserInfoLog['USER_BIRTHDATE']);
             $user->setLastconnection(date("d-m-Y G:i"));
 

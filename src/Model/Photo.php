@@ -113,4 +113,48 @@ class Photo implements \JsonSerializable
         ]);
     }
 
+    public function GetUserPhoto(\PDO $bdd,$iduser){
+        $query = $bdd->prepare('SELECT * FROM photo WHERE USER_ID=:userid');
+        $query->execute([
+            "userid"=>$iduser
+        ]);
+
+        $PhotoArray=$query->fetchAll();
+        $PhotoList=[];
+        foreach ($PhotoArray as $PhotoSql){
+            $photo=new Photo();
+            $photo->setId($PhotoSql['PHOTO_ID']);
+            $photo->setUserid($PhotoSql['USER_ID']);
+            $photo->setNom($PhotoSql['PHOTO_NOM']);
+            $photo->setRepository($PhotoSql['PHOTO_REPOSITORY']);
+            $photo->setCategorie($PhotoSql['PHOTO_CATEGORIE']);
+
+            $PhotoList[]=$photo;
+        }
+        return $PhotoList;
+    }
+
+    public function SqlGetCategorie(\PDO $bdd,$iduser){
+        $query = $bdd->prepare('SELECT DISTINCT PHOTO_CATEGORIE FROM photo WHERE USER_ID=:userid');
+        $query->execute([
+            "userid"=>$iduser
+        ]);
+        $CategorieArray=$query->fetchAll();
+        $ListCategorie=[];
+        foreach ($CategorieArray as $categorie){
+            $photo=new Photo();
+            $photo->setCategorie($categorie['PHOTO_CATEGORIE']);
+
+            $ListCategorie[]=$photo->getCategorie();
+        }
+        return $ListCategorie;
+    }
+
+    public function DeletePhoto(\PDO $bdd,$idphoto){
+        $query = $bdd->prepare('DELETE FROM photo WHERE PHOTO_ID=:photoid');
+        $query->execute([
+            "photoid"=>$idphoto
+        ]);
+    }
+
 }

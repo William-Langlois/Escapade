@@ -32,7 +32,7 @@
     <div id="sidepanel">
         <div id="profile">
             <div class="wrap">
-                {% if infoUser.photoNom != '' and file_exist('./uploads/images/avatars/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
+                {% if infoUser.photoNom != '' and file_exist('./uploads/images/useruploads/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
                     <img id="profile-img" alt="Avatar" src="../uploads/images/avatars/{{ infoUser.photoRepo }}/{{infoUser.photoNom}}" class="online">
                 {% else %}
                     <img id="profile-img" alt="No Avatar" src='../uploads/images/avatars/avatar_defaut.png' class="online" >

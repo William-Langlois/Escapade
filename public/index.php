@@ -47,11 +47,14 @@ $router->post('/ProfileSetup/:iduser','User#ShowSetupProfil#iduser');
 //profile
 $router->get('/Profile/:iduser',"User#ShowProfile#iduser");
 $router->get('/Galerie/:iduser',"User#ShowGalerie#iduser");
+$router->get('/Galerie/:categorie/:iduser',"User#ShowGalerieCategorie#categorie#iduser");
+$router->get('/AddPhoto/:iduser',"User#ShowAddPhoto#iduser");
+$router->post('/AddPhoto/:iduser',"User#AddPhoto#iduser");
+$router->get('/DeletePhoto/:idphoto/:redirect','User#DeletePhoto#idphoto#redirect');
+
 //profile update
 $router->get('/UpdateProfile/:iduser','User#ShowUpdateProfile#iduser');
 $router->post('/UpdateProfile/:iduser','User#UpdateProfile#iduser');
-
-
 
 //map
 $router->get('/map','User#ShowMap');

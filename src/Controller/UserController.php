@@ -339,19 +339,21 @@ class UserController extends AbstractController
             {
                 $nomImage = md5(uniqid()) .'.'. $extension;
                 $sqlRepository = date('Y/m');
-                $repository = './uploads/images/avatars/'.date('Y/m');
+                $repository = './uploads/images/useruploads/'.date('Y/m');
                 if(!is_dir($repository)){
                     mkdir($repository,0777,true);
                 }
                 move_uploaded_file($_FILES['image']['tmp_name'], $repository.'/'.$nomImage);
             }
         }
-        $photo = new Photo();
-        $photo->setUserid($iduser);
-        $photo->setNom($nomImage);
-        $photo->setRepository($sqlRepository);
-        $photo->setCategorie("Profil");
-        $photo->SqlAddPhoto(Bdd::GetInstance());
+        if($nomImage!='' and $sqlRepository!= '') {
+            $photo = new Photo();
+            $photo->setUserid($iduser);
+            $photo->setNom($nomImage);
+            $photo->setRepository($sqlRepository);
+            $photo->setCategorie("Profil");
+            $photo->SqlAddPhoto(Bdd::GetInstance());
+        }
 
         $user=new User();
         $user->setPhotoNom($nomImage);
@@ -376,14 +378,99 @@ class UserController extends AbstractController
 
     public function ShowGalerie($iduser){
         UserController::idNeed($iduser);
-        return $this->twig->render('User/galerie.html.twig');
+        $photo=new Photo();
+        $listPhoto=$photo->GetUserPhoto(Bdd::GetInstance(),$iduser);
+
+        $photoo=new Photo();
+        $listCategorie=$photoo->SqlGetCategorie(Bdd::GetInstance(),$iduser);
+
+        $user=new User();
+        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+
+
+        return $this->twig->render('User/galerie.html.twig',[
+            "listPhoto"=>$listPhoto,
+            "listCategorie"=>$listCategorie,
+            "user"=>$userInfo
+        ]);
+    }
+
+    public function ShowGalerieCategorie($categorie,$iduser){
+        UserController::idNeed($iduser);
+        $photo=new Photo();
+        $listPhoto=$photo->GetUserPhoto(Bdd::GetInstance(),$iduser);
+
+        $photoo=new Photo();
+        $listCategorie=$photoo->SqlGetCategorie(Bdd::GetInstance(),$iduser);
+
+        $user=new User();
+        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+
+        return $this->twig->render('User/galerie.html.twig',[
+            "listPhoto"=>$listPhoto,
+            "listCategorie"=>$listCategorie,
+            "user"=>$userInfo,
+            "categorie"=>$categorie
+        ]);
+    }
+
+    public function ShowAddPhoto($iduser){
+        UserController::idNeed($iduser);;
+        $user=new User();
+        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+        return $this->twig->render('User/addphoto.html.twig',[
+            'user'=>$userInfo
+        ]);
+    }
+
+    public function AddPhoto($iduser){
+        UserController::idNeed($iduser);
+        $sqlRepository = null;
+        $nomImage = null;
+        if(!empty($_FILES['image']['name']) )
+        {
+            $tabExt = array('jpg','gif','png','jpeg');    // Extensions autorisees
+            $extension  = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            if(in_array(strtolower($extension),$tabExt))
+            {
+                $nomImage = md5(uniqid()) .'.'. $extension;
+                $sqlRepository = date('Y/m');
+                $repository = './uploads/images/useruploads/'.date('Y/m');
+                if(!is_dir($repository)){
+                    mkdir($repository,0777,true);
+                }
+                move_uploaded_file($_FILES['image']['tmp_name'], $repository.'/'.$nomImage);
+            }
+        }
+        if($nomImage!='' and $sqlRepository!= '') {
+            $photo = new Photo();
+            $photo->setUserid($iduser);
+            $photo->setNom($nomImage);
+            $photo->setRepository($sqlRepository);
+            $photo->setCategorie($_POST['categorie']);
+            $photo->SqlAddPhoto(Bdd::GetInstance());
+        }
+
+        header('location:/Galerie/'.$_SESSION['login']['id']);
+
     }
 
     public function ShowMap(){
         return $this->twig->render('Map/map.html.twig');
     }
 
-    //fonction qui permetTRA (amélioration continue m'voyez) de modifier son email , nom , prenom directement depuis le profil
+    public function DeletePhoto($photoid,$redirect){
+        $photo=new Photo();
+        $photo->DeletePhoto(Bdd::GetInstance(),$photoid);
+
+        if($redirect=='All'){
+            header('location:/Galerie/'.$_SESSION['login']['id']);
+        }
+        else{
+            header('location:/Galerie/'.$redirect.'/'.$_SESSION['login']['id']);
+        }
+    }
+
 
 
 //Fonction qui permet de se déconnecter (vide et supprime les session utilisateurs

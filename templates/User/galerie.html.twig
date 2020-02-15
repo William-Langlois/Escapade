@@ -14,37 +14,85 @@
 </head>
 
 <body>
+{% if categorie is defined %}
 <nav class="navbar navbar-light navbar-expand-md" style="background-color: #046336;">
-    <div class="container-fluid"><a class="navbar-brand" href="#"><img src="../uploads/images/logo%20seul.png" style="margin: -5px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <div class="container-fluid"><a class="navbar-brand" href="/Accueil"><img src="../../uploads/images/logo%20seul.png" style="margin: -5px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div
                 class="collapse navbar-collapse" id="navcol-1" style="margin: 0 70px -25px 70px;">
             <ul class="nav navbar-nav">
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><img src="../uploads/images/glasses.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="/Chat/{{ session.login.id }}"><img src="../uploads/images/message.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="/notification/{{ session.login.id }}"><img src="../uploads/images/bell.png" style="width: 28px;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><img src="../../uploads/images/glasses.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/Chat/{{ session.login.id }}"><img src="../../uploads/images/message.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/notification/{{ session.login.id }}"><img src="../../uploads/images/bell.png" style="width: 28px;"></a></li>
             </ul>
-        </div><a href="#"><img></a></div>
+        </div><a href="/profile/{{ session.login.id}}"><img>Profil</a></div>
 </nav>
+    {% else %}
+        <nav class="navbar navbar-light navbar-expand-md" style="background-color: #046336;">
+            <div class="container-fluid"><a class="navbar-brand" href="/Accueil"><img src="../uploads/images/logo%20seul.png" style="margin: -5px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                        class="collapse navbar-collapse" id="navcol-1" style="margin: 0 70px -25px 70px;">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><img src="../uploads/images/glasses.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/Chat/{{ session.login.id }}"><img src="../uploads/images/message.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/notification/{{ session.login.id }}"><img src="../uploads/images/bell.png" style="width: 28px;"></a></li>
+                    </ul>
+                </div><a href="/profile/{{ session.login.id}}"><img>Profil</a></div>
+        </nav>
+{% endif %}
+<div>
+    <a href="/Galerie/{{ user.id }}">
+        <button>Toutes les photos</button>
+    </a>
+    {% for categories in listCategorie %}
+    <a href="/Galerie/{{ categories }}/{{ user.id }}">
+        <button>{{ categories }}</button>
+    </a>
+    {% endfor %}
+</div>
+
+
 <div class="photo-gallery">
     <div class="container">
         <div class="intro">
             <p class="text-center"></p>
         </div>
         <div class="row photos">
-            <div class="col-sm-6 col-md-4 col-lg-3 item"><a data-lightbox="photos" href="../uploads/images/desk.jpg"><img class="img-fluid" src="../uploads/images/desk.jpg"></a></div>
-            <div class="col-sm-6 col-md-4 col-lg-3 item"><a data-lightbox="photos" href="../uploads/images/.jpg"><img class="img-fluid" src="../uploads/images/building.jpg"></a></div>
-            <div class="col-sm-6 col-md-4 col-lg-3 item"><a data-lightbox="photos" href="../uploads/images/loft.jpg"><img class="img-fluid" src="../uploads/images/loft.jpg"></a></div>
-            <div class="col-sm-6 col-md-4 col-lg-3 item"><a data-lightbox="photos" href="../uploads/images/building.jpg"><img class="img-fluid" src="../uploads/images/building.jpg"></a></div>
-            <div class="col-sm-6 col-md-4 col-lg-3 item"><a data-lightbox="photos" href="../uploads/images/loft.jpg"><img class="img-fluid" src="../uploads/images/loft.jpg"></a></div>
-            <div class="col-sm-6 col-md-4 col-lg-3 item"><a data-lightbox="photos" href="../uploads/images/desk.jpg"><img class="img-fluid" src="../uploads/images/desk.jpg"></a></div>
+            {% if categorie is defined %}
+                {% for photo in listPhoto %}
+                    {% if photo.categorie == categorie %}
+                    <div class="col-sm-6 col-md-4 col-lg-3 item">
+                        <a data-lightbox="photos" href="../../uploads/images/useruploads/{{ photo.repository }}/{{ photo.nom }}">
+                            <img class="img-fluid" src="../../uploads/images/useruploads/{{ photo.repository }}/{{ photo.nom }}">
+                        </a>
+                        <a href="/DeletePhoto/{{ photo.id }}/{{ categorie }}">Supprimer</a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for photo in listPhoto %}
+                <div class="col-sm-6 col-md-4 col-lg-3 item">
+                    <a data-lightbox="photos" href="../uploads/images/useruploads/{{ photo.repository }}/{{ photo.nom }}">
+                        <img class="img-fluid" src="../uploads/images/useruploads/{{ photo.repository }}/{{ photo.nom }}">
+                    </a>
+                    <a href="/DeletePhoto/{{ photo.id }}/All">Supprimer</a>
+                </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 </div>
+{% if user.id == session.login.id %}
+    </div><a href="/AddPhoto/{{ user.id }}"><button class="btn btn-primary" type="button" style="background-color: rgb(58,189,128);margin-left: 164px;margin-top: 16px;">Ajouter une photo</button></a></section>
+{% endif %}
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
 <script src="/assets/js/theme.js"></script>
+<script>
+
+</script>
+
 </body>
 
 </html>

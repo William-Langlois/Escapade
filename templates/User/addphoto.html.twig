@@ -1,0 +1,102 @@
+<html>
+
+<head>
+    <title>formulaire d'édition du profil</title>
+    <link rel="stylesheet" href="/assets/cssparametre.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="/assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-1.css">
+    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="assets/js/jquery.knob.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-md" style="background-color: #046336;">
+    <div class="container-fluid"><a class="navbar-brand" href="/Accueil"><img src="../uploads/images/logo%20seul.png"
+                                                                              style="margin: -5px;"></a><button data-toggle="collapse" class="navbar-toggler"
+                                                                                                                data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1" style="margin: 0 70px -25px 70px;">
+            <ul class="nav navbar-nav">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#"><img
+                                src="../uploads/images/glasses.png" style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/chat/{{ session.login.id }}"><img src="../uploads/images/message.png"
+                                                                                                                      style="width: 28px;margin: 0 16px 0 0;"></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/notification/{{ session.login.id }}"><img src="../uploads/images/bell.png"
+                                                                                                                              style="width: 28px;"></a></li>
+            </ul>
+        </div><a href="/Profile/{{ session.login.id }}">Retour au profil<img></a>
+    </div>
+</nav>
+
+<div id="fond">
+    <h3>Editez votre profil</h3>
+
+    <form name="addPhoto" method="post" action="/AddPhoto/{{ session.login.id }}" enctype="multipart/form-data">
+        <table align="center" cellpadding="10">
+
+            <div class="container profile profile-view" id="profile">
+                <div class="row">
+                    <div class="col-md-12 alert-col relative">
+
+                    </div>
+                </div>
+
+                <div class="form-row profile-row">
+                    <div class="col-md-4 relative">
+                        <div class="avatar">
+                            <div class="avatar-bg center"></div>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="form-control-file custom-file-input" name="image" id="inputFile">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                            <label class="custom-file-label" for="inputGroupFile01"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <tr>
+                <td>Genre</td>
+                <td>
+                    <label>
+                        <select name="categorie">
+                            <option  selected value="Autre">Autre</option>
+                            <option  value="Sports">Sports</option>
+                            <option  value="Voyages">Voyages</option>
+                            <option  value="Paysages">Paysage</option>
+                            <option  value="Interieurs">Interieur</option>
+                            <option  value="Screen">Captures d'écran</option>
+                            <option  value="Photo de {{ user.prenom }}">Selfies / Photo de vous</option>
+                        </select>
+                    </label>
+                </td>
+            </tr>
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+            <script src="assets/js/Profile-Edit-Form.js"></script>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+</body>
+
+</html>

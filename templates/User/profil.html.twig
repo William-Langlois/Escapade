@@ -25,10 +25,10 @@
 </nav>
 <div>
     <div class="media d-flex" style="margin-right: 500px;">
-        {% if infoUser.photoNom != '' and file_exist('./uploads/images/avatars/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
-            <img alt="Avatar" src="../uploads/images/avatars/{{ infoUser.photoRepo }}/{{infoUser.photoNom}}" class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
+        {% if infoUser.photoNom != '' and file_exist('./uploads/images/useruploads/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
+            <img alt="Avatar" src="../uploads/images/useruploads/{{ infoUser.photoRepo }}/{{infoUser.photoNom}}" class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
         {% else %}
-            <img alt="No Avatar" src='../uploads/images/avatars/avatar_defaut.png' class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
+            <img alt="No Avatar" src='../uploads/images/useruploads/avatar_defaut.png' class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
         {% endif %}
         <div class="media-body" style="margin-top: 10px;margin-right: 0px;">
             <h5 style="font-family: Montserrat, sans-serif;">{{ infoUser.nom }} {{infoUser.prenom }}&nbsp;</h5>
