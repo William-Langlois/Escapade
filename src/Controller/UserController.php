@@ -10,6 +10,9 @@ use src\Model\User;
 
 class UserController extends AbstractController
 {
+    const hobbylistuniqueless=["Séries","Cinema","Lecture","Sport","Voyages","Bricolage","Camping","Randonnée","impression 3D","League of Legends","Jeux-Vidéos","Musique","Tennis",
+        "Natation","Football","Peinture","Dessin","Opéra","Velo","Cyclisme","Moto","Sport Automobile","Echecs","Jeux de société","Calligraphie","Cuisine",
+        "Coloriage","Electronique","Informatique","Développement","Danse","Beatmaking","Developpement"];
 
     //Chargement du twig pour la page d'inscription
     public function inscriptionForm()
@@ -140,6 +143,7 @@ class UserController extends AbstractController
 
                     //ajout dans la bdd via la fonction adéquat dans le model
                     $user->SqlAdd(Bdd::GetInstance());
+
                     //defait les session error(les erreurs disparaissent apres un rafraichissement de page)
                     unset($_SESSION['errorinscription']);
                     unset($_SESSION['errorlogin']);
@@ -260,6 +264,10 @@ class UserController extends AbstractController
                     header('Location:/Accueil');
                 }
                 else{
+                        $ci=new CI();
+                        $ci->setUserid($_SESSION['login']['id']);
+                        $ci->SqlAddCIs(Bdd::GetInstance());
+
                     header('Location:/ProfileSetup/'.$_SESSION['login']['id']);
                 }
                 //Si les mots de passes en correspondent pas on renvoi une erreur d'authentification
@@ -314,13 +322,19 @@ class UserController extends AbstractController
 
     public function ShowSetupProfil($iduser){
         UserController::idNeed($iduser);
+
         $user=new User();
         $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+
+        for($i=1;$i<=12;$i++){
+            $ci=new CI();
+            $ci->setUserid($iduser);
+            $ci->setNum($i);
+            $ci->SqlAddCIs(Bdd::GetInstance());
+        }
+
         return $this->twig->render('User/setupProfil.html.twig');
     }
-    const hobbylistuniqueless=["Séries","Cinema","Lecture","Sport","Voyages","Bricolage","Camping","Randonnée","impression 3D","League of Legends","Jeux-Vidéos","Musique","Tennis",
-        "Natation","Football","Peinture","Dessin","Opéra","Velo","Cyclisme","Moto","Sport Automobile","Echecs","Jeux de société","Calligraphie","Cuisine",
-        "Coloriage","Electronique","Informatique","Développement","Danse","Beatmaking","Developpement"];
 
 
     public function ShowUpdateProfile($iduser){
@@ -369,7 +383,6 @@ class UserController extends AbstractController
                 $ci = new CI();
                 $ci->setNom($hobby);
                 $ci->setUserid($iduser);
-
 
                 $ci->SqlChangeCI(Bdd::GetInstance());
             $num=$num+1;

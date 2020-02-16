@@ -103,17 +103,43 @@ class CI implements \JsonSerializable
             $ci->setNum($CISql['CI_NUM']);
             $ci->setNom($CISql['CI_NOM']);
 
-
             $CIList[]=$ci;
         }
         return $CIList;
     }
 
     public function SqlChangeCI(\PDO $bdd){
-        $query=$bdd->prepare('UPDATE centre_interet set');
+        $query=$bdd->prepare('UPDATE centre_interet SET USER_ID=:userid,CI_NOM=:nom WHERE CI_NUM=:num');
         $query->execute([
             "userid"=>$this->getUserid(),
-            "nom"=>$this->getNom()
+            "nom"=>$this->getNom(),
+            "num"=>$this->getNum()
         ]);
+    }
+
+    public function SqlAddCIs(\PDO $bdd){
+        try {
+
+            $prequery = $bdd->prepare('DELETE FROM centre_interet WHERE USER_ID=:iduser');
+            $prequery->execute([
+                "iduser" => $this->getUserid()
+            ]);
+            for($i=1;$i<=12;$i++) {
+                $query = $bdd->prepare('INSERT INTO centre_interet (USER_ID,CI_NUM) VALUES (:userid,:num)');
+                $query->execute([
+                    "userid" => $this->getUserid(),
+                    "num" => $i
+                ]);
+            }
+        }
+        catch(\Exception $e) {
+            for ($i = 1; $i <= 12; $i++) {
+                $query = $bdd->prepare('INSERT INTO centre_interet (USER_ID,CI_NUM) VALUES (:userid,:num)');
+                $query->execute([
+                    "userid" => $this->getUserid(),
+                    "num" => $i
+                ]);
+            }
+        }
     }
 }
