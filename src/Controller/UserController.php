@@ -377,7 +377,21 @@ class UserController extends AbstractController
             $photo->setRepository($sqlRepository);
             $photo->setCategorie("Profil");
             $photo->SqlAddPhoto(Bdd::GetInstance());
+
+            $user2=new User();
+            $user2->setPhotoNom($nomImage);
+            $user2->setPhotoRepo($sqlRepository);
+            $user2->SqlChangeUserImage(Bdd::GetInstance(),$iduser);
         }
+        else{
+            if($_POST['deleteAvatar']==1){
+                $user2=new User();
+                $user2->setPhotoNom($nomImage);
+                $user2->setPhotoRepo($sqlRepository);
+                $user2->SqlChangeUserImage(Bdd::GetInstance(),$iduser);
+            }
+        }
+
         $num=0;
         foreach ($_POST['Hobby'] as $hobby){
                 $ci = new CI();
@@ -389,8 +403,6 @@ class UserController extends AbstractController
         }
 
         $user=new User();
-        $user->setPhotoNom($nomImage);
-        $user->setPhotoRepo($sqlRepository);
         $user->setPrenom($_POST['First_Name']);
         $user->setNom($_POST['Last_Name']);
         $user->setBirthdate($_POST['Birthday']);

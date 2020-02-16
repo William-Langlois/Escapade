@@ -484,11 +484,9 @@ class User implements \JsonSerializable
     }
 
     public function SqlUpdate(\PDO $bdd,$iduser){
-        $query = $bdd->prepare('UPDATE user SET USER_PHOTOREPO=:photorepo,USER_PHOTONOM=:photonom,USER_PRENOM=:prenom,USER_NOM=:nom,USER_BIRTHDATE=:birthdate,USER_SEXE=:sexe,USER_VILLE=:ville,USER_PAYS=:pays,USER_NEEDSEXE=:needsexe,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDVILLE=:needville,USER_GALERIEISPUBLIC=:galerieispublic WHERE USER_ID=:id');
+        $query = $bdd->prepare('UPDATE user SET USER_PRENOM=:prenom,USER_NOM=:nom,USER_BIRTHDATE=:birthdate,USER_SEXE=:sexe,USER_VILLE=:ville,USER_PAYS=:pays,USER_NEEDSEXE=:needsexe,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDVILLE=:needville,USER_GALERIEISPUBLIC=:galerieispublic WHERE USER_ID=:id');
         $query->execute([
             "id"=>$iduser,
-            "photonom"=>$this->getPhotoNom(),
-            "photorepo"=>$this->getPhotoRepo(),
             "prenom"=>$this->getPrenom(),
             "nom"=>$this->getNom(),
             "birthdate"=>$this->getBirthdate(),
@@ -501,6 +499,16 @@ class User implements \JsonSerializable
             "galerieispublic"=>$this->getGalerieispublic(),
 
         ]);
+    }
+
+    public function SqlChangeUserImage(\PDO $bdd , $iduser){
+        $query = $bdd->prepare('UPDATE user SET USER_PHOTOREPO=:photorepo,USER_PHOTONOM=:photonom WHERE USER_ID=:id');
+        $query->execute([
+            "id"=>$iduser,
+            "photonom"=>$this->getPhotoNom(),
+            "photorepo"=>$this->getPhotoRepo()
+        ]);
+
     }
 
 
