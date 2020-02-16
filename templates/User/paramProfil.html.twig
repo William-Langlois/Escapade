@@ -146,20 +146,9 @@
             <td>Hobbies | Passions | Loisirs (12 max) <br /><br /><br /></td>
             <td>
                 <label>
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" />
-                    <p></p>
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" />
-                    <p></p>
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
-                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" />
+                    {% for hobbyuser in userhobby %}
+                        <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                    {% endfor %}
                 </label>
             </td>
         </tr>

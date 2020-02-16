@@ -343,11 +343,13 @@ class UserController extends AbstractController
         $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
 
         $ci=new CI();
+        $listCi=$ci->GetUserCI(Bdd::GetInstance(),$iduser);
 
         $hobbylist =array_unique(self::hobbylistuniqueless);
         return $this->twig->render('User/paramProfil.html.twig',[
             "user"=>$userInfo,
-            "hobbylist"=>$hobbylist
+            "hobbylist"=>$hobbylist,
+            "userhobby"=>$listCi
         ]);
     }
 
@@ -392,12 +394,12 @@ class UserController extends AbstractController
             }
         }
 
-        $num=0;
+        $num=1;
         foreach ($_POST['Hobby'] as $hobby){
                 $ci = new CI();
                 $ci->setNom($hobby);
                 $ci->setUserid($iduser);
-
+                $ci->setNum($num);
                 $ci->SqlChangeCI(Bdd::GetInstance());
             $num=$num+1;
         }

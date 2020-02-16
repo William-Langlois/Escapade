@@ -114,7 +114,7 @@ class Photo implements \JsonSerializable
     }
 
     public function GetUserPhoto(\PDO $bdd,$iduser){
-        $query = $bdd->prepare('SELECT * FROM photo WHERE USER_ID=:userid');
+        $query = $bdd->prepare('SELECT * FROM photo WHERE USER_ID=:userid ORDER BY PHOTO_ID DESC ');
         $query->execute([
             "userid"=>$iduser
         ]);
