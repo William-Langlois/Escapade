@@ -35,7 +35,7 @@
                 {% if infoUser.photoNom != '' and file_exist('./uploads/images/useruploads/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
                     <img id="profile-img" alt="Avatar" src="../uploads/images/avatars/{{ infoUser.photoRepo }}/{{infoUser.photoNom}}" class="online">
                 {% else %}
-                    <img id="profile-img" alt="No Avatar" src='../uploads/images/avatars/avatar_defaut.png' class="online" >
+                    <img id="profile-img" alt="No Avatar" src='../uploads/images/useruploads/avatar_defaut.png' class="online" >
                 {% endif %}
                 <p>{{ session.login.Nom }} {{ session.login.Prenom }}</p>
                 <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>

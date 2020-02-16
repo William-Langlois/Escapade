@@ -133,90 +133,29 @@
         </tr>
 
         <!----- Hobbies ---------------------------------------------------------->
-
+        <datalist size="10" id="passions">
+        {% for hobby in hobbylist %}
+                <option value="{{ hobby }}" >{{ hobby }}</option>
+        {% endfor %}
+        </datalist>
         <tr>
-            <td>Loisir <br /><br /><br /></td>
-
+            <td>Hobbies | Passions | Loisirs (12 max) <br /><br /><br /></td>
             <td>
-                Série
                 <label>
-                    <input type="checkbox" name="Hobby" value="série" />
-                </label>
-                Cinéma
-                <label>
-                    <input type="checkbox" name="Hobby" value="Cinéma" />
-                </label>
-                Livre
-                <label>
-                    <input type="checkbox" name="Hobby" value="Livre" />
-                </label>
-                Sport
-                <label>
-                    <input type="checkbox" name="Hobby" value="Sport" />
-                </label>
-                Voyage
-                <label>
-                    <input type="checkbox" name="Hobby" value="voyage" />
-                </label>
-                Art
-                <label>
-                    <input type="checkbox" name="Hobby" value="art" />
-                </label>
-                Manga
-                <label>
-                    <input type="checkbox" name="Hobby" value="manga" />
-                </label>
-                Cuisine
-                <label>
-                    <input type="checkbox" name="Hobby" value="cuisine" />
-                </label>
-                Décoration
-                <label>
-                    <input type="checkbox" name="Hobby" value="décoration" />
-                </label>
-                Nature
-                <label>
-                    <input type="checkbox" name="Hobby" value="nature" />
-                </label>
-                Bricolage
-                <label>
-                    <input type="checkbox" name="Hobby" value="Bricolage" />
-                </label>
-                Théâtre
-                <label>
-                    <input type="checkbox" name="Hobby" value="théâtre" />
-                </label>
-                Camping
-                <label>
-                    <input type="checkbox" name="Hobby" value="camping" />
-                </label>
-                Pêche
-                <label>
-                    <input type="checkbox" name="Hobby" value="pêche" />
-                </label>
-                Photographie
-                <label>
-                    <input type="checkbox" name="Hobby" value="photographie" />
-                </label>
-                Jeux vidéos
-                <label>
-                    <input type="checkbox" name="Hobby" value="jeux vidéo" />
-                </label>
-                Ecriture
-                <label>
-                    <input type="checkbox" name="Hobby" value="Ecriture" />
-                </label>
-                Bénévolat
-                <label>
-                    <input type="checkbox" name="Hobby" value="Bénévolat" />
-                </label>
-                <br />
-                Others
-                <label>
-                    <input type="checkbox" name="Hobby_Other" value="Other">
-                </label>
-                <label>
-                    <input type="text" name="Other_Hobby" maxlength="30" />
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" />
+                    <p></p>
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" />
+                    <p></p>
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" /> ,
+                    <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="" />
                 </label>
             </td>
         </tr>

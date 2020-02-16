@@ -4,6 +4,7 @@ namespace src\Controller;
 
 use DateTime;
 use src\Model\Bdd;
+use src\Model\CI;
 use src\Model\Photo;
 use src\Model\User;
 
@@ -317,13 +318,22 @@ class UserController extends AbstractController
         $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
         return $this->twig->render('User/setupProfil.html.twig');
     }
+    const hobbylistuniqueless=["Séries","Cinema","Lecture","Sport","Voyages","Bricolage","Camping","Randonnée","impression 3D","League of Legends","Jeux-Vidéos","Musique","Tennis",
+        "Natation","Football","Peinture","Dessin","Opéra","Velo","Cyclisme","Moto","Sport Automobile","Echecs","Jeux de société","Calligraphie","Cuisine",
+        "Coloriage","Electronique","Informatique","Développement","Danse","Beatmaking","Developpement"];
+
 
     public function ShowUpdateProfile($iduser){
         UserController::idNeed($iduser);
         $user=new User();
         $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+
+        $ci=new CI();
+
+        $hobbylist =array_unique(self::hobbylistuniqueless);
         return $this->twig->render('User/paramProfil.html.twig',[
-            "user"=>$userInfo
+            "user"=>$userInfo,
+            "hobbylist"=>$hobbylist
         ]);
     }
 
@@ -353,6 +363,16 @@ class UserController extends AbstractController
             $photo->setRepository($sqlRepository);
             $photo->setCategorie("Profil");
             $photo->SqlAddPhoto(Bdd::GetInstance());
+        }
+        $num=0;
+        foreach ($_POST['Hobby'] as $hobby){
+                $ci = new CI();
+                $ci->setNom($hobby);
+                $ci->setUserid($iduser);
+
+
+                $ci->SqlChangeCI(Bdd::GetInstance());
+            $num=$num+1;
         }
 
         $user=new User();
