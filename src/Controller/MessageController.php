@@ -109,7 +109,10 @@ public function SendMessage($idUser,$iddest)
 
         $titreNotif = "New Message from " .$prenom.' '.$nom;
 
-    NotificationsController::SendNotifications($iddest, $typeNotif, $messageFirstWord, $titreNotif);
+        $photorepo=$userInfo->getPhotoRepo();
+        $photonom=$userInfo->getPhotoNom();
+
+    NotificationsController::SendNotifications($iddest, $typeNotif, $messageFirstWord, $titreNotif,$photorepo,$photonom);
     header('location:/Chat/'.$idUser.'/'.$iddest);
     return;
 }

@@ -13,6 +13,42 @@ class Notifications implements \JsonSerializable
     private $creatime;
     private $viewtime;
     private $isviewed;
+    private $photorepo;
+    private $photonom;
+
+    /**
+     * @return mixed
+     */
+    public function getPhotorepo()
+    {
+        return $this->photorepo;
+    }
+
+    /**
+     * @param mixed $photorepo
+     */
+    public function setPhotorepo($photorepo)
+    {
+        $this->photorepo = $photorepo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotonom()
+    {
+        return $this->photonom;
+    }
+
+    /**
+     * @param mixed $photonom
+     */
+    public function setPhotonom($photonom)
+    {
+        $this->photonom = $photonom;
+    }
+
+
 
     /**
      * @return mixed
@@ -158,13 +194,15 @@ class Notifications implements \JsonSerializable
 
     public function SqlAddNotification(\PDO $bdd)
     {
-        $query = $bdd->prepare('INSERT INTO notification (USER_ID, NOTIFICATION_TITRE, NOTIFICATION_CONTENU, NOTIFICATION_TYPE, NOTIFICATION_CREATIME) VALUES (:userid, :titre, :contenu, :type, :creatime)');
+        $query = $bdd->prepare('INSERT INTO notification (USER_ID, NOTIFICATION_TITRE, NOTIFICATION_CONTENU, NOTIFICATION_TYPE, NOTIFICATION_CREATIME,NOTIFICATION_PHOTOREPO,NOTIFICATION_PHOTONOM) VALUES (:userid, :titre, :contenu, :typenotif, :creatime,:photorepo,:photonom)');
         $query->execute([
             "userid" => $this->getIduser(),
             "titre" => $this->getTitre(),
             "contenu" => $this->getContenu(),
             "creatime" => $this->getCreatime(),
-            "type" => $this->getType()
+            "photorepo" => $this->getPhotorepo(),
+            "photonom" => $this->getPhotonom(),
+            "typenotif" => $this->getType()
         ]);
 
 
@@ -190,6 +228,9 @@ class Notifications implements \JsonSerializable
             $Notif->setCreatime($NotifSql['NOTIFICATION_CREATIME']);
             $Notif->setViewtime($NotifSql['NOTIFICATION_VIEWTIME']);
             $Notif->setIsviewed($NotifSql['NOTIFICATION_ISVIEWED']);
+            $Notif->setPhotorepo($NotifSql['NOTIFICATION_PHOTOREPO']);
+            $Notif->setPhotonom($NotifSql['NOTIFICATION_PHOTONOM']);
+
 
             $ListNotif[]=$Notif;
         }

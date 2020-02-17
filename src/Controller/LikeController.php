@@ -53,7 +53,10 @@ class LikeController extends  AbstractController{
         $contenuNotif=$prenom.' '.$nom." à aimer votre profil";
         $titreNotif = "Votre profil à été liké";
 
-        NotificationsController::SendNotifications($iduserliked,$typeNotif,$contenuNotif,$titreNotif);
+        $photorepo=$userInfo->getPhotoRepo();
+        $photonom=$userInfo->getPhotoNom();
+
+        NotificationsController::SendNotifications($iduserliked,$typeNotif,$contenuNotif,$titreNotif,$photorepo,$photonom);
 
         header('location:/Liked/'.$iduser);
         return;

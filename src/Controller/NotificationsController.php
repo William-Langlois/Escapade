@@ -20,13 +20,16 @@ class NotificationsController extends AbstractController
     }
 
 
-    public static function SendNotifications($idUser, $type, $contenu, $titre)
+    public static function SendNotifications($idUser, $type, $contenu, $titre ,$photorepo,$photonom)
     {
         $Notif = new Notifications();
         $Notif->setIduser($idUser);
         $Notif->setTitre($titre);
         $Notif->setContenu($contenu);
         $Notif->setType($type);
+        $Notif->setPhotorepo($photorepo);
+        $Notif->setPhotonom($photonom);
+
         $Notif->setCreatime(date("Y-m-d H:i:s"));
         $Notif->SqlAddNotification(Bdd::GetInstance());
 

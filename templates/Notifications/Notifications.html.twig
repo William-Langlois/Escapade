@@ -32,15 +32,24 @@
                 <div class="dropdown-menu show notification-menu" role="menu">
                     {% for Notif in Notifications %}
                         {% if Notif.type == "Message" %}
-                            <a class="dropdown-item notification-item" role="presentation" href="/chat/{{ session.login.id }}"><img src="../uploads/images/avatar.jpg">
+                            <a class="dropdown-item notification-item" role="presentation" href="/chat/{{ session.login.id }}">
+                                {% if Notif.photoNom != '' and file_exist('./uploads/images/useruploads/'~ Notif.photoRepo ~'/'~ Notif.photoNom) %}
+                                    <img id="profile-img" alt="Avatar" src="../../uploads/images/useruploads/{{ Notif.photoRepo }}/{{Notif.photoNom}}" class="online">
+                                {% else %}
+                                    <img id="profile-img" alt="No Avatar" src='../../uploads/images/useruploads/avatar_defaut.png' class="online" >
+                                {% endif %}
                                 <div>
                                     <p>{{ Notif.titre }}</p><span>Le {{ Notif.creatime }} </span><span>{{ Notif.contenu }}... </span>
                                 </div>
                             </a>
                         {% endif %}
                         {% if Notif.type =="Like" %}
-                        <a class="dropdown-item notification-item" role="presentation" href="/Like/{{ session.login.id }}"><img src="../uploads/images/avatar.jpg">
-                            <div>
+                        <a class="dropdown-item notification-item" role="presentation" href="/Like/{{ session.login.id }}">
+                            {% if Notif.photoNom != '' and file_exist('./uploads/images/useruploads/'~ Notif.photoRepo ~'/'~ Notif.photoNom) %}
+                                <img id="profile-img" alt="Avatar" src="../../uploads/images/useruploads/{{ Notif.photoRepo }}/{{Notif.photoNom}}" class="online">
+                            {% else %}
+                                <img id="profile-img" alt="No Avatar" src='../../uploads/images/useruploads/avatar_defaut.png' class="online" >
+                            {% endif %}                            <div>
                                 <p>{{ Notif.titre }}</p><span>Le {{ Notif.creatime }} </span>
                             </div>
                         </a>
