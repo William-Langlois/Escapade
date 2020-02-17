@@ -101,8 +101,15 @@
                 <input value="{{ user.birthdate }}" required type="date" name="Birthday">
             </td>
         </tr>
+            <!----- Description ----------------------------------------------------------->
+            <tr>
+                <td>Description</td>
 
-        <!----- Gender ----------------------------------------------------------->
+                <td>
+                    <textarea required name="Description">{{ user.description }}</textarea>
+                </td>
+            </tr>
+            <!----- Gender ----------------------------------------------------------->
         <tr>
             <td>Genre</td>
             <td>
@@ -133,7 +140,7 @@
         <!----- Country ---------------------------------------------------------->
         <tr>
             <td>Pays</td>
-            <td><input value="{{ user.pays }}" required type="text" name="Country" value="France" readonly="readonly" /></td>
+            <td><input value="{{ user.pays }}" required type="text" name="Country" /></td>
         </tr>
 
         <!----- Hobbies ---------------------------------------------------------->

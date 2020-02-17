@@ -484,11 +484,12 @@ class User implements \JsonSerializable
     }
 
     public function SqlUpdate(\PDO $bdd,$iduser){
-        $query = $bdd->prepare('UPDATE user SET USER_PRENOM=:prenom,USER_NOM=:nom,USER_BIRTHDATE=:birthdate,USER_SEXE=:sexe,USER_VILLE=:ville,USER_PAYS=:pays,USER_NEEDSEXE=:needsexe,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDVILLE=:needville,USER_GALERIEISPUBLIC=:galerieispublic WHERE USER_ID=:id');
+        $query = $bdd->prepare('UPDATE user SET USER_PRENOM=:prenom,USER_NOM=:nom,USER_DESCRIPTION=:description,USER_BIRTHDATE=:birthdate,USER_SEXE=:sexe,USER_VILLE=:ville,USER_PAYS=:pays,USER_NEEDSEXE=:needsexe,USER_WANNADATEATHOME=:wannadateathome,USER_NEEDVILLE=:needville,USER_GALERIEISPUBLIC=:galerieispublic WHERE USER_ID=:id');
         $query->execute([
             "id"=>$iduser,
             "prenom"=>$this->getPrenom(),
             "nom"=>$this->getNom(),
+            "description"=>$this->getDescription(),
             "birthdate"=>$this->getBirthdate(),
             "sexe"=>$this->getSexe(),
             "ville"=>$this->getVille(),

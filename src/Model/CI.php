@@ -109,9 +109,9 @@ class CI implements \JsonSerializable
     }
 
     public function SqlChangeCI(\PDO $bdd){
-        $query=$bdd->prepare('UPDATE centre_interet SET USER_ID=:userid,CI_NOM=:nom WHERE CI_NUM=:num');
+        $query=$bdd->prepare('UPDATE centre_interet SET CI_NOM=:nom WHERE CI_NUM=:num AND USER_ID=:iduser');
         $query->execute([
-            "userid"=>$this->getUserid(),
+            "iduser"=>$this->getUserid(),
             "nom"=>$this->getNom(),
             "num"=>$this->getNum()
         ]);

@@ -303,20 +303,21 @@ class UserController extends AbstractController
             header('Location:/Login');
             return;
         }
-        //verification que le profil concerné appartient bien à l'utilisateur concerné
         $user=new User();
         $userInfo=$user->SqlGet(Bdd::GetInstance(),$idUser);
         $age = date('Y') - date('Y', strtotime($userInfo->getBirthdate()));
         if (date('m-d') < date('m-d' ,strtotime($userInfo->getBirthdate()))) {
                 $age=$age - 1;
             }
-
+        $ci=new CI();
+        $listCi=$ci->GetUserCI(Bdd::GetInstance(),$idUser);
         //permet de retirer les messages d'infos après un refresh
         unset($_SESSION['infoprofil']);
         return $this->twig->render('User/profil.html.twig', [
             "userid"=>$idUser,
             "infoUser"=>$userInfo,
-            "age"=>$age
+            "age"=>$age,
+            "listci"=>$listCi
         ]);
     }
 
@@ -386,7 +387,7 @@ class UserController extends AbstractController
             $user2->SqlChangeUserImage(Bdd::GetInstance(),$iduser);
         }
         else{
-            if($_POST['deleteAvatar']==1){
+            if(isset($_POST['deleteAvatar'])){
                 $user2=new User();
                 $user2->setPhotoNom($nomImage);
                 $user2->setPhotoRepo($sqlRepository);
@@ -407,6 +408,7 @@ class UserController extends AbstractController
         $user=new User();
         $user->setPrenom($_POST['First_Name']);
         $user->setNom($_POST['Last_Name']);
+        $user->setDescription($_POST['Description']);
         $user->setBirthdate($_POST['Birthday']);
         $user->setSexe($_POST['Gender']);
         $user->setVille($_POST['City']);
