@@ -3,6 +3,7 @@ namespace src\Controller;
 
 use src\Model\Bdd;
 use src\Model\Contenu;
+use src\Model\Like;
 use src\Model\Message;
 use src\Model\User;
 
@@ -18,8 +19,21 @@ public function ShowChats($idUser){
         $infoUser[]=$user->SqlGet(Bdd::GetInstance(), $conv);
     }
 
+    $like=new Like();
+    $convdispbylike=$like->SqlGetUserLike(Bdd::GetInstance(),$idUser);
+    $infoUserlike=[];
+    foreach ($convdispbylike as $otherconv){
+        $id=$otherconv->getUserlike();
+        $user=new User();
+        $infoUserlike[]=$user->SqlGet(Bdd::GetInstance(),$id);
+    }
+    $userrr=new User();
+    $myinfo=$userrr->SqlGet(Bdd::GetInstance(),$idUser);
+
     return $this->twig->render('Chat/chat.html.twig',[
-        "convdisp"=>$infoUser
+        "convdisp"=>$infoUser,
+        "convdisplike"=>$infoUserlike,
+        "myinfo"=>$myinfo
     ]);
 
 }
@@ -34,33 +48,34 @@ public function ShowOneChat($idUser,$iddest)
         $user = new User();
         $infoUser[] = $user->SqlGet(Bdd::GetInstance(), $conv);
     }
+    $like=new Like();
+    $convdispbylike=$like->SqlGetUserLike(Bdd::GetInstance(),$idUser);
+    $infoUserLike=[];
+
+    foreach ($convdispbylike as $otherconv){
+        $id=$otherconv->getUserlike();
+        $user=new User();
+        $infoUserLike[]=$user->SqlGet(Bdd::GetInstance(),$id);
+    }
 
     $userr = new User();
     $activeconvinfo = $userr->SqlGet(Bdd::GetInstance(), $iddest);
 
     $ActiveMessages = new Message();
-    $ActiveConv = $ActiveMessages->SqlGetChat(Bdd::GetInstance(), $idUser, $iddest);
+    $ActiveConv = $ActiveMessages->SqlGetMessages(Bdd::GetInstance(), $idUser, $iddest);
 
-            $lastmessage = $ActiveConv[array_key_last($ActiveConv)];
-            $lastmessageContenu = $lastmessage->GetContenu();
-            $extraitMessageArray = explode(" ", $lastmessageContenu);
+    $userrr=new User();
+        $myinfo=$userrr->SqlGet(Bdd::GetInstance(),$idUser);
 
-            if ((count($extraitMessageArray)) >= 5) {
-                $messageFirstWord = '';
-                for ($i = 0; $i < 5; $i++) {
-                    $messageFirstWord = $messageFirstWord . ' ' . $extraitMessageArray[$i];
-                }
-            } else {
-                $messageFirstWord = $lastmessageContenu;
-            }
 
 
     return $this->twig->render('Chat/chat.html.twig',[
         "convdisp"=>$infoUser,
+        "convdisplike"=>$infoUserLike,
         "activeConvMessage" => $ActiveConv,
         "activeconvinfo"=>$activeconvinfo,
         "iddest"=>$iddest,
-        "extraitMessage"=>$messageFirstWord
+        "myinfo"=>$myinfo
     ]);
 
 }
@@ -94,9 +109,8 @@ public function SendMessage($idUser,$iddest)
 
         $titreNotif = "New Message from " .$prenom.' '.$nom;
 
-
-    header('location:/Accueil/');
     NotificationsController::SendNotifications($iddest, $typeNotif, $messageFirstWord, $titreNotif);
+    header('location:/Chat/'.$idUser.'/'.$iddest);
     return;
 }
 

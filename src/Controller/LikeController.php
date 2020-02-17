@@ -7,7 +7,8 @@ use src\Model\User;
 
 
 
-class LikeController extends  AbstractController {
+class LikeController extends  AbstractController{
+
     public function ShowLiked($iduser){
         UserController::idNeed($iduser);
         $likes=new Like();

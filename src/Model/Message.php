@@ -121,12 +121,12 @@ class Message implements \JsonSerializable
     }
 
     public function SqlAddMessage(\PDO $bdd){
-        $query = $bdd->prepare('INSERT INTO message (MESSAGE_ENVOYEUR, MESSAGE_DESTINATAIRE, MESSAGE_CONTENU, MESSAGE_DATE_ENVOI) VALUES (:envoyeur, :destinataire, :contenu, :date)');
+        $query = $bdd->prepare('INSERT INTO message (MESSAGE_ENVOYEUR, MESSAGE_DESTINATAIRE, MESSAGE_CONTENU, MESSAGE_DATE_ENVOI) VALUES (:envoyeur, :destinataire, :contenu, :dateenvoi)');
         $query->execute([
             "envoyeur" => $this->getEnvoyeur(),
             "destinataire" => $this->getDestinataire(),
             "contenu" => $this->getContenu(),
-            "date" => $this->getDateenvoi()
+            "dateenvoi" => $this->getDateenvoi()
         ]);
         return false;
     }

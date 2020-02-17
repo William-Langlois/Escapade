@@ -20,6 +20,7 @@ class BasicController extends AbstractController {
             header('Location:/Login');
             return;
         }
+
         unset($_SESSION['errorlike']);
         return $this->twig->render(
             'accueil.html.twig'
