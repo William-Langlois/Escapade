@@ -64,10 +64,12 @@
                         <a data-lightbox="photos" href="../../uploads/images/useruploads/{{ photo.repository }}/{{ photo.nom }}">
                             <img class="img-fluid" src="../../uploads/images/useruploads/{{ photo.repository }}/{{ photo.nom }}">
                         </a>
-                        {% if user.photonom != photo.nom %}
-                            <a href="/DeletePhoto/{{ photo.id }}/{{ categorie }}">Supprimer</a>
+                        {% if session.login.id == user.id %}
+                            {% if user.photonom != photo.nom %}
+                                <a href="/DeletePhoto/{{ photo.id }}/{{ categorie }}">Supprimer</a>
                             {% else %}
-                            <p>Vous ne pouvez pas supprimer votre photo de profil actuelle</p>
+                                <p>Vous ne pouvez pas supprimer votre photo de profil actuelle</p>
+                            {% endif %}
                         {% endif %}
                     </div>
                     {% endif %}
@@ -78,10 +80,12 @@
                     <a data-lightbox="photos" href="../uploads/images/useruploads/{{ photo.repository }}/{{ photo.nom }}">
                         <img class="img-fluid" src="../uploads/images/useruploads/{{ photo.repository }}/{{ photo.nom }}">
                     </a>
+                    {% if user.id == session.login.id %}
                     {% if user.photonom != photo.nom %}
                         <a href="/DeletePhoto/{{ photo.id }}/All">Supprimer</a>
                         {% else %}
                         <p>Vous ne pouvez pas supprimer votre photo de profil actuelle</p>
+                    {% endif %}
                     {% endif %}
                 </div>
                 {% endfor %}

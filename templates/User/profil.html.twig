@@ -39,6 +39,20 @@
             <p style="text-align: center">{{ session.errorlike }}</p>
         </div>
     {% endif %}
+    {% if session.errorgalerie is defined %}
+        <div class="alert alert-danger"
+             style="position: absolute;
+             color: black;
+             height: 50px;
+            width:55%;
+            top:15px;
+            left:28%;
+            border-radius: 10px;
+            border-width: 1px;
+            border-style: solid">
+            <p style="text-align: center">{{ session.errorgalerie }}</p>
+        </div>
+    {% endif %}
     <div class="media d-flex" style="margin-right: 500px;">
         {% if infoUser.photoNom != '' and file_exist('./uploads/images/useruploads/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
             <img alt="Avatar" src="../uploads/images/useruploads/{{ infoUser.photoRepo }}/{{infoUser.photoNom}}" class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
@@ -65,7 +79,10 @@
 <div style="margin-left: 269px;">
     <section style="background-color: rgba(58,189,128,0.41);height: 177px;width: 487px;margin-left: 673px;margin-top: -94px;">
         <p class="d-flex" style="font-family: Montserrat, sans-serif;margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">Mes Voyages de prévu :&nbsp;</p>
-        <p style="margin: 26px;font-family: Montserrat, sans-serif;">Paragraphe</p>
+        <p style="margin: 26px;font-family: Montserrat, sans-serif;"></p>
+        {% if session.login.id == userid %}
+            <a href="/AddVoyage/{{ userid }}">Ajouter un voyage</a>
+        {% endif %}
     </section>
 </div>
 <div class="d-flex" style="background-color: rgba(242,242,242,0);height: 100%;width: 665px;margin-right: 0px;margin-bottom: 0px;">
@@ -76,7 +93,7 @@
         <p style="font-family: Montserrat, sans-serif;">Ce que j'aime :&nbsp;</p>
         <div>
             <p style="font-family: Montserrat, sans-serif;">{% for hobby in listci %} <p>{{ hobby.nom }}</p> {% endfor %}</p>
-        </div><a href="/Galerie/{{ session.login.id }}"><button class="btn btn-primary" type="button" style="background-color: rgb(58,189,128);margin-left: 164px;margin-top: 16px;">Galerie Photo</button></a></section>
+        </div><a href="/Galerie/{{ userid }}"><button class="btn btn-primary" type="button" style="background-color: rgb(58,189,128);margin-left: 164px;margin-top: 16px;">Galerie Photo</button></a></section>
 </div>
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/bootstrap/js/bootstrap.min.js"></script>

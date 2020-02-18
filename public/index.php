@@ -68,5 +68,9 @@ $router->post('/ban/:concerneid','Ban#Ban#concerneid');
 $router->get('/signalement/:iduser','Signalement#ShowSignalement#iduser');
 $router->get('/signaler/:iduser/:idconcerne/:managed/:context','Signalement#SendSignalement#iduser#idconcerne#managed#context');
 
+//Voyages
+$router->get('/AddVoyage/:iduser','User#ShowAddVoyage#iduser');
+$router->post('/AddVoyage/:iduser','User#AddVoyage#iduser');
+
 echo $router->run();
 

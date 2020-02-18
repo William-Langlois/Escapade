@@ -155,5 +155,18 @@ class Voyage implements \JsonSerializable
             'voyage_toDate' => $this->getToDate(),
         ];
     }
+
+    public function SqlAddVoyage(\PDO $bdd){
+        $query=$bdd->prepare('INSERT INTO voyage (USER_ID,VOYAGE_FROM_PAYS,VOYAGE_FROM_VILLE,VOYAGE_DESTINATION_PAYS,VOYAGE_DESTINATION_VILLE,VOYAGE_DATEDEBUT,VOYAGE_DATEFIN) VALUES (:iduser,:frompays,:fromville,:topays,:toville,:fromdate,:todate)');
+        $query->execute([
+            "iduser"=>$this->getUserid(),
+            "frompays"=>$this->getFromPays(),
+            "fromville"=>$this->getFromVille(),
+            "topays"=>$this->getToPays(),
+            "toville"=>$this->getToVille(),
+            "fromdate"=>$this->getFromDate(),
+            "todate"=>$this->getToDate()
+        ]);
+    }
 }
 

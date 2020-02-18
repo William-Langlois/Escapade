@@ -8,6 +8,7 @@ use src\Model\CI;
 use src\Model\Like;
 use src\Model\Photo;
 use src\Model\User;
+use src\Model\Voyage;
 
 class UserController extends AbstractController
 {
@@ -323,6 +324,7 @@ class UserController extends AbstractController
         }
 
         //permet de retirer les messages d'infos après un refresh
+        unset($_SESSION['errorgalerie']);
         unset($_SESSION['errorlike']);
         unset($_SESSION['infoprofil']);
         return $this->twig->render('User/profil.html.twig', [
@@ -438,19 +440,45 @@ class UserController extends AbstractController
     }
 
 
-    public function ShowGalerie($iduser){
-        UserController::idNeed($iduser);
+    public function ShowGalerie($iduser)
+    {
+        if (!isset ($_SESSION['login'])) {
+            $_SESSION['errorlogin'] = "Veuillez-vous identifier";
+            header('Location:/Login');
+            return;
+        }
+
+        $user = new User();
+        $userInfo = $user->SqlGet(Bdd::GetInstance(), $iduser);
+        $galerieispublic = $userInfo->getGalerieispublic();
+
+        if ($_SESSION['login']['id'] != $iduser){
+            if ($galerieispublic == 0) {
+                $likes = new Like();
+                $listlikes = $likes->SqlGetUserLiked(Bdd::GetInstance(), $iduser);
+                $userisliked = 0;
+                foreach ($listlikes as $onelike) {
+                    $userliked = $onelike->getUserliked();
+                    if ($_SESSION['login']['id'] == $userliked) {
+                        $userisliked = 1;
+                    }
+                }
+                if ($userisliked == 0) {
+                    $_SESSION['errorgalerie'] = "Cette galerie n'est pas publique";
+                    header('location:/Profile/' . $iduser);
+                    return;
+                }
+            }
+    }
         $photo=new Photo();
         $listPhoto=$photo->GetUserPhoto(Bdd::GetInstance(),$iduser);
 
         $photoo=new Photo();
         $listCategorie=$photoo->SqlGetCategorie(Bdd::GetInstance(),$iduser);
 
-        $user=new User();
-        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
-
 
         return $this->twig->render('User/galerie.html.twig',[
+
             "listPhoto"=>$listPhoto,
             "listCategorie"=>$listCategorie,
             "user"=>$userInfo
@@ -458,15 +486,44 @@ class UserController extends AbstractController
     }
 
     public function ShowGalerieCategorie($categorie,$iduser){
-        UserController::idNeed($iduser);
+
+        if (!isset ($_SESSION['login'])) {
+            $_SESSION['errorlogin'] = "Veuillez-vous identifier";
+            header('Location:/Login');
+            return;
+        }
+
+        $user = new User();
+        $userInfo = $user->SqlGet(Bdd::GetInstance(), $iduser);
+        $galerieispublic = $userInfo->getGalerieispublic();
+
+        if ($_SESSION['login']['id'] != $iduser){
+            if ($galerieispublic == 0) {
+                $likes = new Like();
+                $listlikes = $likes->SqlGetUserLiked(Bdd::GetInstance(), $iduser);
+                $userisliked = 0;
+                foreach ($listlikes as $onelike) {
+                    $userliked = $onelike->getUserliked();
+                    if ($_SESSION['login']['id'] == $userliked) {
+                        $userisliked = 1;
+                    }
+                }
+                if ($userisliked == 0) {
+                    $_SESSION['errorgalerie'] = "Cette galerie n'est pas publique";
+                    header('location:/Profile/' . $iduser);
+                    return;
+                }
+            }
+        }
+
+
         $photo=new Photo();
         $listPhoto=$photo->GetUserPhoto(Bdd::GetInstance(),$iduser);
 
         $photoo=new Photo();
         $listCategorie=$photoo->SqlGetCategorie(Bdd::GetInstance(),$iduser);
 
-        $user=new User();
-        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+
 
         return $this->twig->render('User/galerie.html.twig',[
             "listPhoto"=>$listPhoto,
@@ -531,6 +588,31 @@ class UserController extends AbstractController
         else{
             header('location:/Galerie/'.$redirect.'/'.$_SESSION['login']['id']);
         }
+    }
+
+    public function ShowAddVoyage($iduser){
+        UserController::idNeed($iduser);
+
+        $user=new User();
+        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+        return $this->twig->render('User/addvoyage.html.twig',[
+            'user'=>$userInfo
+        ]);
+
+    }
+    public function AddVoyage($iduser){
+        UserController::idNeed($iduser);
+
+        $voyage=new Voyage();
+        $voyage->setUserid($iduser);
+        $voyage->setFromPays($_POST['frompays']);
+        $voyage->setFromVille($_POST['fromville']);
+        $voyage->setToPays($_POST['topays']);
+        $voyage->setToVille($_POST['toville']);
+        $voyage->setFromDate($_POST['fromdate']);
+        $voyage->setToDate($_POST['todate']);
+        $voyage->SqlAddVoyage(Bdd::GetInstance());
+
     }
 
 

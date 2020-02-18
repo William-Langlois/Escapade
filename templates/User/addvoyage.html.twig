@@ -44,44 +44,35 @@
 </nav>
 
 <div id="fond">
-    <h3>Ajouter une photo</h3>
+    <h3> Un voyage de prévu ?</h3>
 
-    <form name="addPhoto" method="post" action="/AddPhoto/{{ session.login.id }}" enctype="multipart/form-data">
+    <form name="addPhoto" method="post" action="/AddVoyage/{{ session.login.id }}" enctype="multipart/form-data">
         <table align="center" cellpadding="10">
-
-            <div class="container profile profile-view" id="profile">
-                <div class="row">
-                    <div class="col-md-12 alert-col relative">
-
-                    </div>
-                </div>
-
-                <div class="form-row profile-row">
-                    <div class="col-md-4 relative">
-                        <div class="avatar">
-                            <div class="avatar-bg center"></div>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="form-control-file custom-file-input" name="image" id="inputFile">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01"></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+>
             <tr>
-                <td>Genre</td>
+                <td>Lieu de départ</td>
                 <td>
                     <label>
-                        <select name="categorie">
-                            <option  selected value="Autre">Autre</option>
-                            <option  value="Sports">Sports</option>
-                            <option  value="Voyages">Voyages</option>
-                            <option  value="Paysages">Paysage</option>
-                            <option  value="Interieurs">Interieur</option>
-                            <option  value="Screen">Captures d'écran</option>
-                            <option  value="Photo de {{ user.prenom }}">Selfies / Photo de vous</option>
-                        </select>
+                        Pays : <input name="frompays" type="text" value="{{ user.pays }}">
+                        Ville : <input name="fromville" type="text" value="{{ user.ville }}">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>Lieu de destination</td>
+                <td>
+                    <label>
+                        Pays : <input name="topays" type="text" placeholder="pays de destination">
+                        Ville : <input name="toville" type="text" placeholder="ville de destination">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>Dates du voyage</td>
+                <td>
+                    <label>
+                        Départ le : <input name="fromdate" type="date" placeholder="Date de départ">
+                        Retour le : <input name="todate" type="date" placeholder="Date de retour">
                     </label>
                 </td>
             </tr>
