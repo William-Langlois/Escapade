@@ -66,7 +66,7 @@
                         </a>
                         {% if session.login.id == user.id %}
                             {% if user.photonom != photo.nom %}
-                                <a href="/DeletePhoto/{{ photo.id }}/{{ categorie }}">Supprimer</a>
+                                <a href="/DeletePhoto/{{ user.id }}/{{ photo.id }}/{{ categorie }}">Supprimer</a>
                             {% else %}
                                 <p>Vous ne pouvez pas supprimer votre photo de profil actuelle</p>
                             {% endif %}
@@ -82,7 +82,7 @@
                     </a>
                     {% if user.id == session.login.id %}
                     {% if user.photonom != photo.nom %}
-                        <a href="/DeletePhoto/{{ photo.id }}/All">Supprimer</a>
+                        <a href="/DeletePhoto/{{ user.id }}/{{ photo.id }}/All">Supprimer</a>
                         {% else %}
                         <p>Vous ne pouvez pas supprimer votre photo de profil actuelle</p>
                     {% endif %}

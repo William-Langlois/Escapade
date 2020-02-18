@@ -581,7 +581,8 @@ class UserController extends AbstractController
         return $this->twig->render('Map/map.html.twig');
     }
 
-    public function DeletePhoto($photoid,$redirect){
+    public function DeletePhoto($iduser,$photoid,$redirect){
+        UserController::idNeed($iduser);
         $photo=new Photo();
         $photo->DeletePhoto(Bdd::GetInstance(),$photoid);
 
