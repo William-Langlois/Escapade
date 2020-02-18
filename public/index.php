@@ -71,6 +71,7 @@ $router->get('/signaler/:iduser/:idconcerne/:managed/:context','Signalement#Send
 //Voyages
 $router->get('/AddVoyage/:iduser','User#ShowAddVoyage#iduser');
 $router->post('/AddVoyage/:iduser','User#AddVoyage#iduser');
+$router->get('/DeleteVoyage/:iduser/:idvoyage','User#DeleteVoyage#iduser#idvoyage');
 
 echo $router->run();
 

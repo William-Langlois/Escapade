@@ -168,5 +168,34 @@ class Voyage implements \JsonSerializable
             "todate"=>$this->getToDate()
         ]);
     }
+    public function SqlDeleteVoyage(\PDO $bdd , $idvoyage){
+        $query=$bdd->prepare('DELETE FROM voyage WHERE VOYAGE_ID=:idvoyage');
+        $query->execute([
+            "idvoyage"=>$idvoyage
+        ]);
+    }
+
+    public function GetUserVoyages(\PDO $bdd, $iduser){
+        $query=$bdd->prepare('SELECT * FROM voyage WHERE USER_ID=:iduser');
+        $query->execute([
+            "iduser"=>$iduser
+        ]);
+        $VoyageArray=$query->fetchAll();
+        $ListVoyage=[];
+        foreach ($VoyageArray as $voyageSql) {
+            $voyage = new Voyage();
+            $voyage->setId($voyageSql['VOYAGE_ID']);
+            $voyage->setUserid($voyageSql['USER_ID']);
+            $voyage->setFromPays($voyageSql['VOYAGE_FROM_PAYS']);
+            $voyage->setFromVille($voyageSql['VOYAGE_FROM_VILLE']);
+            $voyage->setToPays($voyageSql['VOYAGE_DESTINATION_PAYS']);
+            $voyage->setToVille($voyageSql['VOYAGE_DESTINATION_VILLE']);
+            $voyage->setFromDate($voyageSql['VOYAGE_DATEDEBUT']);
+            $voyage->setToDate($voyageSql['VOYAGE_DATEFIN']);
+
+            $ListVoyage[]=$voyage;
+        }
+        return $ListVoyage;
+    }
 }
 

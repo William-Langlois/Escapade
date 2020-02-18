@@ -77,9 +77,19 @@
 </div>
 
 <div style="margin-left: 269px;">
-    <section style="background-color: rgba(58,189,128,0.41);height: 177px;width: 487px;margin-left: 673px;margin-top: -94px;">
+    <section style="background-color: rgba(58,189,128,0.41);height: auto;width: 487px;margin-left: 673px;margin-top: -94px;">
         <p class="d-flex" style="font-family: Montserrat, sans-serif;margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">Mes Voyages de prévu :&nbsp;</p>
-        <p style="margin: 26px;font-family: Montserrat, sans-serif;"></p>
+        ---
+        {% for voyage in listvoyage %}
+        <p style="margin: 10px;font-family: Montserrat, sans-serif;"> from : {{ voyage.fromPays }},{{ voyage.fromVille }} </p>
+        <p style="margin: 10px;font-family: Montserrat, sans-serif;"> to : {{ voyage.toPays }},{{ voyage.toVille }} </p>
+        <p style="margin: 10px;font-family: Montserrat, sans-serif;">date : {{ voyage.fromDate }} ==> {{ voyage.toDate }}</p>
+            {% if session.login.id == userid %}
+                <a href="/DeleteVoyage/{{ userid }}/{{ voyage.id }}">Supprimer le voyage</a>
+            {% endif %}
+            ---
+            <p></p>
+        {% endfor %}
         {% if session.login.id == userid %}
             <a href="/AddVoyage/{{ userid }}">Ajouter un voyage</a>
         {% endif %}

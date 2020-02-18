@@ -322,6 +322,8 @@ class UserController extends AbstractController
                 $alreadylike=1;
             }
         }
+        $voyage=new Voyage();
+        $listVoyage=$voyage->GetUserVoyages(Bdd::GetInstance(),$idUser);
 
         //permet de retirer les messages d'infos après un refresh
         unset($_SESSION['errorgalerie']);
@@ -332,7 +334,8 @@ class UserController extends AbstractController
             "infoUser"=>$userInfo,
             "age"=>$age,
             "listci"=>$listCi,
-            "alreadylike"=>$alreadylike
+            "alreadylike"=>$alreadylike,
+            "listvoyage"=>$listVoyage
         ]);
     }
 
@@ -613,6 +616,15 @@ class UserController extends AbstractController
         $voyage->setToDate($_POST['todate']);
         $voyage->SqlAddVoyage(Bdd::GetInstance());
 
+        header('location:/Profile/'.$iduser);
+    }
+    public function DeleteVoyage($iduser ,$idvoyage){
+        UserController::idNeed($iduser);
+
+        $voyage=new Voyage();
+        $voyage->SqlDeleteVoyage(Bdd::GetInstance(),$idvoyage);
+
+        header('location:/Profile/'.$_SESSION['login']['id']);
     }
 
 
