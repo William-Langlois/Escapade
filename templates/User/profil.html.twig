@@ -12,6 +12,7 @@
 </head>
 
 <body class="d-flex flex-column justify-content-start">
+
 <nav class="navbar navbar-light navbar-expand-md" style="background-color: #046336;">
     <div class="container-fluid"><a class="navbar-brand" href="/Accueil"><img src="../uploads/images/logo%20seul.png" style="margin: -5px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div
@@ -24,6 +25,20 @@
         </div><a href="/UpdateProfile/{{ session.login.id }}">Mettez à jour votre profil<img></a></div>
 </nav>
 <div>
+    {% if session.errorlike is defined %}
+        <div class="alert alert-danger"
+             style="position: absolute;
+             color: black;
+             height: 50px;
+            width:55%;
+            top:15px;
+            left:28%;
+            border-radius: 10px;
+            border-width: 1px;
+            border-style: solid">
+            <p style="text-align: center">{{ session.errorlike }}</p>
+        </div>
+    {% endif %}
     <div class="media d-flex" style="margin-right: 500px;">
         {% if infoUser.photoNom != '' and file_exist('./uploads/images/useruploads/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
             <img alt="Avatar" src="../uploads/images/useruploads/{{ infoUser.photoRepo }}/{{infoUser.photoNom}}" class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
@@ -35,9 +50,14 @@
             <p style="width: 70px;font-family: Montserrat, sans-serif;">{{ age }}</p>
             <p style="margin-left: 381px;margin-bottom: 0;margin-right: 0px;margin-top: -62px;font-family: Montserrat, sans-serif;">{{ infoUser.ville }}, {{ infoUser.pays }}</p>
             {% if session.login.id != userid %}
-            <button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">S'abonner</button><a href="/newlike/{{ session.login.id }}/{{ userid }}"><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></a></div>
-            <button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">Signaler</button><a href="/signaler/{{ session.login.id }}/{{ userid }}/0/signalement"><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i>Signaler</a></div>
-        {% endif %}
+            {% if alreadylike == 0 %}
+            <a href="/newlike/{{ session.login.id }}/{{ userid }}"><button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">S'abonner</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div>
+            {% endif %}
+            {% if alreadylike == 1 %}
+            <a href="/removelike/{{ session.login.id }}/{{ userid }}"><button class="btn btn-primary" type="button" style="margin-left: 195px;margin-top: 30px;background-color: rgb(58,189,128);">Se Désabonner</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div>
+            {% endif %}
+            <a href="/signaler/{{ session.login.id }}/{{ userid }}/0/signalement"><button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">Signaler</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div
+            {% endif %}
     </div>
 
 </div>

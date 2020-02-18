@@ -37,6 +37,7 @@ $router->post('/sendChat/:iduser/:iddest','Message#SendMessage#iduser#iddest');
 $router->get('/liked/:iduser','Like#ShowLiked#iduser');
 $router->get('/like/:iduser','Like#ShowLike#iduser');
 $router->get('/newlike/:iduser/:iduserliked','Like#likeSomebody#iduser#iduserliked');
+$router->get('/removelike/:iduser/:iduserliked','Like#DeleteLike#iduser#iduserliked');
 
 //notif
 $router->get('/Notification/:iduser','Notifications#ShowNotification#iduser');

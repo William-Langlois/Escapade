@@ -137,12 +137,12 @@ class Like implements \JsonSerializable
         return $listLike;
     }
 
-    /* à mettre en fonction de deux users
-    public function SqlDeleteLike(\PDO $bdd , $idlike){
-        $query = $bdd->prepare('DELETE FROM likes WHERE id_like=:likeid');
+    public function SqlDeleteLike(\PDO $bdd , $iduser , $iduserliked){
+        $query = $bdd->prepare('DELETE FROM likes WHERE id_userlike=:iduser AND id_userliked=:iduserliked');
         $query->execute([
-            'likeid'=>$idlike
+            'iduser'=>$iduser,
+            'iduserliked'=>$iduserliked
         ]);
 
-    }*/
+    }
 }

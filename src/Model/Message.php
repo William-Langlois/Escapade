@@ -178,4 +178,17 @@ class Message implements \JsonSerializable
         return $ListConv2;
     }
 
+    public function getLastMessage(\PDO $bdd,$iduser,$iduser2){
+        $query = $bdd->prepare("SELECT * FROM message WHERE (MESSAGE_ENVOYEUR=:uti1 AND MESSAGE_DESTINATAIRE=:uti2)OR(MESSAGE_ENVOYEUR=:uti2 AND MESSAGE_DESTINATAIRE=:uti1) ORDER BY MESSAGE_DATE_ENVOI DESC LIMIT 1");
+        $query->execute([
+            "uti1"=>$iduser,
+            "uti2"=>$iduser2
+        ]);
+        $ArrayMessage=$query->fetch();
+
+
+        $lastMessage=$ArrayMessage;
+        return $lastMessage;
+    }
+
 }

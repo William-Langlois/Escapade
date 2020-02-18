@@ -14,9 +14,12 @@ public function ShowChats($idUser){
     $Conv=new Message();
     $conversations=$Conv->SqlGetConv(Bdd::GetInstance(),$idUser);
     $infoUser=[];
+    $lastmessages=[];
     foreach ($conversations as $conv){
         $user=new User();
         $infoUser[]=$user->SqlGet(Bdd::GetInstance(), $conv);
+        $message=new Message();
+        $lastmessages[]=$message->getLastMessage(Bdd::GetInstance(),$idUser,$conv);
     }
 
     $like=new Like();
@@ -30,10 +33,13 @@ public function ShowChats($idUser){
     $userrr=new User();
     $myinfo=$userrr->SqlGet(Bdd::GetInstance(),$idUser);
 
+
+
     return $this->twig->render('Chat/chat.html.twig',[
         "convdisp"=>$infoUser,
         "convdisplike"=>$infoUserlike,
-        "myinfo"=>$myinfo
+        "myinfo"=>$myinfo,
+        "lastMessages"=>$lastmessages
     ]);
 
 }
@@ -47,6 +53,8 @@ public function ShowOneChat($idUser,$iddest)
     foreach ($conversations as $conv) {
         $user = new User();
         $infoUser[] = $user->SqlGet(Bdd::GetInstance(), $conv);
+        $message=new Message();
+        $lastmessages[]=$message->getLastMessage(Bdd::GetInstance(),$idUser,$conv);
     }
     $like=new Like();
     $convdispbylike=$like->SqlGetUserLike(Bdd::GetInstance(),$idUser);
@@ -75,7 +83,9 @@ public function ShowOneChat($idUser,$iddest)
         "activeConvMessage" => $ActiveConv,
         "activeconvinfo"=>$activeconvinfo,
         "iddest"=>$iddest,
-        "myinfo"=>$myinfo
+        "myinfo"=>$myinfo,
+        "lastMessages"=>$lastmessages
+
     ]);
 
 }

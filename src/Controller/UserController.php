@@ -5,6 +5,7 @@ namespace src\Controller;
 use DateTime;
 use src\Model\Bdd;
 use src\Model\CI;
+use src\Model\Like;
 use src\Model\Photo;
 use src\Model\User;
 
@@ -311,13 +312,25 @@ class UserController extends AbstractController
             }
         $ci=new CI();
         $listCi=$ci->GetUserCI(Bdd::GetInstance(),$idUser);
+        $likes=new Like();
+        $listlikes= $likes->SqlGetUserLiked(Bdd::GetInstance(),$_SESSION['login']['id']);
+        $alreadylike=0;
+        foreach ($listlikes as $onelike){
+            $id=$onelike->getUserliked();
+            if($id == $idUser){
+                $alreadylike=1;
+            }
+        }
+
         //permet de retirer les messages d'infos après un refresh
+        unset($_SESSION['errorlike']);
         unset($_SESSION['infoprofil']);
         return $this->twig->render('User/profil.html.twig', [
             "userid"=>$idUser,
             "infoUser"=>$userInfo,
             "age"=>$age,
-            "listci"=>$listCi
+            "listci"=>$listCi,
+            "alreadylike"=>$alreadylike
         ]);
     }
 

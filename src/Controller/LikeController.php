@@ -26,17 +26,39 @@ class LikeController extends  AbstractController{
             "likes"=>$listlikes
         ]);
     }
+    public function DeleteLike($iduser,$iduserliked){
+        UserController::idNeed($iduser);
+
+        if($iduser == $iduserliked){
+            $_SESSION['errorlike']="Vous ne pouvez pas vous désabonner de vous même";
+            header("location:/Profile/".$iduser);
+            return;
+        }
+        $like=new Like();
+        $like->SqlDeleteLike(Bdd::GetInstance(),$iduser,$iduserliked);
+
+        header("location:/Profile/".$iduserliked);
+    }
 
     public function likeSomebody($iduser,$iduserliked){
         UserController::idNeed($iduser);
 
         if($iduser == $iduserliked){
             $_SESSION['errorlike']="Vous ne pouvez pas vous likez vous même";
-            header("location:/");
+            header("location:/Profile/".$iduser);
             return;
         }
         $likes=new Like();
         $listlikes = $likes->SqlGetUserLiked(Bdd::GetInstance(),$iduser);
+        foreach($listlikes as $onelike)
+        {
+            $userliked=$onelike->getUserliked();
+            if($userliked==$iduserliked){
+                $_SESSION['errorlike']="Vous likez déjà cet utilisateur";
+                header("location:/Profile/".$iduserliked);
+                return;
+            }
+        }
 
         $like=new Like();
         $like->setUserlike($iduser);
@@ -58,7 +80,7 @@ class LikeController extends  AbstractController{
 
         NotificationsController::SendNotifications($iduserliked,$typeNotif,$contenuNotif,$titreNotif,$photorepo,$photonom);
 
-        header('location:/Liked/'.$iduser);
+        header('location:/Profile/'.$iduserliked);
         return;
 
     }

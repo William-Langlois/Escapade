@@ -30,7 +30,6 @@
         <input style="text-align: center;" class="submit" value="Accueil">
     </div>
 </a>
-
 <div id="frame">
     <div id="sidepanel">
         <div id="profile">
@@ -82,7 +81,14 @@
                         {% endif %}
                         <div class="meta">
                             <p class="name">{{ conv.nom }} {{ conv.prenom }}</p>
-                            <p class="preview">{{ extraitMessage }}</p>
+                            {% for lastmessage in lastMessages %}
+                                {% if lastmessage.MESSAGE_DESTINATAIRE == session.login.id and lastmessage.MESSAGE_ENVOYEUR == conv.id %}
+                                    <p class="preview">{{ conv.prenom }}: {{ lastmessage.MESSAGE_CONTENU}}</p>
+                                {% endif %}
+                                {% if lastmessage.MESSAGE_DESTINATAIRE == conv.id and lastmessage.MESSAGE_ENVOYEUR == session.login.id %}
+                                    <p class="preview">Vous: {{ lastmessage.MESSAGE_CONTENU }}</p>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </li>
@@ -101,7 +107,14 @@
                                                 <img id="profile-img" alt="No Avatar" src='../../uploads/images/useruploads/avatar_defaut.png' class="online" >
                                             {% endif %}                                            <div class="meta">
                                                 <p class="name">{{ conv.nom }} {{ conv.prenom }}</p>
-                                                <p class="preview">{{ extraitMessage }}</p>
+                                                {% for lastmessage in lastMessages %}
+                                                    {% if lastmessage.MESSAGE_DESTINATAIRE == session.login.id and lastmessage.MESSAGE_ENVOYEUR == conv.id %}
+                                                        <p class="preview">{{ conv.prenom }}: {{ lastmessage.MESSAGE_CONTENU}}</p>
+                                                    {% endif %}
+                                                    {% if lastmessage.MESSAGE_DESTINATAIRE == conv.id and lastmessage.MESSAGE_ENVOYEUR == session.login.id %}
+                                                        <p class="preview">Vous: {{ lastmessage.MESSAGE_CONTENU }}</p>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </li>
@@ -110,7 +123,10 @@
                     {% endif %}
                 {% endfor %}
                 {% if convdisplike != '' %}
-                ~          Il vous ont liké         ~
+                    <div style="height: 50px;top: 25px;padding-top: 25px;">
+                        <p style="color: grey">|-------------Ils vous ont liké-------------|</p>
+                    </div>
+
                 {% for conv in convdisplike %}
                     {% if session.login.id != conv.id %}
                         {% if conv.id == iddest %}
