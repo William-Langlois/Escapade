@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  ven. 14 fév. 2020 à 18:11
+-- Généré le :  mer. 19 fév. 2020 à 18:12
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP :  7.4.1
 
@@ -59,8 +59,8 @@ CREATE TABLE `bannissement` (
 
 CREATE TABLE `categorie_signalement` (
   `CS_ID` int(11) NOT NULL,
-  `CS_NOM` varchar(50) DEFAULT NULL,
-  `CS_IMPORTANCE` int(11) DEFAULT NULL
+  `CS_NOM` varchar(250) DEFAULT NULL,
+  `CS_IMPORTANCE` int(3) DEFAULT 500
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -72,7 +72,8 @@ CREATE TABLE `categorie_signalement` (
 CREATE TABLE `centre_interet` (
   `CI_ID` int(11) NOT NULL,
   `USER_ID` int(11) NOT NULL,
-  `CI_NOM` varchar(50) DEFAULT NULL
+  `CI_NOM` varchar(50) DEFAULT NULL,
+  `CI_NUM` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -132,7 +133,9 @@ CREATE TABLE `notification` (
   `NOTIFICATION_TYPE` varchar(100) DEFAULT NULL,
   `NOTIFICATION_CREATIME` datetime DEFAULT NULL,
   `NOTIFICATION_VIEWTIME` datetime DEFAULT NULL,
-  `NOTIFICATION_ISVIEWED` varchar(3) DEFAULT 'no'
+  `NOTIFICATION_ISVIEWED` varchar(3) DEFAULT 'no',
+  `NOTIFICATION_PHOTOREPO` varchar(250) DEFAULT NULL,
+  `NOTIFICATION_PHOTONOM` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -145,7 +148,7 @@ CREATE TABLE `photo` (
   `PHOTO_ID` int(11) NOT NULL,
   `USER_ID` int(11) NOT NULL,
   `PHOTO_NOM` varchar(50) DEFAULT NULL,
-  `PHOTO_URL` varchar(250) DEFAULT NULL,
+  `PHOTO_REPOSITORY` varchar(250) DEFAULT NULL,
   `PHOTO_CATEGORIE` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -161,7 +164,8 @@ CREATE TABLE `signalement` (
   `SIGNALEMENT_SOUMETTEUR` int(11) NOT NULL,
   `SIGNALEMENT_CONCERNE` int(11) NOT NULL,
   `SIGNALEMENT_MANAGED` tinyint(1) DEFAULT 0,
-  `SIGNALEMENT_CONTEXT` text DEFAULT NULL
+  `SIGNALEMENT_CONTEXT` text DEFAULT NULL,
+  `SIGNALEMENT_DATE` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -184,7 +188,8 @@ CREATE TABLE `user` (
   `USER_DATE_INSCRIPTION` date DEFAULT NULL,
   `USER_LAST_CONNECTION` datetime DEFAULT NULL,
   `USER_SEXE` int(11) DEFAULT NULL,
-  `USER_PHOTO` varchar(250) DEFAULT NULL,
+  `USER_PHOTONOM` varchar(250) DEFAULT NULL,
+  `USER_PHOTOREPO` varchar(250) DEFAULT NULL,
   `USER_WANNADATEATHOME` tinyint(1) DEFAULT NULL,
   `USER_ISADMIN` tinyint(1) DEFAULT NULL,
   `USER_ACCEPT_EMAIL` tinyint(1) DEFAULT NULL,
@@ -304,7 +309,7 @@ ALTER TABLE `abonnement_premium`
 -- AUTO_INCREMENT pour la table `bannissement`
 --
 ALTER TABLE `bannissement`
-  MODIFY `BAN_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `BAN_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `categorie_signalement`
@@ -316,7 +321,7 @@ ALTER TABLE `categorie_signalement`
 -- AUTO_INCREMENT pour la table `centre_interet`
 --
 ALTER TABLE `centre_interet`
-  MODIFY `CI_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `CI_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `email`
@@ -328,19 +333,19 @@ ALTER TABLE `email`
 -- AUTO_INCREMENT pour la table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `MESSAGE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=878;
+  MODIFY `MESSAGE_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `NOTIFICATION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=845;
+  MODIFY `NOTIFICATION_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `photo`
@@ -352,13 +357,13 @@ ALTER TABLE `photo`
 -- AUTO_INCREMENT pour la table `signalement`
 --
 ALTER TABLE `signalement`
-  MODIFY `SIGNALEMENT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `SIGNALEMENT_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `USER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `USER_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `voyage`
