@@ -259,8 +259,10 @@ class UserController extends AbstractController
                     "prenom" => $userInfoLog['USER_PRENOM'],
                     "nom" => $userInfoLog['USER_NOM'],
                     "email" => $userInfoLog['USER_EMAIL'],
-                    "photo"=>$userInfoLog['USER_PHOTO'],
+                    "photonom"=>$userInfoLog['USER_PHOTONOM'],
+                    "photorepo"=>$userInfoLog['USER_PHOTOREPO'],
                     "ville"=>$userInfoLog['USER_VILLE'],
+                    "isadmin"=>$userInfoLog['USER_ISADMIN'],
                     "birthdate"=>$userInfoLog['USER_BIRTHDATE']);
                 if($_SESSION['login']['ville'] != '') {
                     header('Location:/Accueil');
@@ -284,10 +286,22 @@ class UserController extends AbstractController
 
     //Fonction qui permet de verifier que l'utilisateur à le bon id
     public static function idNeed($idATester)
+{
+    if (isset($_SESSION['login'])) {
+        if ($idATester != ($_SESSION['login']['id'])) {
+            $_SESSION['errorlogin'] = "Le compte n°" . $idATester . " ne vous appartient pas";
+            header('Location:/Login');
+        }
+    } else {
+        $_SESSION['errorlogin'] = "Veuillez-vous identifier";
+        header('Location:/Login');
+    }
+}
+    public static function AdminNeed()
     {
         if (isset($_SESSION['login'])) {
-            if ($idATester != ($_SESSION['login']['id'])) {
-                $_SESSION['errorlogin'] = "Le compte n°" . $idATester . " ne vous appartient pas";
+            if (1 != ($_SESSION['login']['isadmin'])) {
+                $_SESSION['errorlogin'] = "Vous n'êtes pas administrateur";
                 header('Location:/Login');
             }
         } else {

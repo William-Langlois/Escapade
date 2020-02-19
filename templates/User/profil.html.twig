@@ -56,6 +56,7 @@
     {% endif %}
     {% endif %}
     <div class="media d-flex" style="margin-right: 500px;">
+
         {% if infoUser.photoNom != '' and file_exist('./uploads/images/useruploads/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
             <img alt="Avatar" src="../uploads/images/useruploads/{{ infoUser.photoRepo }}/{{infoUser.photoNom}}" class="mr-3" style="width: 100px;height: 100px;margin-left: 10px;margin-top: 10px;">
         {% else %}
@@ -72,14 +73,14 @@
             {% if alreadylike == 1 %}
             <a href="/removelike/{{ session.login.id }}/{{ userid }}"><button class="btn btn-primary" type="button" style="margin-left: 195px;margin-top: 30px;background-color: rgb(58,189,128);">Se Désabonner</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div>
             {% endif %}
-            <a href="/signaler/{{ session.login.id }}/{{ userid }}"><button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">Signaler</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div
+            <a style="position: absolute;margin-top: 42px;margin-left: 260px;" href="/signaler/{{ session.login.id }}/{{ userid }}"><button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">Signaler</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div
             {% endif %}
     </div>
 
 </div>
 
 <div style="margin-left: 269px;">
-    <section style="background-color: rgba(58,189,128,0.41);height: auto;width: 487px;margin-left: 673px;margin-top: -94px;">
+    <section style="background-color: rgba(58,189,128,0.41);min-height: 100px;height: auto;width: 487px;margin-left: 673px;margin-top: -94px;">
         <p class="d-flex" style="font-family: Montserrat, sans-serif;margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">Mes Voyages de prévu :&nbsp;</p>
         ---
         {% for voyage in listvoyage %}
@@ -107,6 +108,11 @@
             <p style="font-family: Montserrat, sans-serif;">{% for hobby in listci %} <p>{{ hobby.nom }}</p> {% endfor %}</p>
         </div><a href="/Galerie/{{ userid }}"><button class="btn btn-primary" type="button" style="background-color: rgb(58,189,128);margin-left: 164px;margin-top: 16px;">Galerie Photo</button></a></section>
 </div>
+{% if session.login.id != infoUser.id %}
+    {% if session.login.isadmin == 1  %}
+        <a href="/Signalement/{{ infoUser.id }}">Signalements concernant {{ infoUser.prenom }} {{ infoUser.nom }}</a>
+    {% endif %}
+{% endif %}
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 </body>

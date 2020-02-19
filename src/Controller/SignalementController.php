@@ -11,12 +11,45 @@ class SignalementController extends AbstractController
 
     public function ShowSignalement($idUser)
     {
+        UserController::AdminNeed();
         $Sign = new Signalement();
         $Signalements = $Sign->SqlGetSignalementforUser(Bdd::GetInstance(), $idUser);
+        $soumetteurInfo=[];
+        $soumetteurs=[];
+
+        foreach ($Signalements as $oneSignalement){
+            $soumetteurid[]=$oneSignalement->getSoumetteur();
+        }
+        $soumetteuridunique=array_unique($soumetteurid);
+        foreach ($soumetteuridunique as $onesoumetteur){
+            $user=new User();
+            $soumetteurInfo[]=$user->SqlGet(Bdd::GetInstance(),$onesoumetteur);
+        }
+
+
         return $this->twig->render('Signalement/Signalement.html.twig', [
-            "Signalements" => $Signalements
+            "Signalements" => $Signalements,
+            "soumetteurs"=>$soumetteurInfo
         ]);
 
+    }
+    public function ShowOneSignalement($idSignalement)
+    {
+        UserController::AdminNeed();
+        $sign=new Signalement();
+        $sign->SetSignalementManaged(Bdd::GetInstance(),$idSignalement);
+        $signalement=$sign->GetOneSignalement(Bdd::GetInstance(),$idSignalement);
+
+        $user=new User();
+        $soumetteur=$user->SqlGet(Bdd::GetInstance(),$signalement->getSoumetteur());
+        $userr=new User();
+        $concerne=$userr->SqlGet(Bdd::GetInstance(),$signalement->getConcerne());
+
+        return $this->twig->render('Signalement/OneSignalement.html.twig', [
+            "Signalement" => $signalement,
+            "Soumetteur" => $soumetteur,
+            "Concerne" => $concerne
+        ]);
     }
 
     public function showSendSignalement($soumetteur,$idconcerne){
@@ -42,6 +75,7 @@ class SignalementController extends AbstractController
         $Sign->setIdcs($_POST['categorie']);
         $Sign->setConcerne($concerne);
         $Sign->setContext($_POST['raison']);
+        $Sign->setDate(date("Y-m-d G:h:i"));
         $Sign->SqlAddSignalement(Bdd::GetInstance());
 
         header('location:/Profile/'.$concerne);

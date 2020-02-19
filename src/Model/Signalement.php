@@ -11,6 +11,23 @@ class Signalement implements \JsonSerializable
     private $managed;
     private $context;
     private $idcs;
+    private $date;
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
 
     /**
      * @return mixed
@@ -121,14 +138,42 @@ class Signalement implements \JsonSerializable
     }
 
       public function SqlAddSignalement(\PDO $bdd){
-        $query = $bdd->prepare('INSERT INTO signalement (SIGNALEMENT_SOUMETTEUR, SIGNALEMENT_CONCERNE, SIGNALEMENT_CONTEXT ,CS_ID) VALUES (:soumetteur, :concerne, :context,:idcs)');
+        $query = $bdd->prepare('INSERT INTO signalement (SIGNALEMENT_SOUMETTEUR, SIGNALEMENT_CONCERNE, SIGNALEMENT_CONTEXT ,CS_ID,SIGNALEMENT_DATE) VALUES (:soumetteur, :concerne, :context,:idcs,:datecrea)');
         $query->execute([
             "soumetteur" => $this->getSoumetteur(),
             "concerne" => $this->getConcerne(),
             "idcs"=>$this->getIdcs(),
             "context" => $this->getContext(),
+            "datecrea"=> $this->getDate()
         ]);
 
+    }
+    public function GetOneSignalement(\PDO $bdd, $idsign){
+        $query = $bdd->prepare('SELECT * FROM signalement WHERE SIGNALEMENT_ID=:idsign');
+        $query->execute([
+            "idsign"=>$idsign
+        ]);
+        $ArraySignalement=$query->fetchAll();
+        $listSignalement=null;
+        foreach($ArraySignalement as $signalementSql){
+            $signalement=new Signalement();
+            $signalement->setSignid($signalementSql['SIGNALEMENT_ID']);
+            $signalement->setConcerne($signalementSql['SIGNALEMENT_CONCERNE']);
+            $signalement->setSoumetteur($signalementSql['SIGNALEMENT_SOUMETTEUR']);
+            $signalement->setContext($signalementSql['SIGNALEMENT_CONTEXT']);
+            $signalement->setManaged($signalementSql['SIGNALEMENT_MANAGED']);
+            $signalement->setDate($signalementSql['SIGNALEMENT_DATE']);
+            $signalement->setIdcs($signalementSql['CS_ID']);
+
+            $listSignalement=$signalement;
+        }
+        return $listSignalement;
+    }
+    public function SetSignalementManaged(\PDO $bdd,$idsign){
+        $query=$bdd->prepare('UPDATE signalement SET SIGNALEMENT_MANAGED=1 WHERE SIGNALEMENT_ID=:signid');
+        $query->execute([
+            "signid"=>$idsign
+        ]);
     }
 
     public function SqlGetSignalementforUser(\PDO $bdd,$iduser){
@@ -140,10 +185,12 @@ class Signalement implements \JsonSerializable
         $listSignalement=[];
         foreach($ArraySignalement as $signalementSql){
             $signalement=new Signalement();
+            $signalement->setSignid($signalementSql['SIGNALEMENT_ID']);
             $signalement->setConcerne($signalementSql['SIGNALEMENT_CONCERNE']);
             $signalement->setSoumetteur($signalementSql['SIGNALEMENT_SOUMETTEUR']);
             $signalement->setContext($signalementSql['SIGNALEMENT_CONTEXT']);
             $signalement->setManaged($signalementSql['SIGNALEMENT_MANAGED']);
+            $signalement->setDate($signalementSql['SIGNALEMENT_DATE']);
             $signalement->setIdcs($signalementSql['CS_ID']);
 
             $listSignalement[]=$signalement;

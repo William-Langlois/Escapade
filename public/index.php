@@ -66,6 +66,7 @@ $router->post('/ban/:concerneid','Ban#Ban#concerneid');
 
 //Signalement
 $router->get('/signalement/:iduser','Signalement#ShowSignalement#iduser');
+$router->get('/ShowSignalement/:idsign','Signalement#ShowOneSignalement#idsign');
 $router->get('/signaler/:iduser/:idconcerne','Signalement#ShowSendSignalement#iduser#idconcerne');
 $router->post('/signaler/:iduser/:idconcerne','Signalement#SendSignalement#iduser#idconcerne');
 
