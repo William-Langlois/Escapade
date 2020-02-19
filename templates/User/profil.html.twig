@@ -39,6 +39,7 @@
             <p style="text-align: center">{{ session.errorlike }}</p>
         </div>
     {% endif %}
+    {% if session.login.id != infoUser.id %}
     {% if session.errorgalerie is defined %}
         <div class="alert alert-danger"
              style="position: absolute;
@@ -52,6 +53,7 @@
             border-style: solid">
             <p style="text-align: center">{{ session.errorgalerie }}</p>
         </div>
+    {% endif %}
     {% endif %}
     <div class="media d-flex" style="margin-right: 500px;">
         {% if infoUser.photoNom != '' and file_exist('./uploads/images/useruploads/'~ infoUser.photoRepo ~'/'~ infoUser.photoNom) %}
@@ -70,7 +72,7 @@
             {% if alreadylike == 1 %}
             <a href="/removelike/{{ session.login.id }}/{{ userid }}"><button class="btn btn-primary" type="button" style="margin-left: 195px;margin-top: 30px;background-color: rgb(58,189,128);">Se Désabonner</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div>
             {% endif %}
-            <a href="/signaler/{{ session.login.id }}/{{ userid }}/0/signalement"><button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">Signaler</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div
+            <a href="/signaler/{{ session.login.id }}/{{ userid }}"><button class="btn btn-primary" type="button" style="margin-left: 221px;margin-top: 30px;background-color: rgb(58,189,128);">Signaler</button></a><i class="material-icons d-flex" style="color: rgb(32,32,32);margin-left: 326px;margin-right: 0px;margin-top: -28px;">keyboard_arrow_down</i></div
             {% endif %}
     </div>
 
