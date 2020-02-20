@@ -130,20 +130,20 @@ class Ban implements \JsonSerializable
         ]);
     }
     public function SqlGetBan(\PDO $bdd,$iduser){
-        $query = $bdd->prepare('SELECT * FROM bannissement WHERE BAN_CONCERNE=:iduser ORDER BY BAN_DATEDEBUT DESC LIMIT 1');
+        $query = $bdd->prepare('SELECT * FROM bannissement WHERE BAN_CONCERNE=:iduser ORDER BY BAN_DATEFIN DESC LIMIT 1');
         $query->execute([
             'iduser'=>$iduser
         ]);
         $bans=$query->fetchAll();
-        $lastban=[];
         foreach ($bans as $banSql){
             $ban=new Ban();
             $ban->setId($banSql['BAN_ID']);
+            $ban->setAdmin($banSql['BAN_ADMIN']);
             $ban->setDatedebut($banSql['BAN_DATEDEBUT']);
             $ban->setDatefin($banSql['BAN_DATEFIN']);
             $ban->setRaison($banSql['BAN_RAISON']);
 
-            $lastban[]=$ban;
+            $lastban=$ban;
         }
         return $lastban;
     }

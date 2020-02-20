@@ -1,7 +1,11 @@
 {% block body %}
     <form name="banform" method="post" action="/Ban/{{ concerne }}">
+        Raison du bannissement :
         <input type="text" name="raison">
+        Bannir jusqu'au
         <input type="date" name="datefin">
+        à
+        <input type="time" name="heurefin">
             <input type="submit">
     </form>
 {% endblock %}

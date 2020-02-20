@@ -25,11 +25,14 @@ class SignalementController extends AbstractController
             $user=new User();
             $soumetteurInfo[]=$user->SqlGet(Bdd::GetInstance(),$onesoumetteur);
         }
+        $userr=new User();
+        $concerne=$userr->SqlGet(Bdd::GetInstance(),$idUser);
 
 
         return $this->twig->render('Signalement/Signalement.html.twig', [
             "Signalements" => $Signalements,
-            "soumetteurs"=>$soumetteurInfo
+            "soumetteurs"=>$soumetteurInfo,
+            "Concerne"=>$concerne
         ]);
 
     }
@@ -75,7 +78,7 @@ class SignalementController extends AbstractController
         $Sign->setIdcs($_POST['categorie']);
         $Sign->setConcerne($concerne);
         $Sign->setContext($_POST['raison']);
-        $Sign->setDate(date("Y-m-d G:h:i"));
+        $Sign->setDate(date("Y-m-d G:i:s"));
         $Sign->SqlAddSignalement(Bdd::GetInstance());
 
         header('location:/Profile/'.$concerne);

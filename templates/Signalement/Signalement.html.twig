@@ -24,10 +24,13 @@
             </ul>
         </div><a href="/Profile/{{ session.login.id }}">Profil<img></a></div>
 </nav>
+<p>Bannissement relatifs à {{ Concerne.prenom }} {{ Concerne.nom }}</p>
 <nav  class="navbar navbar-light navbar-expand-md">
     <div  class="container-fluid">
         <div  class="collapse navbar-collapse" id="navcol-1">
             <ul  class="nav navbar-nav">
+                <a href="/Ban/{{ Concerne.id }}">Bannir {{ Concerne.prenom }} {{ concerne.nom }}</a>
+
                 <li  style="width: auto">
                     <div  class="dropdown-menu show notification-menu" role="menu">
                         {% for Signalement in Signalements %}
