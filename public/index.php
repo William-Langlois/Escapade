@@ -43,8 +43,8 @@ $router->get('/removelike/:iduser/:iduserliked','Like#DeleteLike#iduser#iduserli
 $router->get('/Notification/:iduser','Notifications#ShowNotification#iduser');
 
 //setup du profil
-$router->get('/ProfileSetup/:iduser','User#ShowSetupProfil#iduser');
-$router->post('/ProfileSetup/:iduser','User#ShowSetupProfil#iduser');
+$router->get('/ProfileSetup/:iduser','User#ShowSetupProfile#iduser');
+$router->post('/ProfileSetup/:iduser','User#SetupProfile#iduser');
 //profile
 $router->get('/Profile/:iduser',"User#ShowProfile#iduser");
 $router->get('/Galerie/:iduser',"User#ShowGalerie#iduser");

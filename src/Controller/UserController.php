@@ -16,6 +16,9 @@ class UserController extends AbstractController
         "Natation","Football","Peinture","Dessin","Opéra","Velo","Cyclisme","Moto","Sport Automobile","Echecs","Jeux de société","Calligraphie","Cuisine",
         "Coloriage","Electronique","Informatique","Développement","Danse","Beatmaking","Developpement"];
 
+    const villelistuniqueless=["Paris","Madrid","New-York"];
+
+
     //Chargement du twig pour la page d'inscription
     public function inscriptionForm()
     {
@@ -268,10 +271,6 @@ class UserController extends AbstractController
                     header('Location:/Accueil');
                 }
                 else{
-                        $ci=new CI();
-                        $ci->setUserid($_SESSION['login']['id']);
-                        $ci->SqlAddCIs(Bdd::GetInstance());
-
                     header('Location:/ProfileSetup/'.$_SESSION['login']['id']);
                 }
                 //Si les mots de passes en correspondent pas on renvoi une erreur d'authentification
@@ -353,20 +352,91 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function ShowSetupProfil($iduser){
+    public function ShowSetupProfile($iduser){
         UserController::idNeed($iduser);
 
-        $user=new User();
-        $userInfo=$user->SqlGet(Bdd::GetInstance(),$iduser);
+        $hobbylist =array_unique(self::hobbylistuniqueless);
+        return $this->twig->render('User/setupProfil.html.twig',[
+            "iduser"=>$iduser,
+            "hobbylist"=>$hobbylist
+        ]);
+    }
 
-        for($i=1;$i<=12;$i++){
-            $ci=new CI();
-            $ci->setUserid($iduser);
-            $ci->setNum($i);
-            $ci->SqlAddCIs(Bdd::GetInstance());
+    public function SetupProfile($iduser){
+        UserController::idNeed($iduser);
+        if($_POST) {
+            for ($i = 1; $i <= 12; $i++) {
+                $ci = new CI();
+                $ci->setUserid($iduser);
+                $ci->setNum($i);
+                $ci->SqlAddCIs(Bdd::GetInstance());
+            }
+
+            $sqlRepository = null;
+            $nomImage = null;
+            if(!empty($_FILES['image']['name']) )
+            {
+                $tabExt = array('jpg','gif','png','jpeg');    // Extensions autorisees
+                $extension  = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                if(in_array(strtolower($extension),$tabExt))
+                {
+                    $nomImage = md5(uniqid()) .'.'. $extension;
+                    $sqlRepository = date('Y/m');
+                    $repository = './uploads/images/useruploads/'.date('Y/m');
+                    if(!is_dir($repository)){
+                        mkdir($repository,0777,true);
+                    }
+                    move_uploaded_file($_FILES['image']['tmp_name'], $repository.'/'.$nomImage);
+                }
+            }
+            if($nomImage!='' and $sqlRepository!= '') {
+                $photo = new Photo();
+                $photo->setUserid($iduser);
+                $photo->setNom($nomImage);
+                $photo->setRepository($sqlRepository);
+                $photo->setCategorie("Profil");
+                $photo->SqlAddPhoto(Bdd::GetInstance());
+
+                $user2=new User();
+                $user2->setPhotoNom($nomImage);
+                $user2->setPhotoRepo($sqlRepository);
+                $user2->SqlChangeUserImage(Bdd::GetInstance(),$iduser);
+            }
+            else {
+                $user2 = new User();
+                $user2->setPhotoNom($nomImage);
+                $user2->setPhotoRepo($sqlRepository);
+                $user2->SqlChangeUserImage(Bdd::GetInstance(), $iduser);
+            }
+
+            $num=1;
+            foreach ($_POST['Hobby'] as $hobby){
+                $ci = new CI();
+                $ci->setNom($hobby);
+                $ci->setUserid($iduser);
+                $ci->setNum($num);
+                $ci->SqlChangeCI(Bdd::GetInstance());
+                $num=$num+1;
+            }
+            $user=new User();
+            $user->setPrenom($_SESSION['login']['prenom']);
+            $user->setNom($_SESSION['login']['nom']);
+            $user->setDescription($_POST['description']);
+            $user->setBirthdate($_POST['birthdate']);
+            $user->setSexe($_POST['gender']);
+            $user->setVille($_POST['ville']);
+            $user->setPays($_POST['pays']);
+            $user->setNeedsexe($_POST['genderneed']);
+            $user->setWannadateathome($_POST['wannadateathome']);
+            $user->setNeedville($_POST['needville']);
+            $user->setGalerieispublic($_POST['galerieispublic']);
+
+            $user->SqlUpdate(Bdd::GetInstance(),$iduser);
+
+
+            header('location:/Profile/'.$iduser);
+
         }
-
-        return $this->twig->render('User/setupProfil.html.twig');
     }
 
 

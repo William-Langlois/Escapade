@@ -42,6 +42,7 @@
 </head>
 
 <body>
+<form method="post" name="SetupProfile" action="/ProfileSetup/{{ iduser }}" enctype="multipart/form-data">
 <section id="section01" class="demo">
     <img class="logo" src="../uploads/images/logo.png" alt="logo">
     <div class="main">
@@ -51,15 +52,9 @@
                 <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )"> Ajouter une image</button>
 
                 <div class="image-upload-wrap">
-                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                    <input name="image" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
                     <div class="drag-text">
                         <h3>Déplace le fichier ici</h3>
-                    </div>
-                </div>
-                <div class="file-upload-content">
-                    <img class="file-upload-image" src="#" alt="your image" />
-                    <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image"> <span class="image-title"> Ajouter une image </span></button>
                     </div>
                 </div>
             </div>
@@ -69,7 +64,11 @@
     <a class="bouton" href="#section02"><span></span></a>
 </section>
 
-
+    <datalist size="10" id="villes">
+        {% for ville in villelist %}
+            <option value="{{ ville }}" >{{ ville }}</option>
+        {% endfor %}
+    </datalist>
 
 
 <section id="section02" class="demo">
@@ -88,23 +87,30 @@
                         <div class="icone">
                             <a class="picto" href=""> <img class="iconegenre" src="../uploads/images/woman.png" alt=""></a>
                             <p>Une femme</p>
+                            <p style="color: whitesmoke"> Cochez : <label>
+                                    <input type="checkbox" value="0" name="gender">
+                                </label></p>
                         </div>
 
                     </div>
                     <div>
                         <div class="icone">
                             <a class="picto" href=""><img class="iconegenre" src="../uploads/images/men.png" alt=""></a>
-                            <p>Un homme
-                            </p>
+                            <p>Un homme</p>
+                            <p style="color: whitesmoke"> Cochez : <label>
+                                    <input type="checkbox" value="1" name="gender">
+                                </label></p>
                         </div>
 
                     </div>
                     <div>
                         <div class="icone">
-                            <a class="picto" href=""> <img class="iconegenre" src="../uploads/images/nogender.png" alt=""></a>
+                                <a class="picto" href=""><img class="iconegenre" src="../uploads/images/nogender.png" alt=""></a>
                             <p>Je ne veux pas me définir</p>
+                            <p style="color: whitesmoke"> Cochez : <label>
+                                    <input type="checkbox" value="2" name="gender">
+                                </label></p>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -129,17 +135,11 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
 
                             <!-- Form code begins -->
-                            <form method="post">
                                 <div class="form-group">
                                     <!-- Date input -->
                                     <label class="control-label" for="date">Date de naissance</label>
-                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
+                                    <input required style="color: black" class="form-control" id="date" name="birthdate" type="date" />
                                 </div>
-                                <div class="form-group">
-                                    <!-- Submit button -->
-                                    <button class="btn btn-primary " name="submit" type="submit">Submit</button>
-                                </div>
-                            </form>
                             <!-- Form code ends -->
                             <script>
                                 $(document).ready(function () {
@@ -176,8 +176,7 @@
             <h1>De quel nationnalité êtes-vous? </h1>
         </div>
         <div class="contenue">
-            <select class="mdb-select md-form" searchable="Search here..">
-                <option value="" disabled selected>Choisis ton pays</option>
+            <datalist id="pays">
                 <option value="Afghanistan">Afghanistan </option>
                 <option value="Afrique_Centrale">Afrique_Centrale </option>
                 <option value="Afrique_du_sud">Afrique_du_Sud </option>
@@ -430,8 +429,12 @@
 
                 <option value="Zambie">Zambie </option>
                 <option value="Zimbabwe">Zimbabwe </option>
+            </datalist>
+            <label>
+                <input placeholder="Entrez un pays" type="text" list="pays" name="pays" class="mdb-select md-form"/>
+                <input placeholder="Entrez une ville" list="villes" type="text" name="ville" />
 
-            </select>
+            </label>
             <script>// Material Select Initialization
                 $(document).ready(function () {
                     $('.mdb-select').materialSelect();
@@ -457,13 +460,13 @@
                 <div class="form-item">
                     <label>Depart le</label><span class="fontawesome-calendar"></span>
                     <input
-                            class="input-sm form-control" type="text" id="start-date" name="start" placeholder="date de départ"
+                            class="input-sm form-control" type="text" id="start-date" name="voydatedebut" placeholder="date de départ"
                             data-date-format="DD, MM d" /><span class="date-text date-depart"></span>
                 </div>
                 <div class="form-item">
                     <label>Retour le </label><span class="fontawesome-calendar"></span>
                     <input
-                            class="input-sm form-control" type="text" id="end-date" name="end" placeholder="date de retour"
+                            class="input-sm form-control" type="text" id="end-date" name="voydatefin" placeholder="date de retour"
                             data-date-format="DD, MM d" /><span class="date-text date-return"></span>
                 </div>
             </div>
@@ -492,10 +495,17 @@
                 })
             </script>
             <div>
-                <!-- ICI AUSSI FAUT METTRE LE TRUC WILLIAM-->
+                <input placeholder="entrez le pays de départ" list="pays" type="text" name="voyfrompays" />
+                <input placeholder="entrez la ville de départ" list="villes" type="text" name="voyfromville"  />
             </div>
             <div>
-                <a class="plustard" href="">Ne pas planifier de voyage</a>
+                <input placeholder="entrez le pays de destination" list="pays" type="text" name="voytopays" />
+                <input placeholder="entrez la ville de destination" list="villes" type="text" name="voytoville" />
+            </div>
+            <div>
+                <div>
+                <a style="position: absolute" class="plustard" href="">Ne pas planifier de voyage</a>
+                </div>
             </div>
 
         </div>
@@ -514,8 +524,16 @@
         <h1>Vous souhaitez entrer en contact avec des personnes en voyages dans votre région?</h1>
         <div class="contenue">
             <div class="reponse">
-                <a class="ouinon">Oui</a>
-                <a class="ouinon">non</a>
+                <h2 style="color: whitesmoke">OUI</h2>
+                <fieldset>
+                <label>
+                    <input type="checkbox" value="1" name="wannadateathome">
+                </label>
+                <h2 style="color: whitesmoke">NON</h2>
+                <label>
+                    <input type="checkbox" value="0" name="wannadateathome">
+                </label>
+                </fieldset>
             </div>
         </div>
     </div>
@@ -529,28 +547,27 @@
 
     </div>
     <div class="main">
-        <h1>Choisissez ceux que vous aimez le plus (10 choix à cocher maximum) : </h1>
+        <datalist size="10" id="passions">
+            {% for hobby in hobbylist %}
+                <option value="{{ hobby }}" >{{ hobby }}</option>
+            {% endfor %}
+        </datalist>
+        <h1>Choisissez ceux que vous aimez le plus (12 choix maximum) : </h1>
         <div class="continue">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">Série</button>
-                <button type="button" class="btn btn-secondary">Cinéma</button>
-                <button type="button" class="btn btn-secondary">Livre</button>
-                <button type="button" class="btn btn-secondary">Sport</button>
-                <button type="button" class="btn btn-secondary">Voyage</button>
-                <button type="button" class="btn btn-secondary">Art</button>
-                <button type="button" class="btn btn-secondary">Manga</button>
-                <button type="button" class="btn btn-secondary">Cuisine</button>
-                <button type="button" class="btn btn-secondary">Décoration</button>
-                <button type="button" class="btn btn-secondary">Nature</button>
-                <button type="button" class="btn btn-secondary">Animaux</button>
-                <button type="button" class="btn btn-secondary">Bricolage</button>
-                <button type="button" class="btn btn-secondary">Théâtre</button>
-                <button type="button" class="btn btn-secondary">Camping</button>
-                <button type="button" class="btn btn-secondary">Pêche</button>
-                <button type="button" class="btn btn-secondary">Jeux vidéo</button>
-                <button type="button" class="btn btn-secondary">Photographie</button>
-                <button type="button" class="btn btn-secondary">Ecriture</button>
-                <button type="button" class="btn btn-secondary">Bénévolat</button>
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+                <input placeholder="entrez une passion" list="passions" type="text" name="Hobby[]" value="{{ hobbyuser.nom }}" /> ,
+
 
             </div>
 
@@ -576,14 +593,16 @@
                         <div class="icone">
                             <a class="picto" href=""><img class="iconegenre" src="../uploads/images/woman.png" alt=""></a>
                             <p>Une femme</p>
+                            <input type="checkbox" value="0" name="genderneed">
                         </div>
 
                     </div>
                     <div>
                         <div class="icone">
                             <a class="picto" href=""><img class="iconegenre" src="../uploads/images/men.png" alt=""></a>
-                            <p>Un homme
-                            </p>
+                            <p>Un homme</p>
+                            <input type="checkbox" value="0" name="genderneed">
+
                         </div>
 
                     </div>
@@ -591,6 +610,7 @@
                         <div class="icone">
                             <a class="picto" href=""> <img class="iconegenre" src="../uploads/images/nogender.png" alt=""></a>
                             <p>Les deux </p>
+                            <input type="checkbox" value="0" name="genderneed">
                         </div>
                     </div>
                 </div>
@@ -609,10 +629,9 @@
     <div class="main">
         <h1>Dans quel ville voulez vous chercher ? :</h1>
         <div class="contenue">
-            <select name="" id="">
-                <!-- WILIAM REMPLIS LE GENTIL GARCON QUE J'APPRECIE-->
-
-            </select>
+            <label>
+                <input placeholder="entrez une ville" list="villes" type="text" name="needville" value="" />
+            </label> ,
         </div>
     </div>
     <a class="bouton" href="#section10"><span></span></a>
@@ -629,7 +648,7 @@
         <div class="contenue">
             <div class="form-group purple-border">
                 <label for="exampleFormControlTextarea4">Ecrivez votre description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+                <textarea name="description"  class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
             </div>
             <div>
                 <a class="plustard">Se décrire plus tard</a>
@@ -660,12 +679,12 @@
             <div>
                 <div class="pictogram"><img class="pictogramme" src="../uploads/images/streetview.png" alt="streetview"><p>Cette personne réside dans cette ville  </p></div>
             </div>
-
+            <input type="submit" value="Finaliser l'inscription">
         </div>
     </div>
-
-    <a class="bouton" href="/accueil"><span></span></a>
 </section>
+</form>
+
 
 
 
