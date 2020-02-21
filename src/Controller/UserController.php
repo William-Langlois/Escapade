@@ -429,13 +429,23 @@ class UserController extends AbstractController
             $user->setNeedsexe($_POST['genderneed']);
             $user->setWannadateathome($_POST['wannadateathome']);
             $user->setNeedville($_POST['needville']);
-            $user->setGalerieispublic($_POST['galerieispublic']);
+            $user->setGalerieispublic(1);
 
             $user->SqlUpdate(Bdd::GetInstance(),$iduser);
+            if($_POST['voyfrompays']!='' and $_POST['voytopays']!='' and $_POST['voyfromville']!='' and $_POST['voytoville']!='' and $_POST['voydatedebut']!='' and $_POST['voydatefin']!='')
+            {
+                $voyage=new Voyage();
+                $voyage->setUserid($iduser);
+                $voyage->setFromPays($_POST['voyfrompays']);
+                $voyage->setFromVille($_POST['voyfromville']);
+                $voyage->setToPays($_POST['voytopays']);
+                $voyage->setToVille($_POST['voytoville']);
+                $voyage->setFromDate($_POST['voydatedebut']);
+                $voyage->setToDate($_POST['voydatefin']);
+                $voyage->SqlAddVoyage(Bdd::GetInstance());
+            }
 
-
-            header('location:/Profile/'.$iduser);
-
+            header('location:/Accueil');
         }
     }
 
